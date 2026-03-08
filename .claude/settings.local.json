@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tr '\\\\\\\\n' '\\\\n')",
+      "Bash(grep -oP 'frame id=\\\\\\\\\"\"[^\"\"]*\\\\\\\\\"\" name=\\\\\\\\\"\"[^\"\"]*\\\\\\\\\"\"')",
+      "Bash(python3 -c \":*)",
+      "Bash(node -e \":*)",
+      "Bash(grep -oE 'name=\\\\\\\\\"\"[^\"\"]+\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(sed 's/\\\\\\\\//g')",
+      "Bash(grep -oE 'id=\\\\\\\\\"\"[0-9]+:[0-9]+\\\\\\\\\"\" name=\\\\\\\\\"\"[^\"\"]+\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(grep -oE '<frame id=\\\\\\\\\"\"[0-9]+:[0-9]+\\\\\\\\\"\" name=\\\\\\\\\"\"[^\"\"]+\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(grep -oE '\"\"20:[0-9]+\"\" name=\\\\\\\\\"\"[^\"\"]+\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(grep -oiE 'id=\\\\\\\\\"\"20:[0-9]+\\\\\\\\\"\" name=\\\\\\\\\"\"[^\"\"]*Match[^\"\"]*\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(grep -ioE 'id=\\\\\\\\\"\"[0-9]+:[0-9]+\\\\\\\\\"\" name=\\\\\\\\\"\"[^\"\"]*atch[^\"\"]*\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(grep -oE 'id=\\\\\\\\\"\"[0-9]+:[0-9]+\\\\\\\\\"\" name=\\\\\\\\\"\"[A-Z][^\"\"]*\\\\\\\\\"\"' \"C:/Users/philo/.claude/projects/C--Users-philo-Documents-GitHub-ITM445-SideOutStudios/566aac5e-74a5-471e-b4a9-46157e13e15e/tool-results/toolu_01SoTmUYiy6v585wqAGyBuiB.txt\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(npx create-next-app@latest temp-init --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(npm run build)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(timeout 15 npx next dev --port 3001)"
+    ]
+  }
+}
