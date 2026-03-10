@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import { Mail } from "lucide-react";
 
 const creators = [
   {
@@ -43,7 +44,7 @@ export default function About() {
             <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
               THE STORY
             </span>
-            <div className="font-light text-[#16161d] text-[44px] tracking-[-2px] w-full">
+            <div className="font-light text-[#16161d] text-[44px] tracking-[-2px] w-full line-clamp-2">
               <p className="mb-0">Volleyball,</p>
               <p>Clips and content.</p>
             </div>
@@ -63,9 +64,8 @@ export default function About() {
             ].map((stat, i) => (
               <div
                 key={stat.label}
-                className={`flex flex-col gap-[4px] items-start py-[20px] w-full ${
-                  i < 2 ? "border-b border-[#f0f0f0]" : ""
-                }`}
+                className={`flex flex-col gap-[4px] items-start py-[20px] w-full ${i < 2 ? "border-b border-[#f0f0f0]" : ""
+                  }`}
               >
                 <span className="font-light text-[#16161d] text-[44px] tracking-[-2px]">
                   {stat.value}
@@ -87,13 +87,16 @@ export default function About() {
 
         {/* Creators Row */}
         <div className="flex gap-[24px] items-start w-full">
-          {creators.map((creator) => (
+          {creators.map((creator, index) => (
             <div
               key={creator.name}
-              className="border border-[#f0f0f0] flex flex-1 flex-col items-start min-w-0"
+              className="border border-[#e0e0e0] flex flex-1 flex-col items-start min-w-0 rounded-[2px]"
             >
-              <div className="bg-[#ccc] h-[240px] w-full" />
-              <div className="flex flex-col gap-[16px] items-start p-[28px] w-full">
+              <div
+                className="bg-[#ccc] h-[240px] w-full bg-cover bg-center rounded-t-[2px]"
+                style={{ backgroundImage: index === 0 ? "url('https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop')" : "url('https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop')" }}
+              />
+              <div className="flex flex-col gap-[16px] items-start p-[28px] w-full bg-white z-10">
                 {/* Name + Badge */}
                 <div className="flex items-start justify-between w-full">
                   <div className="flex flex-col gap-[4px] items-start">
@@ -124,14 +127,13 @@ export default function About() {
                   {creator.gear.map((g, i) => (
                     <div
                       key={g.label}
-                      className={`flex items-start justify-between py-[10px] w-full ${
-                        i < creator.gear.length - 1
-                          ? "border-b border-[#f0f0f0]"
-                          : ""
-                      }`}
+                      className={`flex items-start justify-between py-[10px] w-full ${i < creator.gear.length - 1
+                        ? "border-b border-[#f0f0f0]"
+                        : ""
+                        }`}
                     >
                       <span className="text-[#666] text-[13px]">{g.label}</span>
-                      <span className="text-[#16161d] text-[12px]">
+                      <span className="text-[#16161d] text-[12px] font-medium">
                         {g.value}
                       </span>
                     </div>
@@ -143,7 +145,7 @@ export default function About() {
         </div>
 
         {/* Community Banner */}
-        <div className="bg-[#16161d] flex items-center justify-between px-[64px] py-[48px] w-full">
+        <div className="bg-[#16161d] flex items-center justify-between px-[64px] py-[48px] w-full rounded-[2px]">
           <div className="flex flex-col gap-[8px] items-start">
             <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
               NEW MATCH COVERAGE
@@ -151,21 +153,13 @@ export default function About() {
             <h3 className="font-light text-[30px] text-white tracking-[-1px]">
               Join the Side-Out community
             </h3>
-            <p className="text-[#888] text-[14px]">
+            <p className="text-[#aaa] text-[14px]">
               Match recaps, gear updates and behind-the-scenes — straight to your
               inbox.
             </p>
           </div>
-          <button className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-[28px]">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M2 4L8 9L14 4M2 4V12H14V4M2 4H14"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <button className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-[28px] rounded-[4px] cursor-pointer hover:bg-[#1546b3] transition-all duration-200 hover:shadow-lg active:scale-95">
+            <Mail size={16} className="text-white" />
             <span className="font-medium text-[14px] text-white">Subscribe</span>
           </button>
         </div>
