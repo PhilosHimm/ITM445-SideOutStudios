@@ -1,60 +1,67 @@
 import Link from "next/link";
-import { Search, Play } from "lucide-react";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Matches", href: "/matches" },
-  { label: "Stories", href: "/stories" },
-  { label: "Gear", href: "/gear" },
-  { label: "About", href: "/about" },
-];
+interface NavbarProps {
+  activePage: string;
+}
 
-export default function Navbar({ activePage }: { activePage: string }) {
+export default function Navbar({ activePage }: NavbarProps) {
+  const navLinks = [
+    { label: "Matches", href: "/matches" },
+    { label: "Stories", href: "/stories" },
+    { label: "Gear", href: "/gear" },
+    { label: "About", href: "/about" },
+  ];
+
   return (
-    <nav className="bg-[#16161d] flex h-[72px] items-center justify-between px-[80px] w-full">
+    <header
+      role="banner"
+      className="bg-[#16161d] flex h-[56px] items-center justify-between px-6 md:px-16 w-full sticky top-0 z-50 border-b border-white/5"
+    >
       {/* Logo */}
-      <Link href="/" className="flex gap-[10px] items-center hover:opacity-80 transition-opacity cursor-pointer">
-        <div className="bg-[#1b4fd8] flex items-center justify-center size-[28px]">
-          <span className="font-medium text-[16px] text-white">S</span>
-        </div>
-        <span className="font-medium text-[14px] text-white tracking-[3px]">
-          SIDE-OUT
+      <Link
+        href="/"
+        className="flex items-center gap-[10px] group"
+        aria-label="Side-Out Studios — Home"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+          className="transition-transform duration-200 group-hover:rotate-12"
+        >
+          <rect width="20" height="20" rx="2" fill="#1b4fd8" />
+          <path d="M5 14L10 6L15 14H5Z" fill="white" />
+        </svg>
+        <span className="font-medium text-[15px] text-white tracking-[-0.3px]">
+          Side-Out
         </span>
       </Link>
 
-      {/* Nav Links */}
-      <div className="flex gap-[48px] items-center">
-        {navLinks.map((link) => {
-          const isActive = link.label === activePage;
-          return (
-            <Link key={link.label} href={link.href} className="flex flex-col gap-[4px] items-center group cursor-pointer">
-              <span
-                className={`font-medium text-[11px] tracking-[2px] transition-colors duration-200 ${isActive ? "text-white" : "text-[#aaa] group-hover:text-white"
+      {/* Navigation */}
+      <nav aria-label="Main navigation">
+        <ul className="flex gap-1 items-center list-none m-0 p-0">
+          {navLinks.map((link) => {
+            const isActive = activePage === link.label;
+            return (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`flex h-[32px] items-center justify-center px-[14px] rounded-[4px] text-[13px] transition-colors duration-200 ${
+                    isActive
+                      ? "bg-white/10 font-medium text-white"
+                      : "text-[#999] hover:text-white hover:bg-white/5"
                   }`}
-              >
-                {link.label}
-              </span>
-              {isActive && (
-                <div className="bg-[#1b4fd8] h-[2px] w-[16px]" />
-              )}
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Right Side */}
-      <div className="flex gap-[16px] items-center">
-        <button className="border border-[#444] flex items-center justify-center size-[36px] hover:bg-[#222] transition-colors duration-200 cursor-pointer">
-          <Search size={14} className="text-white" />
-        </button>
-        <Link
-          href="/matches"
-          className="bg-[#1b4fd8] flex gap-[8px] h-[36px] items-center px-[20px] rounded-[20px] hover:bg-[#1546b3] transition-colors duration-200 cursor-pointer"
-        >
-          <Play size={14} className="text-white fill-white" />
-          <span className="font-medium text-[12px] text-white">Watch Now</span>
-        </Link>
-      </div>
-    </nav>
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </header>
   );
 }

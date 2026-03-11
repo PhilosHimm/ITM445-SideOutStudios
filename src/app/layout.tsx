@@ -5,12 +5,23 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Side-Out Studios",
-  description: "Unfiltered volleyball. Real games, real stories, real obsession.",
+  title: {
+    default: "Side-Out Studios — Volleyball Coverage",
+    template: "%s | Side-Out Studios",
+  },
+  description:
+    "Unfiltered volleyball. Real games, real stories, real obsession. Intramural match recaps, rally breakdowns, and gear reviews.",
+  keywords: [
+    "volleyball",
+    "intramural",
+    "match recap",
+    "Side-Out Studios",
+    "rally breakdown",
+  ],
 };
 
 export default function RootLayout({

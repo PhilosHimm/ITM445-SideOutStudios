@@ -1,44 +1,63 @@
 import Link from "next/link";
 
-const footerLinks = [
-  { label: "Home", href: "/" },
-  { label: "Matches", href: "/matches" },
-  { label: "Stories", href: "/stories" },
-  { label: "Gear", href: "/gear" },
-  { label: "About", href: "/about" },
-];
-
 export default function Footer() {
   return (
-    <footer className="bg-[#16161d] flex flex-col gap-[24px] items-start overflow-clip px-[80px] py-[48px] w-full">
-      {/* Top Row */}
-      <div className="flex items-start justify-between overflow-clip w-full">
-        {/* Logo */}
-        <Link href="/" className="flex gap-[10px] items-center overflow-clip hover:opacity-80 transition-opacity cursor-pointer">
-          <div className="bg-[#1b4fd8] flex items-center justify-center overflow-clip rounded-[4px] size-[28px]">
-            <span className="font-medium text-[16px] text-white">S</span>
-          </div>
-          <span className="font-medium text-[14px] text-white">SIDE-OUT</span>
+    <footer
+      role="contentinfo"
+      className="bg-[#16161d] flex flex-col md:flex-row gap-8 items-start md:items-center justify-between px-6 md:px-16 py-10 w-full"
+    >
+      {/* Brand */}
+      <div className="flex flex-col gap-[6px] items-start">
+        <Link
+          href="/"
+          className="flex items-center gap-[10px] group"
+          aria-label="Side-Out Studios — Home"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+            className="transition-transform duration-200 group-hover:rotate-12"
+          >
+            <rect width="20" height="20" rx="2" fill="#1b4fd8" />
+            <path d="M5 14L10 6L15 14H5Z" fill="white" />
+          </svg>
+          <span className="font-medium text-[14px] text-white tracking-[-0.3px]">
+            Side-Out Studios
+          </span>
         </Link>
+        <p className="text-[#666] text-[12px]">
+          Unfiltered volleyball coverage, every match.
+        </p>
+      </div>
 
-        {/* Links */}
-        <div className="flex font-medium gap-[32px] items-center overflow-clip text-[#ababab] text-[11px]">
-          {footerLinks.map((link) => (
-            <Link key={link.label} href={link.href} className="hover:text-white transition-colors duration-200 cursor-pointer">
-              {link.label}
-            </Link>
+      {/* Nav Links */}
+      <nav aria-label="Footer navigation">
+        <ul className="flex gap-6 items-center list-none m-0 p-0 flex-wrap">
+          {[
+            { label: "Matches", href: "/matches" },
+            { label: "Stories", href: "/stories" },
+            { label: "Gear", href: "/gear" },
+            { label: "About", href: "/about" },
+          ].map((link) => (
+            <li key={link.label}>
+              <Link
+                href={link.href}
+                className="text-[#999] text-[13px] hover:text-white transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </nav>
 
-      {/* Divider */}
-      <div className="bg-[#404045] h-px w-full" />
-
-      {/* Bottom Row */}
-      <div className="flex items-center justify-between overflow-clip text-[#666] text-[11px] w-full">
-        <p>&copy; 2026 Side-Out Studios. All rights reserved.</p>
-        <p>ITM 445 — Kevin Lin &amp; Philos Himm · Toronto Metropolitan University</p>
-      </div>
+      {/* Copyright */}
+      <p className="text-[#555] text-[11px]">
+        &copy; {new Date().getFullYear()} Side-Out Studios
+      </p>
     </footer>
   );
 }

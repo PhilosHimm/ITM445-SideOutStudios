@@ -1,7 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { Mail } from "lucide-react";
+import ScrollSection from "@/components/ScrollSection";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const creators = [
   {
@@ -36,15 +38,15 @@ export default function About() {
       />
 
       {/* Page Body */}
-      <div className="bg-white flex flex-col gap-[48px] items-start px-[80px] py-[56px] w-full">
+      <main className="bg-white flex flex-col gap-10 md:gap-12 items-start px-6 md:px-12 lg:px-20 py-10 md:py-14 w-full">
         {/* Mission Row */}
-        <div className="flex gap-[80px] items-start w-full">
+        <ScrollSection animation="fade-up" className="flex flex-col md:flex-row gap-10 md:gap-20 items-start w-full">
           {/* Left */}
-          <div className="flex flex-1 flex-col gap-[16px] items-start min-w-0">
-            <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
+          <div className="flex flex-1 flex-col gap-4 items-start min-w-0">
+            <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]" id="the-story">
               THE STORY
             </span>
-            <div className="font-light text-[#16161d] text-[44px] tracking-[-2px] w-full line-clamp-2">
+            <div className="font-light text-[#16161d] text-[32px] md:text-[44px] tracking-[-2px] w-full line-clamp-2">
               <p className="mb-0">Volleyball,</p>
               <p>Clips and content.</p>
             </div>
@@ -56,7 +58,7 @@ export default function About() {
           </div>
 
           {/* Stats */}
-          <div className="flex flex-col gap-[20px] items-start w-[280px] shrink-0">
+          <div className="flex flex-col gap-5 items-start w-full md:w-[280px] shrink-0" role="list" aria-label="Key statistics">
             {[
               { value: "12", label: "MATCHES COVERED" },
               { value: "20+", label: "POINTS SCORED" },
@@ -64,10 +66,11 @@ export default function About() {
             ].map((stat, i) => (
               <div
                 key={stat.label}
-                className={`flex flex-col gap-[4px] items-start py-[20px] w-full ${i < 2 ? "border-b border-[#f0f0f0]" : ""
+                role="listitem"
+                className={`flex flex-col gap-1 items-start py-5 w-full ${i < 2 ? "border-b border-[#f0f0f0]" : ""
                   }`}
               >
-                <span className="font-light text-[#16161d] text-[44px] tracking-[-2px]">
+                <span className="font-light text-[#16161d] text-[36px] md:text-[44px] tracking-[-2px]">
                   {stat.value}
                 </span>
                 <span className="font-medium text-[#888] text-[9px] tracking-[2px]">
@@ -76,31 +79,33 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollSection>
 
         {/* Creators Header */}
         <div className="flex items-center w-full">
-          <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
+          <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]" id="the-creators">
             THE CREATORS
           </span>
         </div>
 
         {/* Creators Row */}
-        <div className="flex gap-[24px] items-start w-full">
+        <ScrollSection animation="fade-up" delay={150} className="flex flex-col md:flex-row gap-6 items-start w-full">
           {creators.map((creator, index) => (
-            <div
+            <article
               key={creator.name}
-              className="border border-[#e0e0e0] flex flex-1 flex-col items-start min-w-0 rounded-[2px]"
+              className="border border-[#e0e0e0] flex flex-1 flex-col items-start min-w-0 rounded-[2px] w-full"
             >
               <div
-                className="bg-[#ccc] h-[240px] w-full bg-cover bg-center rounded-t-[2px]"
+                className="bg-[#ccc] h-[200px] md:h-[240px] w-full bg-cover bg-center rounded-t-[2px]"
                 style={{ backgroundImage: index === 0 ? "url('https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop')" : "url('https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop')" }}
+                role="img"
+                aria-label={`Photo of ${creator.name}`}
               />
-              <div className="flex flex-col gap-[16px] items-start p-[28px] w-full bg-white z-10">
+              <div className="flex flex-col gap-4 items-start p-5 md:p-7 w-full bg-white z-10">
                 {/* Name + Badge */}
                 <div className="flex items-start justify-between w-full">
-                  <div className="flex flex-col gap-[4px] items-start">
-                    <h3 className="font-medium text-[#16161d] text-[22px] tracking-[-0.5px]">
+                  <div className="flex flex-col gap-1 items-start">
+                    <h3 className="font-medium text-[#16161d] text-[20px] md:text-[22px] tracking-[-0.5px]">
                       {creator.name}
                     </h3>
                     <span className="text-[#888] text-[10px] tracking-[1px]">
@@ -123,7 +128,7 @@ export default function About() {
                 </span>
 
                 {/* Gear Grid */}
-                <div className="flex flex-col gap-[8px] items-start w-full">
+                <dl className="flex flex-col gap-2 items-start w-full">
                   {creator.gear.map((g, i) => (
                     <div
                       key={g.label}
@@ -132,38 +137,38 @@ export default function About() {
                         : ""
                         }`}
                     >
-                      <span className="text-[#666] text-[13px]">{g.label}</span>
-                      <span className="text-[#16161d] text-[12px] font-medium">
+                      <dt className="text-[#666] text-[13px]">{g.label}</dt>
+                      <dd className="text-[#16161d] text-[12px] font-medium">
                         {g.value}
-                      </span>
+                      </dd>
                     </div>
                   ))}
-                </div>
+                </dl>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
+        </ScrollSection>
 
-        {/* Community Banner */}
-        <div className="bg-[#16161d] flex items-center justify-between px-[64px] py-[48px] w-full rounded-[2px]">
-          <div className="flex flex-col gap-[8px] items-start">
+        {/* Gallery CTA */}
+        <ScrollSection animation="fade-up" delay={200} className="bg-[#16161d] flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-10 md:py-12 w-full rounded-[2px] gap-6">
+          <div className="flex flex-col gap-2 items-start">
             <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
-              NEW MATCH COVERAGE
+              MULTIMEDIA GALLERY
             </span>
-            <h3 className="font-light text-[30px] text-white tracking-[-1px]">
-              Join the Side-Out community
+            <h3 className="font-light text-[26px] md:text-[30px] text-white tracking-[-1px]">
+              Explore our clips and highlights
             </h3>
             <p className="text-[#aaa] text-[14px]">
-              Match recaps, gear updates and behind-the-scenes — straight to your
-              inbox.
+              Match recaps, rally breakdowns, gear features and behind-the-scenes
+              footage — all in one place.
             </p>
           </div>
-          <button className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-[28px] rounded-[4px] cursor-pointer hover:bg-[#1546b3] transition-all duration-200 hover:shadow-lg active:scale-95">
-            <Mail size={16} className="text-white" />
-            <span className="font-medium text-[14px] text-white">Subscribe</span>
-          </button>
-        </div>
-      </div>
+          <Link href="/matches" className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-[#1546b3] transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
+            <span className="font-medium text-[14px] text-white">Browse the Gallery</span>
+            <ArrowRight size={16} className="text-white" aria-hidden="true" />
+          </Link>
+        </ScrollSection>
+      </main>
 
       <Footer />
     </div>

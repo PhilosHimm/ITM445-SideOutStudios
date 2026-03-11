@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import ScrollSection from "@/components/ScrollSection";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -59,9 +60,6 @@ const filters = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 export default function Gear() {
   const [activeFilter, setActiveFilter] = useState("All Levels");
 
-  // If the filter is "All Levels", show everything.
-  // Otherwise, optionally show "All Levels" items + the specific level items.
-  // We'll just strictly filter based on the 'level' property for simplicity, unless it's the catchall.
   const filteredItems = activeFilter === "All Levels"
     ? gearItems
     : gearItems.filter(item => item.level === activeFilter || item.level === "All Levels");
@@ -75,25 +73,27 @@ export default function Gear() {
       />
 
       {/* Page Body */}
-      <div className="bg-white flex flex-col gap-[40px] items-start px-[80px] py-[48px] w-full flex-1">
+      <main className="bg-white flex flex-col gap-8 md:gap-10 items-start px-6 md:px-12 lg:px-20 py-8 md:py-12 w-full flex-1">
         {/* Level Filter Bar */}
-        <div className="flex items-center justify-between w-full">
-          <div className="flex flex-col gap-[4px] items-start">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
+          <div className="flex flex-col gap-1 items-start">
             <span className="text-[#1b4fd8] text-[11px] tracking-[2px] font-medium">
               PLAYER LEVEL
             </span>
-            <h2 className="text-[#16161d] font-medium text-[32px] tracking-[-0.5px]">
+            <h2 className="text-[#16161d] font-medium text-[28px] md:text-[32px] tracking-[-0.5px]">
               Gear &amp; Routines
             </h2>
           </div>
-          <div className="flex gap-[8px] items-center">
+          <div className="flex gap-2 items-center flex-wrap" role="radiogroup" aria-label="Filter by player level">
             {filters.map((f) => {
               const isActive = activeFilter === f;
               return (
                 <button
                   key={f}
                   onClick={() => setActiveFilter(f)}
-                  className={`flex h-[40px] items-center justify-center px-[20px] rounded-[2px] text-[13px] text-center cursor-pointer transition-all duration-200 ${isActive
+                  role="radio"
+                  aria-checked={isActive}
+                  className={`flex h-10 items-center justify-center px-5 rounded-[2px] text-[13px] text-center cursor-pointer transition-all duration-200 ${isActive
                       ? "bg-[#16161d] font-medium text-white hover:bg-black hover:scale-105 active:scale-95"
                       : "border border-[#f0f0f0] text-[#666] hover:bg-[#f7f7f7] hover:border-[#e0e0e0] hover:-translate-y-[1px] active:translate-y-0"
                     }`}
@@ -106,20 +106,27 @@ export default function Gear() {
         </div>
 
         {/* Gear Cards Grid */}
-        <div className="flex gap-[20px] items-start w-full flex-wrap">
-          {filteredItems.map((item) => (
-            <Link
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full" role="list" aria-label="Gear and routines">
+          {filteredItems.map((item, i) => (
+            <ScrollSection
               key={item.title}
+              animation="fade-up"
+              delay={i * 100}
+              className="border border-[#e0e0e0] flex flex-col items-start rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+            >
+            <Link
               href={item.link}
-              className="border border-[#e0e0e0] flex flex-col items-start min-w-[300px] w-[calc(33.333%-14px)] rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+              className="flex flex-col items-start w-full h-full"
             >
               <div
                 className="bg-[#ccc] h-[160px] w-full rounded-t-[4px] group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
                 style={{ backgroundImage: `url('${item.image}')` }}
+                role="img"
+                aria-label={item.title}
               />
-              <div className="flex flex-col gap-[10px] items-start p-[20px] w-full bg-white z-10 flex-1">
+              <div className="flex flex-col gap-[10px] items-start p-5 w-full bg-white z-10 flex-1">
                 <div
-                  className={`flex items-center justify-center px-[8px] py-[3px] rounded-[2px] ${item.badgeClass}`}
+                  className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${item.badgeClass}`}
                 >
                   <span className="font-medium text-[9px] text-center tracking-[1.5px]">
                     {item.badge}
@@ -135,14 +142,15 @@ export default function Gear() {
                   <span className="text-[#888] font-medium text-[10px] uppercase tracking-[1px]">{item.meta}</span>
                   <div className="flex gap-[6px] items-center">
                     <span className="text-[#1b4fd8] font-medium text-[12px]">Read</span>
-                    <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
                   </div>
                 </div>
               </div>
             </Link>
+            </ScrollSection>
           ))}
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

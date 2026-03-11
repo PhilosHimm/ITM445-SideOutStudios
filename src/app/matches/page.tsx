@@ -3,6 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -111,26 +112,30 @@ export default function Matches() {
       />
 
       {/* Page Body */}
-      <div className="bg-white flex items-start w-full flex-1">
+      <div className="bg-white flex flex-col md:flex-row items-start w-full flex-1">
         {/* Filter Sidebar */}
-        <div className="bg-white border-r border-[#f0f0f0] flex flex-col gap-[32px] items-start px-[32px] py-[40px] w-[260px] shrink-0 self-stretch">
+        <ScrollSection as="aside" animation="fade-right"
+          className="bg-white border-b md:border-b-0 md:border-r border-[#f0f0f0] flex flex-col gap-8 items-start px-6 md:px-8 py-8 md:py-10 w-full md:w-[260px] shrink-0 md:self-stretch"
+        >
           {/* Match Filter */}
-          <div className="flex flex-col gap-[12px] items-start w-full">
-            <span className="text-[#888] text-[11px] tracking-[1px] font-medium">
+          <div className="flex flex-col gap-3 items-start w-full" role="radiogroup" aria-label="Filter by match range">
+            <span className="text-[#888] text-[11px] tracking-[1px] font-medium" id="match-filter-label">
               MATCH
             </span>
             {matchFilters.map((f) => {
               const isActive = activeFilter === f.label;
               return (
-                <div
+                <button
                   key={f.label}
                   onClick={() => setActiveFilter(f.label)}
-                  className={`flex h-[36px] items-center justify-between px-[12px] rounded-[2px] w-full cursor-pointer transition-colors duration-200 ${isActive ? "bg-[#16161d]" : "hover:bg-[#f7f7f7]"
+                  role="radio"
+                  aria-checked={isActive}
+                  className={`flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer transition-colors duration-200 ${isActive ? "bg-[#16161d]" : "hover:bg-[#f7f7f7]"
                     }`}
                 >
-                  <div className="flex gap-[8px] items-center">
+                  <div className="flex gap-2 items-center">
                     {!isActive && (
-                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
                         <circle cx="4" cy="4" r="4" fill="#1b4fd8" />
                       </svg>
                     )}
@@ -143,123 +148,130 @@ export default function Matches() {
                       {f.label}
                     </span>
                   </div>
-                  <span
-                    className={`text-[11px] ${isActive ? "text-[#888]" : "text-[#888]"
-                      }`}
-                  >
+                  <span className="text-[#888] text-[11px]">
                     {f.count}
                   </span>
-                </div>
+                </button>
               );
             })}
           </div>
 
           {/* Content Type Filter */}
-          <div className="flex flex-col gap-[12px] items-start w-full mt-2">
+          <div className="flex flex-col gap-3 items-start w-full mt-2">
             <span className="text-[#888] text-[11px] tracking-[1px] font-medium">
               CONTENT TYPE
             </span>
-            <div className="border border-[#f0f0f0] flex h-[36px] items-center justify-between px-[12px] rounded-[2px] w-full cursor-pointer hover:bg-[#f7f7f7] transition-colors duration-200">
+            <div className="border border-[#f0f0f0] flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-[#f7f7f7] transition-colors duration-200">
               <span className="text-[#16161d] text-[13px]">
                 Rally Breakdowns
               </span>
               <span className="text-[#888] text-[11px]">6</span>
             </div>
           </div>
-        </div>
+        </ScrollSection>
 
         {/* Timeline Main */}
-        <div className="flex flex-1 flex-col items-start min-w-0 px-[48px] py-[40px]">
+        <main className="flex flex-1 flex-col items-start min-w-0 px-6 md:px-12 py-8 md:py-10">
           {/* Timeline Header */}
-          <div className="border-b border-[#f0f0f0] flex items-center justify-between pb-[24px] w-full">
+          <div className="border-b border-[#f0f0f0] flex items-center justify-between pb-6 w-full">
             <span className="text-[#888] text-[11px] tracking-[1px] font-medium">
               TIMELINE — 2026 SEASON
             </span>
-            <div className="flex gap-[8px] items-center cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-[#16161d] text-[11px] font-medium">Newest first</span>
-              <ChevronDown size={14} className="text-[#16161d]" />
+              <ChevronDown size={14} className="text-[#16161d]" aria-hidden="true" />
             </div>
           </div>
 
           {/* Timeline Items */}
           {filteredItems.length === 0 ? (
-            <div className="flex w-full items-center justify-center py-20 text-[#888] text-[14px]">
+            <div className="flex w-full items-center justify-center py-20 text-[#888] text-[14px]" role="status">
               No matches found for this category.
             </div>
           ) : (
-            filteredItems.map((item, i) => (
-              <div
-                key={item.title}
-                className={`flex gap-[24px] items-start py-[28px] w-full ${i > 0 ? "border-t border-[#f0f0f0]" : ""
-                  }`}
-              >
-                {/* Date */}
-                <div className="flex flex-col gap-[2px] items-end w-[72px] shrink-0">
-                  <span className="text-[#888] text-[11px] tracking-[0.5px]">
-                    {item.date}
-                  </span>
-                  <span className="text-[#ccc] text-[10px] font-medium">{item.year}</span>
-                </div>
-
-                {/* Timeline Dot & Line */}
-                <div className="flex flex-col items-center w-[20px] shrink-0 self-stretch">
-                  <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 10 10"
-                    fill="none"
-                    className="mt-[2px] shrink-0 z-10 bg-white"
-                  >
-                    <circle
-                      cx="5"
-                      cy="5"
-                      r="4"
-                      stroke="#1b4fd8"
-                      strokeWidth="2"
-                      fill="white"
-                    />
-                  </svg>
-                  <div className="bg-[#f0f0f0] flex-1 w-px -mt-[2px]" />
-                </div>
-
-                {/* Card */}
-                <Link
-                  href={item.link}
-                  className="border border-[#e0e0e0] flex flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+            <div role="list" aria-label="Match timeline">
+              {filteredItems.map((item, i) => (
+                <ScrollSection
+                  key={item.title}
+                  as="article"
+                  animation="fade-up"
+                  delay={i * 80}
+                  className={`flex gap-4 md:gap-6 items-start py-7 w-full ${i > 0 ? "border-t border-[#f0f0f0]" : ""
+                    }`}
                 >
-                  <div
-                    className="bg-[#ccc] h-[140px] w-[200px] shrink-0 group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
-                    style={{ backgroundImage: `url('${item.image}')` }}
-                  />
-                  <div className="flex flex-1 flex-col h-[140px] items-start justify-between min-w-0 p-[20px] bg-white z-10">
-                    <div className="flex flex-col gap-[8px] items-start w-full">
-                      <div
-                        className={`flex items-center justify-center px-[8px] py-[3px] rounded-[2px] ${item.badgeClass}`}
-                      >
-                        <span className="font-medium text-[9px] text-center tracking-[1.5px]">
-                          {item.badge}
-                        </span>
-                      </div>
-                      <p className="font-medium text-[#16161d] text-[15px] tracking-[-0.3px] line-clamp-1">
-                        {item.title}
-                      </p>
-                      <p className="text-[#666] text-[13px] w-full line-clamp-2">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-[#f0f0f0]">
-                      <span className="text-[#888] font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
-                      <div className="flex gap-[6px] items-center">
-                        <span className="text-[#1b4fd8] font-medium text-[12px]">Watch</span>
-                        <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" />
-                      </div>
-                    </div>
+                  {/* Date */}
+                  <div className="hidden md:flex flex-col gap-[2px] items-end w-[72px] shrink-0">
+                    <time className="text-[#888] text-[11px] tracking-[0.5px]">
+                      {item.date}
+                    </time>
+                    <span className="text-[#ccc] text-[10px] font-medium">{item.year}</span>
                   </div>
-                </Link>
-              </div>
-            ))
+
+                  {/* Timeline Dot & Line */}
+                  <div className="hidden md:flex flex-col items-center w-5 shrink-0 self-stretch" aria-hidden="true">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="none"
+                      className="mt-[2px] shrink-0 z-10 bg-white"
+                    >
+                      <circle
+                        cx="5"
+                        cy="5"
+                        r="4"
+                        stroke="#1b4fd8"
+                        strokeWidth="2"
+                        fill="white"
+                      />
+                    </svg>
+                    <div className="bg-[#f0f0f0] flex-1 w-px -mt-[2px]" />
+                  </div>
+
+                  {/* Card */}
+                  <Link
+                    href={item.link}
+                    className="border border-[#e0e0e0] flex flex-col sm:flex-row flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+                  >
+                    <div
+                      className="bg-[#ccc] h-[180px] sm:h-[140px] w-full sm:w-[200px] shrink-0 group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                      style={{ backgroundImage: `url('${item.image}')` }}
+                      role="img"
+                      aria-label={item.title}
+                    />
+                    <div className="flex flex-1 flex-col sm:h-[140px] items-start justify-between min-w-0 p-5 bg-white z-10">
+                      <div className="flex flex-col gap-2 items-start w-full">
+                        <div className="flex gap-2 items-center">
+                          <div
+                            className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${item.badgeClass}`}
+                          >
+                            <span className="font-medium text-[9px] text-center tracking-[1.5px]">
+                              {item.badge}
+                            </span>
+                          </div>
+                          <span className="text-[#888] text-[10px] md:hidden">{item.date} {item.year}</span>
+                        </div>
+                        <p className="font-medium text-[#16161d] text-[15px] tracking-[-0.3px] line-clamp-1">
+                          {item.title}
+                        </p>
+                        <p className="text-[#666] text-[13px] w-full line-clamp-2">
+                          {item.description}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-[#f0f0f0]">
+                        <span className="text-[#888] font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
+                        <div className="flex gap-[6px] items-center">
+                          <span className="text-[#1b4fd8] font-medium text-[12px]">Watch</span>
+                          <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollSection>
+              ))}
+            </div>
           )}
-        </div>
+        </main>
       </div>
 
       <Footer />
