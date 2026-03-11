@@ -10,16 +10,20 @@ const creators = [
     name: "Kevin Lin",
     role: "OUTSIDE HITTER · EDITOR",
     bio: "Club level since 15. Obsessed with passing mechanics and hand positioning.",
+    badge: "Since 2017",
+    image: "/images/about-kevin.png",
     gear: [
-      { label: "Shoes", value: "Mizuno Wave Lightning Z7" },
-      { label: "Knee Pads", value: "Mizuno LR6" },
-      { label: "Ball", value: "Mikasa V200W" },
+      { label: "Shoes", value: "Asics Men's Metarise 2 'Paris" },
+      { label: "Knee Pads", value: "HEX Leg Sleeves/Pair" },
+      { label: "Ball", value: "Molten NCAA Volleyball" },
     ],
   },
   {
     name: "Philos Himm",
     role: "OUTSIDE HITTER · CAMERA OPERATOR",
     bio: "7 years rec and semi-competitive. Serves chaos, edits the footage, and has a 3 inch vert",
+    badge: "Since 2019",
+    image: "/images/about-philos.png",
     gear: [
       { label: "Shoes", value: "Way of Wade Shadow 6s" },
       { label: "Knee Pads", value: "Jumplete Atakk Performance Knee" },
@@ -62,12 +66,11 @@ export default function About() {
             {[
               { value: "12", label: "MATCHES COVERED" },
               { value: "20+", label: "POINTS SCORED" },
-              { value: "2019", label: "PLAYING SINCE" },
             ].map((stat, i) => (
               <div
                 key={stat.label}
                 role="listitem"
-                className={`flex flex-col gap-1 items-start py-5 w-full ${i < 2 ? "border-b border-[#f0f0f0]" : ""
+                className={`flex flex-col gap-1 items-start py-5 w-full ${i < 1 ? "border-b border-[#f0f0f0]" : ""
                   }`}
               >
                 <span className="font-light text-[#16161d] text-[36px] md:text-[44px] tracking-[-2px]">
@@ -97,7 +100,7 @@ export default function About() {
             >
               <div
                 className="bg-[#ccc] h-[200px] md:h-[240px] w-full bg-cover bg-center rounded-t-[2px]"
-                style={{ backgroundImage: index === 0 ? "url('https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop')" : "url('https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop')" }}
+                style={{ backgroundImage: `url('${creator.image}')` }}
                 role="img"
                 aria-label={`Photo of ${creator.name}`}
               />
@@ -114,7 +117,7 @@ export default function About() {
                   </div>
                   <div className="bg-[#16161d] flex items-center justify-center px-[10px] py-[4px] rounded-[2px]">
                     <span className="text-[11px] text-center text-white">
-                      Since 2019
+                      {creator.badge}
                     </span>
                   </div>
                 </div>
@@ -153,18 +156,17 @@ export default function About() {
         <ScrollSection animation="fade-up" delay={200} className="bg-[#16161d] flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-10 md:py-12 w-full rounded-[2px] gap-6">
           <div className="flex flex-col gap-2 items-start">
             <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
-              MULTIMEDIA GALLERY
+              NEW MATCH COVERAGE
             </span>
             <h3 className="font-light text-[26px] md:text-[30px] text-white tracking-[-1px]">
-              Explore our clips and highlights
+              Join the Side-Out community
             </h3>
             <p className="text-[#aaa] text-[14px]">
-              Match recaps, rally breakdowns, gear features and behind-the-scenes
-              footage — all in one place.
+              Match recaps, gear updates and behind-the-scenes — straight to your inbox.
             </p>
           </div>
           <Link href="/matches" className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-[#1546b3] transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
-            <span className="font-medium text-[14px] text-white">Browse the Gallery</span>
+            <span className="font-medium text-[14px] text-white">Subscribe</span>
             <ArrowRight size={16} className="text-white" aria-hidden="true" />
           </Link>
         </ScrollSection>

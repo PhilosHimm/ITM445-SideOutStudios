@@ -9,10 +9,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const matchFilters = [
-  { label: "All Matches", count: 6 },
-  { label: "Game 1–4", count: 2 },
-  { label: "Game 5–8", count: 2 },
-  { label: "Game 9–12", count: 2 },
+  { label: "All Matches", count: 12 },
+  { label: "Game 1–4", count: 4 },
+  { label: "Game 5–8", count: 4 },
+  { label: "Game 9–12", count: 4 },
 ];
 
 const timelineItems = [

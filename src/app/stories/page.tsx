@@ -38,7 +38,7 @@ export default function Stories() {
           >
             <div
               className="absolute bg-cover bg-center h-full left-0 top-0 w-full group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=1200&auto=format&fit=crop')" }}
+              style={{ backgroundImage: "url('/images/stories-video-bg.png')" }}
               role="img"
               aria-label="Game 3 rally action"
             />

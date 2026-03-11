@@ -8,28 +8,28 @@ const episodes = [
   {
     badge: "RALLY BREAKDOWN",
     badgeClass: "bg-[#1b4fd8] text-white",
-    title: "Game 3 — Set 2 Chaos",
+    title: "How to utilize blocks - Round Robin",
     description: "Key rallies, momentum shifts, and the plays that decided the set.",
-    meta: "Game 3 · 45 min",
-    image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=600&auto=format&fit=crop",
+    meta: "Game 2 · 30 min",
+    image: "/images/home-ep1-blocks.png",
     link: "/stories"
   },
   {
     badge: "PLAYER SPOTLIGHT",
     badgeClass: "bg-[#16161d] text-white",
-    title: "Marcus Cole — The Wall",
-    description: "How one middle blocker shut down the league\u2019s top hitters.",
-    meta: "Game 2 · 38 min",
-    image: "https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop",
+    title: "Kevin — The Ace",
+    description: "How one player shut down the league\u2019s top defenders.",
+    meta: "Game 2 · 30 min",
+    image: "/images/home-ep2-spike.png",
     link: "/stories"
   },
   {
     badge: "GAME RECAP",
     badgeClass: "border border-[#1b4fd8] text-[#1b4fd8]",
     title: "Game 1 — Season Opener",
-    description: "Full recap of our first intramural match of the season.",
-    meta: "Game 1 · 29 min",
-    image: "https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop",
+    description: "Full recap of Kevin's first intramural match of the season.",
+    meta: "Game 3 · 37 min",
+    image: "/images/home-ep3-game.png",
     link: "/matches"
   },
   {
@@ -181,18 +181,18 @@ export default function Home() {
 
         <div className="flex flex-1 flex-col gap-2 items-start justify-center px-3 py-2 relative z-10">
           <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
-            LATEST HIGHLIGHT
+            NEW MATCH COVERAGE
           </span>
           <h2 className="font-light text-[32px] text-white tracking-[-1px]">
             Game 4 — Rivalry Night
           </h2>
           <p className="text-[#aaa] text-[14px]">
-            Side-Out Stories · full coverage now in the gallery
+            Side-Out Stories · full coverage dropping soon
           </p>
         </div>
         <Link href="/stories" className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-[#1546b3] transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">
           <Play size={16} className="text-white fill-white" />
-          <span className="font-medium text-[14px] text-white">Watch Now</span>
+          <span className="font-medium text-[14px] text-white">Get Notified</span>
         </Link>
       </ScrollSection>
 

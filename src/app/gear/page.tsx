@@ -12,11 +12,11 @@ const gearItems = [
   {
     badge: "WARMUP",
     badgeClass: "bg-[#1b4fd8] text-white",
-    title: "Dynamic Warmup Routine",
+    title: "Typical Warmup Routine",
     description:
-      "10-min hip openers, ankle mobility, and shoulder circles before every game.",
-    meta: "All levels · 10 min",
-    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop",
+      "Start with easy ball throws and progress into peppering to activate your arms, timing, and touch before playing.",
+    meta: "All levels · Routine",
+    image: "/images/gear-warmup.png",
     link: "/about",
     level: "All Levels"
   },
@@ -27,14 +27,14 @@ const gearItems = [
     description:
       "From beginner knee pads to advanced libero shoes — our honest picks.",
     meta: "All levels · guide",
-    image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=600&auto=format&fit=crop",
+    image: "/images/gear-passes.png",
     link: "/about",
     level: "Beginner"
   },
   {
     badge: "RULES & STRATEGY",
     badgeClass: "bg-[#16161d] text-white",
-    title: "Intramural Rules Explained",
+    title: "Volleyball Technical Rules Explained",
     description:
       "Rotation rules, scoring formats, and key strategies for intramural play.",
     meta: "All levels · guide",
