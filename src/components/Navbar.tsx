@@ -15,7 +15,7 @@ export default function Navbar({ activePage }: NavbarProps) {
   return (
     <header
       role="banner"
-      className="bg-[#16161d] flex h-[56px] items-center justify-between px-6 md:px-16 w-full sticky top-0 z-50 border-b border-white/5"
+      className="bg-dark flex h-[56px] items-center justify-between px-6 md:px-16 w-full sticky top-0 z-50 border-b border-white/5"
     >
       {/* Logo */}
       <Link
@@ -52,7 +52,7 @@ export default function Navbar({ activePage }: NavbarProps) {
                   className={`flex h-[32px] items-center justify-center px-[14px] rounded-[4px] text-[13px] transition-colors duration-200 ${
                     isActive
                       ? "bg-white/10 font-medium text-white"
-                      : "text-[#999] hover:text-white hover:bg-white/5"
+                      : "text-white/60 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   {link.label}

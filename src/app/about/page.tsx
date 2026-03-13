@@ -39,6 +39,7 @@ export default function About() {
       <PageHero
         subtitle="TWO PLAYERS · ONE CAMERA · INTRAMURAL GAMES"
         title="About"
+        bgImage="/images/about-hero-bg.jpg"
       />
 
       {/* Page Body */}
@@ -47,14 +48,14 @@ export default function About() {
         <ScrollSection animation="fade-up" className="flex flex-col md:flex-row gap-10 md:gap-20 items-start w-full">
           {/* Left */}
           <div className="flex flex-1 flex-col gap-4 items-start min-w-0">
-            <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]" id="the-story">
+            <span className="font-medium text-primary text-[10px] tracking-[3px]" id="the-story">
               THE STORY
             </span>
-            <div className="font-light text-[#16161d] text-[32px] md:text-[44px] tracking-[-2px] w-full line-clamp-2">
-              <p className="mb-0">Volleyball,</p>
-              <p>Clips and content.</p>
+            <div className="font-light text-dark text-[32px] md:text-[44px] tracking-[-2px] w-full line-clamp-2">
+              <p className="mb-0">Real players.</p>
+              <p>Real highlights.</p>
             </div>
-            <p className="text-[#666] text-[14px] leading-[1.7] w-full">
+            <p className="text-dark/60 text-[14px] leading-[1.7] w-full">
               We&apos;re not coaches. We&apos;re not pros. We&apos;re two players who love the
               game and hitting balls. Side-Out is what happens when you point a
               camera at a volleyball court and just hit record.
@@ -70,13 +71,13 @@ export default function About() {
               <div
                 key={stat.label}
                 role="listitem"
-                className={`flex flex-col gap-1 items-start py-5 w-full ${i < 1 ? "border-b border-[#f0f0f0]" : ""
+                className={`flex flex-col gap-1 items-start py-5 w-full ${i < 1 ? "border-b border-border-light" : ""
                   }`}
               >
-                <span className="font-light text-[#16161d] text-[36px] md:text-[44px] tracking-[-2px]">
+                <span className="font-light text-dark text-[36px] md:text-[44px] tracking-[-2px]">
                   {stat.value}
                 </span>
-                <span className="font-medium text-[#888] text-[9px] tracking-[2px]">
+                <span className="font-medium text-muted text-[9px] tracking-[2px]">
                   {stat.label}
                 </span>
               </div>
@@ -86,7 +87,7 @@ export default function About() {
 
         {/* Creators Header */}
         <div className="flex items-center w-full">
-          <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]" id="the-creators">
+          <span className="font-medium text-primary text-[10px] tracking-[3px]" id="the-creators">
             THE CREATORS
           </span>
         </div>
@@ -96,10 +97,10 @@ export default function About() {
           {creators.map((creator, index) => (
             <article
               key={creator.name}
-              className="border border-[#e0e0e0] flex flex-1 flex-col items-start min-w-0 rounded-[2px] w-full"
+              className="border border-border flex flex-1 flex-col items-start min-w-0 rounded-[2px] w-full"
             >
               <div
-                className="bg-[#ccc] h-[200px] md:h-[240px] w-full bg-cover bg-center rounded-t-[2px]"
+                className="bg-dark/20 h-[320px] md:h-[400px] w-full bg-cover bg-center rounded-t-[2px]"
                 style={{ backgroundImage: `url('${creator.image}')` }}
                 role="img"
                 aria-label={`Photo of ${creator.name}`}
@@ -108,25 +109,25 @@ export default function About() {
                 {/* Name + Badge */}
                 <div className="flex items-start justify-between w-full">
                   <div className="flex flex-col gap-1 items-start">
-                    <h3 className="font-medium text-[#16161d] text-[20px] md:text-[22px] tracking-[-0.5px]">
+                    <h3 className="font-medium text-dark text-[20px] md:text-[22px] tracking-[-0.5px]">
                       {creator.name}
                     </h3>
-                    <span className="text-[#888] text-[10px] tracking-[1px]">
+                    <span className="text-muted text-[10px] tracking-[1px]">
                       {creator.role}
                     </span>
                   </div>
-                  <div className="bg-[#16161d] flex items-center justify-center px-[10px] py-[4px] rounded-[2px]">
+                  <div className="bg-dark flex items-center justify-center px-[10px] py-[4px] rounded-[2px]">
                     <span className="text-[11px] text-center text-white">
                       {creator.badge}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-[#666] text-[13px] leading-[1.6] w-full">
+                <p className="text-dark/60 text-[13px] leading-[1.6] w-full">
                   {creator.bio}
                 </p>
 
-                <span className="text-[#888] text-[10px] tracking-[1px]">
+                <span className="text-muted text-[10px] tracking-[1px]">
                   PERSONAL GEAR
                 </span>
 
@@ -136,12 +137,12 @@ export default function About() {
                     <div
                       key={g.label}
                       className={`flex items-start justify-between py-[10px] w-full ${i < creator.gear.length - 1
-                        ? "border-b border-[#f0f0f0]"
+                        ? "border-b border-border-light"
                         : ""
                         }`}
                     >
-                      <dt className="text-[#666] text-[13px]">{g.label}</dt>
-                      <dd className="text-[#16161d] text-[12px] font-medium">
+                      <dt className="text-dark/60 text-[13px]">{g.label}</dt>
+                      <dd className="text-dark text-[12px] font-medium">
                         {g.value}
                       </dd>
                     </div>
@@ -153,19 +154,19 @@ export default function About() {
         </ScrollSection>
 
         {/* Gallery CTA */}
-        <ScrollSection animation="fade-up" delay={200} className="bg-[#16161d] flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-10 md:py-12 w-full rounded-[2px] gap-6">
+        <ScrollSection animation="fade-up" delay={200} className="bg-dark flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-10 md:py-12 w-full rounded-[2px] gap-6">
           <div className="flex flex-col gap-2 items-start">
-            <span className="font-medium text-[#1b4fd8] text-[10px] tracking-[3px]">
+            <span className="font-medium text-primary text-[10px] tracking-[3px]">
               NEW MATCH COVERAGE
             </span>
             <h3 className="font-light text-[26px] md:text-[30px] text-white tracking-[-1px]">
               Join the Side-Out community
             </h3>
-            <p className="text-[#aaa] text-[14px]">
+            <p className="text-white/60 text-[14px]">
               Match recaps, gear updates and behind-the-scenes — straight to your inbox.
             </p>
           </div>
-          <Link href="/matches" className="bg-[#1b4fd8] flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-[#1546b3] transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
+          <Link href="/matches" className="bg-primary flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-primary-hover transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
             <span className="font-medium text-[14px] text-white">Subscribe</span>
             <ArrowRight size={16} className="text-white" aria-hidden="true" />
           </Link>

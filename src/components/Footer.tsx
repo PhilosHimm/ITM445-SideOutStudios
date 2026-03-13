@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="bg-[#16161d] flex flex-col md:flex-row gap-8 items-start md:items-center justify-between px-6 md:px-16 py-10 w-full"
+      className="bg-dark flex flex-col md:flex-row gap-8 items-start md:items-center justify-between px-6 md:px-16 py-10 w-full"
     >
       {/* Brand */}
       <div className="flex flex-col gap-[6px] items-start">
@@ -28,7 +28,7 @@ export default function Footer() {
             Side-Out Studios
           </span>
         </Link>
-        <p className="text-[#666] text-[12px]">
+        <p className="text-white/40 text-[12px]">
           Unfiltered volleyball coverage, every match.
         </p>
       </div>
@@ -45,7 +45,7 @@ export default function Footer() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="text-[#999] text-[13px] hover:text-white transition-colors duration-200"
+                className="text-white/60 text-[13px] hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </Link>
@@ -55,7 +55,7 @@ export default function Footer() {
       </nav>
 
       {/* Copyright */}
-      <p className="text-[#555] text-[11px]">
+      <p className="text-white/30 text-[11px]">
         &copy; {new Date().getFullYear()} Side-Out Studios
       </p>
     </footer>

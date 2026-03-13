@@ -11,7 +11,7 @@ import { useState } from "react";
 const gearItems = [
   {
     badge: "WARMUP",
-    badgeClass: "bg-[#1b4fd8] text-white",
+    badgeClass: "bg-primary text-white",
     title: "Typical Warmup Routine",
     description:
       "Start with easy ball throws and progress into peppering to activate your arms, timing, and touch before playing.",
@@ -22,7 +22,7 @@ const gearItems = [
   },
   {
     badge: "GEAR",
-    badgeClass: "bg-[#1b4fd8] text-white",
+    badgeClass: "bg-primary text-white",
     title: "Essential Gear by Level",
     description:
       "From beginner knee pads to advanced libero shoes — our honest picks.",
@@ -33,7 +33,7 @@ const gearItems = [
   },
   {
     badge: "RULES & STRATEGY",
-    badgeClass: "bg-[#16161d] text-white",
+    badgeClass: "bg-dark text-white",
     title: "Volleyball Technical Rules Explained",
     description:
       "Rotation rules, scoring formats, and key strategies for intramural play.",
@@ -44,7 +44,7 @@ const gearItems = [
   },
   {
     badge: "TRAINING",
-    badgeClass: "bg-[#16161d] text-white",
+    badgeClass: "bg-dark text-white",
     title: "Advanced Serving Techniques",
     description:
       "Master the jump float and top spin serve with our detailed breakdown.",
@@ -70,6 +70,7 @@ export default function Gear() {
       <PageHero
         subtitle="WARMUPS · GEAR PICKS · RULES & STRATEGY"
         title="Gear & Routines"
+        bgImage="/images/gear-hero-bg.jpg"
       />
 
       {/* Page Body */}
@@ -77,11 +78,11 @@ export default function Gear() {
         {/* Level Filter Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
           <div className="flex flex-col gap-1 items-start">
-            <span className="text-[#1b4fd8] text-[11px] tracking-[2px] font-medium">
-              PLAYER LEVEL
+            <span className="text-primary text-[11px] tracking-[2px] font-medium">
+              FILTER GUIDES
             </span>
-            <h2 className="text-[#16161d] font-medium text-[28px] md:text-[32px] tracking-[-0.5px]">
-              Gear &amp; Routines
+            <h2 className="text-dark font-medium text-[28px] md:text-[32px] tracking-[-0.5px]">
+              Explore by Level
             </h2>
           </div>
           <div className="flex gap-2 items-center flex-wrap" role="radiogroup" aria-label="Filter by player level">
@@ -94,8 +95,8 @@ export default function Gear() {
                   role="radio"
                   aria-checked={isActive}
                   className={`flex h-10 items-center justify-center px-5 rounded-[2px] text-[13px] text-center cursor-pointer transition-all duration-200 ${isActive
-                      ? "bg-[#16161d] font-medium text-white hover:bg-black hover:scale-105 active:scale-95"
-                      : "border border-[#f0f0f0] text-[#666] hover:bg-[#f7f7f7] hover:border-[#e0e0e0] hover:-translate-y-[1px] active:translate-y-0"
+                      ? "bg-dark font-medium text-white hover:bg-black hover:scale-105 active:scale-95"
+                      : "border border-border-light text-dark/60 hover:bg-dark/5 hover:border-border hover:-translate-y-[1px] active:translate-y-0"
                     }`}
                 >
                   {f}
@@ -112,14 +113,14 @@ export default function Gear() {
               key={item.title}
               animation="fade-up"
               delay={i * 100}
-              className="border border-[#e0e0e0] flex flex-col items-start rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+              className="border border-border flex flex-col items-start rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
             >
             <Link
               href={item.link}
               className="flex flex-col items-start w-full h-full"
             >
               <div
-                className="bg-[#ccc] h-[160px] w-full rounded-t-[4px] group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                className="bg-dark/20 h-[160px] w-full rounded-t-[4px] group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
                 style={{ backgroundImage: `url('${item.image}')` }}
                 role="img"
                 aria-label={item.title}
@@ -132,17 +133,17 @@ export default function Gear() {
                     {item.badge}
                   </span>
                 </div>
-                <p className="font-medium text-[#16161d] text-[15px] tracking-[-0.3px] line-clamp-1">
+                <p className="font-medium text-dark text-[15px] tracking-[-0.3px] line-clamp-1">
                   {item.title}
                 </p>
-                <p className="text-[#666] text-[13px] w-full line-clamp-2">
+                <p className="text-dark/60 text-[13px] w-full line-clamp-2">
                   {item.description}
                 </p>
-                <div className="flex items-center justify-between w-full mt-auto pt-4 border-t border-[#f0f0f0]">
-                  <span className="text-[#888] font-medium text-[10px] uppercase tracking-[1px]">{item.meta}</span>
+                <div className="flex items-center justify-between w-full mt-auto pt-4 border-t border-border-light">
+                  <span className="text-muted font-medium text-[10px] uppercase tracking-[1px]">{item.meta}</span>
                   <div className="flex gap-[6px] items-center">
-                    <span className="text-[#1b4fd8] font-medium text-[12px]">Read</span>
-                    <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                    <span className="text-primary font-medium text-[12px]">Read</span>
+                    <ArrowRight size={14} className="text-primary transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
                   </div>
                 </div>
               </div>
