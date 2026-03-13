@@ -66,7 +66,7 @@ export default function Stories() {
   return (
     <div className="bg-white flex flex-col items-start w-full">
       <Navbar activePage="Stories" />
-      <PageHero subtitle="MULTI-ANGLE · POLLS · AUDIO" title="Side-Out Stories" bgImage="/images/stories-hero-bg.jpg" />
+      <PageHero subtitle="RALLY BREAKDOWNS · PLAYER SPOTLIGHTS · AUDIO CLIPS" title="Side-Out Stories" bgImage="/images/stories-hero-bg.jpg" />
 
       {/* Page Body */}
       <div className="bg-white flex flex-col lg:flex-row gap-6 items-start px-6 md:px-16 lg:px-20 py-10 md:py-12 w-full">
@@ -75,8 +75,8 @@ export default function Stories() {
           {/* Episode Nav */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
             <div className="flex flex-col gap-1 items-start">
-              <span className="text-primary text-[11px] tracking-[1px] font-medium">NOW WATCHING</span>
-              <h2 className="font-medium text-dark text-[22px] tracking-[-0.5px]">Game 3 — Rally Breakdown</h2>
+              <span className="text-primary text-[11px] tracking-[1px] font-medium">RALLY BREAKDOWN</span>
+              <h2 className="font-medium text-dark text-[22px] tracking-[-0.5px]">Game 3 — Top 5 Rallies</h2>
             </div>
             <div className="bg-primary flex gap-2 h-9 items-center px-4 rounded-[2px]">
               <Play size={14} className="text-white fill-white" aria-hidden="true" />
@@ -87,7 +87,7 @@ export default function Stories() {
           {/* Video Player */}
           <div
             className="bg-dark h-[280px] sm:h-[380px] md:h-[480px] overflow-clip relative rounded-[2px] w-full shadow-lg group cursor-pointer"
-            role="region" aria-label="Video player: Game 3 Rally Breakdown"
+            role="region" aria-label="Video player: Game 3 Top 5 Rallies with slow-mo replays and freeze-frame annotations"
           >
             <div
               className="absolute bg-cover bg-center h-full left-0 top-0 w-full group-hover:scale-105 transition-transform duration-700"
@@ -98,20 +98,16 @@ export default function Stories() {
 
             {/* Top Bar */}
             <div className="absolute bg-dark/60 flex h-[52px] items-center justify-between left-0 px-5 top-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="flex gap-1 items-center" role="tablist" aria-label="Camera angle">
-                <button role="tab" aria-selected="true" className="bg-white flex h-7 items-center justify-center px-3 rounded-[2px] transition-colors duration-200 hover:bg-gray-100"><span className="font-medium text-dark text-[12px]">Wide</span></button>
-                <button role="tab" aria-selected="false" className="flex h-7 items-center px-3 rounded-[2px] hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"><span className="text-[#eee] text-[12px]">Close-up</span></button>
-                <button role="tab" aria-selected="false" className="flex h-7 items-center px-3 rounded-[2px] hover:bg-white/10 transition-all duration-300 hover:scale-105 active:scale-95"><span className="text-[#eee] text-[12px]">POV</span></button>
-              </div>
+              <div></div>
 
               <button aria-label="Play video" className="bg-primary flex items-center justify-center rounded-[2px] size-10 hover:bg-primary-hover transition-all duration-300 hover:scale-110 hover-glow animate-pulse-ring active:scale-90 group">
                 <Play size={18} className="text-white fill-white ml-1 group-hover:scale-110 transition-transform duration-300" />
               </button>
 
-              <div className="hidden sm:flex gap-[6px] items-center" role="tablist" aria-label="Player POV">
-                <span className="font-medium text-white/30 text-[10px] tracking-[2px]">POV</span>
-                <button role="tab" aria-selected="true" className="bg-primary flex h-7 items-center justify-center px-3 rounded-[2px] hover:bg-primary-hover transition-colors duration-200"><span className="font-medium text-[12px] text-white">Person A</span></button>
-                <button role="tab" aria-selected="false" className="bg-[rgba(255,255,255,0.1)] flex h-7 items-center justify-center px-3 rounded-[2px] hover:bg-[rgba(255,255,255,0.2)] transition-colors duration-200"><span className="text-[#eee] text-[12px]">Person B</span></button>
+              <div className="hidden sm:flex gap-[6px] items-center" role="tablist" aria-label="Perspective toggle">
+                <span className="font-medium text-white/30 text-[10px] tracking-[2px]">PERSPECTIVE</span>
+                <button role="tab" aria-selected="true" className="bg-primary flex h-7 items-center justify-center px-3 rounded-[2px] hover:bg-primary-hover transition-colors duration-200"><span className="font-medium text-[12px] text-white">Kevin</span></button>
+                <button role="tab" aria-selected="false" className="bg-[rgba(255,255,255,0.1)] flex h-7 items-center justify-center px-3 rounded-[2px] hover:bg-[rgba(255,255,255,0.2)] transition-colors duration-200"><span className="text-[#eee] text-[12px]">Philos</span></button>
               </div>
             </div>
 
@@ -179,9 +175,9 @@ export default function Stories() {
 
           {/* Audio Only Card */}
           <div className="border border-border-light flex flex-col gap-4 items-start p-5 rounded-[2px] w-full bg-white shadow-sm" role="region" aria-label="Audio player">
-            <span className="font-medium text-muted text-[10px] tracking-[1px]">AUDIO ONLY</span>
+            <span className="font-medium text-muted text-[10px] tracking-[1px]">POST-GAME AUDIO</span>
             <p className="font-medium text-dark text-[14px]">
-              Game 3 — Rally Breakdown
+              Game 3 — Raw Post-Game Reactions
             </p>
             <audio 
               ref={audioRef} 

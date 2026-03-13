@@ -37,7 +37,7 @@ export default function About() {
     <div className="bg-white flex flex-col items-start w-full">
       <Navbar activePage="About" />
       <PageHero
-        subtitle="TWO PLAYERS · ONE CAMERA · INTRAMURAL GAMES"
+        subtitle="TWO PLAYERS · ONE CAMERA · INTRAMURALS · LEAGUES · TOURNAMENTS"
         title="About"
         bgImage="/images/about-hero-bg.jpg"
       />
@@ -57,16 +57,17 @@ export default function About() {
             </div>
             <p className="text-dark/60 text-[14px] leading-[1.7] w-full">
               We&apos;re not coaches. We&apos;re not pros. We&apos;re two players who love the
-              game and hitting balls. Side-Out is what happens when you point a
-              camera at a volleyball court and just hit record.
+              game and show up to every intramural, league, and tournament match with a camera.
+              All footage is recorded at real games and published as a complete collection —
+              rally breakdowns, player spotlights, game recaps, and raw audio from the court.
             </p>
           </div>
 
           {/* Stats */}
           <div className="flex flex-col gap-5 items-start w-full md:w-[280px] shrink-0" role="list" aria-label="Key statistics">
             {[
-              { value: "12", label: "MATCHES COVERED" },
-              { value: "20+", label: "POINTS SCORED" },
+              { value: "12", label: "GAMES FILMED" },
+              { value: "9", label: "CONTENT FORMATS" },
             ].map((stat, i) => (
               <div
                 key={stat.label}
@@ -157,13 +158,13 @@ export default function About() {
         <ScrollSection animation="fade-up" delay={200} className="bg-dark flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-10 md:py-12 w-full rounded-[2px] gap-6">
           <div className="flex flex-col gap-2 items-start">
             <span className="font-medium text-primary text-[10px] tracking-[3px]">
-              NEW MATCH COVERAGE
+              NEW COLLECTION DROPS
             </span>
             <h3 className="font-light text-[26px] md:text-[30px] text-white tracking-[-1px]">
               Join the Side-Out community
             </h3>
             <p className="text-white/60 text-[14px]">
-              Match recaps, gear updates and behind-the-scenes — straight to your inbox.
+              Game-day collections, gear tours, and post-game audio — straight to your inbox.
             </p>
           </div>
           <Link href="/matches" className="bg-primary flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-primary-hover transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">

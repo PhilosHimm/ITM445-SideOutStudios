@@ -8,36 +8,36 @@ const episodes = [
   {
     badge: "RALLY BREAKDOWN",
     badgeClass: "bg-primary text-white",
-    title: "How to utilize blocks - Round Robin",
-    description: "Key rallies, momentum shifts, and the plays that decided the set.",
-    meta: "Game 2 · 30 min",
+    title: "Best Rallies — Game 2 Round Robin",
+    description: "Top 5 rallies with slow-mo replays, freeze-frame annotations, and positioning breakdowns.",
+    meta: "Game 2 · Highlights",
     image: "/images/home-ep1-blocks.png",
     link: "/stories"
   },
   {
     badge: "PLAYER SPOTLIGHT",
     badgeClass: "bg-dark text-white",
-    title: "Kevin — The Ace",
-    description: "How one player shut down the league\u2019s top defenders.",
-    meta: "Game 2 · 30 min",
+    title: "Kevin — The Ace Machine",
+    description: "Best moments from intramural and league play, plus a quick post-game interview.",
+    meta: "Game 2 · Spotlight",
     image: "/images/home-ep2-spike.png",
     link: "/stories"
   },
   {
     badge: "GAME RECAP",
     badgeClass: "border border-primary text-primary",
-    title: "Game 1 — Season Opener",
-    description: "Full recap of Kevin's first intramural match of the season.",
-    meta: "Game 3 · 37 min",
+    title: "Game 1 — Season Opener Recap",
+    description: "60-second match summary: score, key plays, and MVP moment from the first intramural game.",
+    meta: "Game 1 · 90 sec",
     image: "/images/home-ep3-game.png",
     link: "/matches"
   },
   {
-    badge: "GAME RECAP",
+    badge: "SIDE-BY-SIDE",
     badgeClass: "bg-dark text-white",
-    title: "The Iron Wall — Playoff Semi",
-    description: "Down one set, digging deep to work around the Iron wall in front of us.",
-    meta: "Playoff · 40 min",
+    title: "The Iron Wall — Perspective Matchup",
+    description: "Compare two players' approaches to the same block using the perspective toggle feature.",
+    meta: "Playoff · Comparison",
     image: "/images/home-ep4-ironwall.jpg",
     link: "/matches"
   },
@@ -68,7 +68,7 @@ export default function Home() {
               <circle cx="3" cy="3" r="3" fill="white" />
             </svg>
             <span className="font-medium text-[10px] text-white tracking-[2px]">
-              FEATURED MATCH — GAME 3
+              LATEST COLLECTION — GAME 3
             </span>
           </div>
 
@@ -78,7 +78,7 @@ export default function Home() {
           </h1>
 
           <p className="font-light text-white/80 text-[16px] max-w-[520px]">
-            Unfiltered volleyball. Real games, real stories, real obsession.
+            Game-day highlights, player spotlights, and rally breakdowns — published as a complete collection from every intramural match.
           </p>
 
           <div className="flex gap-3 items-center flex-wrap">
@@ -97,7 +97,7 @@ export default function Home() {
           {[
             { value: "12", label: "MATCHES" },
             { value: "24K", label: "VIEWS" },
-            { value: "4", label: "CONTENT TYPES" },
+            { value: "9", label: "CONTENT TYPES" },
             { value: "2026", label: "SEASON" },
           ].map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-[10px]">
@@ -121,13 +121,13 @@ export default function Home() {
         <div className="flex items-center justify-between pb-2 w-full">
           <div className="flex flex-col gap-1 items-start">
             <span className="font-medium text-primary text-[10px] tracking-[3px]">
-              LATEST COVERAGE
+              LATEST COLLECTION
             </span>
             <h2
               id="latest-coverage-heading"
               className="font-light text-dark text-[36px] tracking-[-1px]"
             >
-              Fresh from the court
+              Fresh from game day
             </h2>
           </div>
           <Link href="/matches" className="border border-dark flex gap-2 h-9 items-center px-4 hover:bg-dark/5 transition-all duration-200 hover:shadow-sm cursor-pointer group rounded-[2px] active:scale-95">
@@ -179,13 +179,13 @@ export default function Home() {
 
         <div className="flex flex-1 flex-col gap-2 items-start justify-center px-3 py-2 relative z-10">
           <span className="font-medium text-primary text-[10px] tracking-[3px]">
-            NEW MATCH COVERAGE
+            NEW COLLECTION DROP
           </span>
           <h2 className="font-light text-[32px] text-white tracking-[-1px]">
             Game 4 — Rivalry Night
           </h2>
           <p className="text-white/60 text-[14px]">
-            Side-Out Stories · full coverage dropping soon
+            Full collection: rally breakdowns, recaps, spotlights, and audio clips — all from one game
           </p>
         </div>
         <Link href="/stories" className="bg-primary flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">

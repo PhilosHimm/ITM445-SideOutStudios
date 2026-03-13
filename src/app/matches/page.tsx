@@ -7,6 +7,7 @@ import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { games } from "@/lib/games";
 
 const matchFilters = [
   { label: "All Matches", count: 12 },
@@ -15,86 +16,20 @@ const matchFilters = [
   { label: "Game 9–12", count: 4 },
 ];
 
-const timelineItems = [
-  {
-    date: "Mar 1",
-    year: "2026",
-    badge: "RALLY BREAKDOWN",
-    badgeClass: "bg-primary text-white",
-    title: "Game 4 — Great Comeback",
-    description:
-      "Coming back from sitting got us cold, started off slow but engines are on.",
-    meta: "Game 3 · 45 min",
-    image: "/images/matches-tc1.jpg",
-    link: "/stories",
-    category: "Game 1–4"
-  },
-  {
-    date: "Feb 15",
-    year: "2026",
-    badge: "PLAYER SPOTLIGHT",
-    badgeClass: "bg-dark text-white",
-    title: "Philos — The Chef",
-    description:
-      "How one outside hitter shut down the league's top players in Game 1.",
-    meta: "Game 1 · 38 min",
-    image: "/images/matches-tc2.jpg",
-    link: "/stories",
-    category: "Game 1–4"
-  },
-  {
-    date: "Jan 28",
-    year: "2026",
-    badge: "MATCH ANALYSIS",
-    badgeClass: "bg-primary text-white",
-    title: "Game 7 — The Comeback",
-    description:
-      "A deep dive into the strategic adjustments that led to an improbable victory.",
-    meta: "Game 7 · 50 min",
-    image: "https://images.unsplash.com/photo-1541534741688-60cab3c3dc17?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 5–8"
-  },
-  {
-    date: "Jan 10",
-    year: "2026",
-    badge: "TACTICS BOARD",
-    badgeClass: "bg-dark text-white",
-    title: "Tactical Masterclass",
-    description:
-      "Unpacking the innovative plays that dominated Game 6.",
-    meta: "Game 6 · 40 min",
-    image: "https://images.unsplash.com/photo-1579952962646-993774640106?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 5–8"
-  },
-  {
-    date: "Dec 20",
-    year: "2025",
-    badge: "HIGHLIGHT REEL",
-    badgeClass: "bg-primary text-white",
-    title: "Game 10 — Final Set Thriller",
-    description:
-      "The most electrifying moments from the nail-biting final set.",
-    meta: "Game 10 · 30 min",
-    image: "https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 9–12"
-  },
-  {
-    date: "Dec 5",
-    year: "2025",
-    badge: "PLAYER SPOTLIGHT",
-    badgeClass: "border border-dark text-dark",
-    title: "Rookie Sensation",
-    description:
-      "Meet the new talent who took Game 9 by storm with an unforgettable performance.",
-    meta: "Game 9 · 35 min",
-    image: "https://images.unsplash.com/photo-1582650074213-91117ecaf524?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 9–12"
-  },
-];
+const timelineItems = games.map((g) => ({
+  date: g.date,
+  year: g.year,
+  badge: g.badge,
+  badgeClass: g.badgeClass,
+  title: g.title,
+  description: g.description,
+  meta: `Game ${g.number} · ${g.duration}`,
+  image: g.heroImage,
+  link: `/matches/${g.slug}`,
+  category: g.category,
+  result: g.result,
+  score: g.score,
+}));
 
 export default function Matches() {
   const [activeFilter, setActiveFilter] = useState("All Matches");
@@ -107,7 +42,7 @@ export default function Matches() {
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
       <Navbar activePage="Matches" />
       <PageHero
-        subtitle="BROWSE BY MATCH · CONTENT TYPE · SEASON"
+        subtitle="BROWSE BY GAME · CONTENT FORMAT · COLLECTION"
         title="Our Matches"
         bgImage="/images/matches-hero-bg.jpg"
       />
@@ -157,16 +92,34 @@ export default function Matches() {
             })}
           </div>
 
-          {/* Content Type Filter */}
+          {/* Content Format Filter */}
           <div className="flex flex-col gap-3 items-start w-full mt-2">
             <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              CONTENT TYPE
+              CONTENT FORMAT
             </span>
             <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
               <span className="text-dark text-[13px]">
                 Rally Breakdowns
               </span>
-              <span className="text-muted text-[11px]">6</span>
+              <span className="text-muted text-[11px]">4</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Game Recaps
+              </span>
+              <span className="text-muted text-[11px]">5</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Player Spotlights
+              </span>
+              <span className="text-muted text-[11px]">1</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Side-by-Side Matchups
+              </span>
+              <span className="text-muted text-[11px]">2</span>
             </div>
           </div>
         </ScrollSection>
@@ -176,7 +129,7 @@ export default function Matches() {
           {/* Timeline Header */}
           <div className="border-b border-border-light flex items-center justify-between pb-6 w-full">
             <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              TIMELINE — 2026 SEASON
+              ALL COLLECTIONS — 2025/2026 SEASON
             </span>
             <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-dark text-[11px] font-medium">Newest first</span>
@@ -260,7 +213,18 @@ export default function Matches() {
                         </p>
                       </div>
                       <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-border-light">
-                        <span className="text-muted font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
+                        <div className="flex gap-3 items-center flex-wrap">
+                          <span className="text-muted font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
+                          <span className={`text-[9px] font-medium px-2 py-[2px] rounded-full border ${
+                            item.result === "Win"
+                              ? "bg-emerald-500/10 text-emerald-600 border-emerald-200"
+                              : item.result === "Loss"
+                              ? "bg-red-500/10 text-red-600 border-red-200"
+                              : "bg-primary/10 text-primary border-primary/20"
+                          }`}>
+                            {item.result} {item.score}
+                          </span>
+                        </div>
                         <div className="flex gap-[6px] items-center">
                           <span className="text-primary font-medium text-[12px]">Watch</span>
                           <ArrowRight size={14} className="text-primary transition-transform duration-200 group-hover:translate-x-1" />

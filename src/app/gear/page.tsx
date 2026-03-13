@@ -10,23 +10,23 @@ import { useState } from "react";
 
 const gearItems = [
   {
-    badge: "WARMUP",
+    badge: "GEAR TOUR",
     badgeClass: "bg-primary text-white",
-    title: "Typical Warmup Routine",
+    title: "Game-Day Gear & Setup Tour",
     description:
-      "Start with easy ball throws and progress into peppering to activate your arms, timing, and touch before playing.",
-    meta: "All levels · Routine",
+      "Quick walkthrough of our actual game gear — shoes, knee pads, and more — paired with honest opinions.",
+    meta: "All levels · Video",
     image: "/images/gear-warmup.png",
     link: "/about",
     level: "All Levels"
   },
   {
-    badge: "GEAR",
+    badge: "GEAR TOUR",
     badgeClass: "bg-primary text-white",
     title: "Essential Gear by Level",
     description:
-      "From beginner knee pads to advanced libero shoes — our honest picks.",
-    meta: "All levels · guide",
+      "From beginner knee pads to advanced libero shoes — our honest picks from what we actually use at intramurals and leagues.",
+    meta: "All levels · Video + Photo",
     image: "/images/gear-passes.png",
     link: "/about",
     level: "Beginner"
@@ -34,21 +34,21 @@ const gearItems = [
   {
     badge: "RULES & STRATEGY",
     badgeClass: "bg-dark text-white",
-    title: "Volleyball Technical Rules Explained",
+    title: "Rotation, Positioning & Scoring Explained",
     description:
-      "Rotation rules, scoring formats, and key strategies for intramural play.",
-    meta: "All levels · guide",
+      "Screen-recorded and graphic-based explainers covering volleyball concepts — produced entirely in Figma + ClipChamp.",
+    meta: "All levels · Figma + Video",
     image: "https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop",
     link: "/about",
     level: "Intermediate"
   },
   {
-    badge: "TRAINING",
+    badge: "STRATEGY EXPLAINER",
     badgeClass: "bg-dark text-white",
     title: "Advanced Serving Techniques",
     description:
-      "Master the jump float and top spin serve with our detailed breakdown.",
-    meta: "Advanced · 15 min",
+      "Master the jump float and top spin serve — graphic-based breakdown produced without needing court access.",
+    meta: "Advanced · Figma + Video",
     image: "https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop",
     link: "/about",
     level: "Advanced"
@@ -68,8 +68,8 @@ export default function Gear() {
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
       <Navbar activePage="Gear" />
       <PageHero
-        subtitle="WARMUPS · GEAR PICKS · RULES & STRATEGY"
-        title="Gear & Routines"
+        subtitle="GEAR TOURS · RULES & STRATEGY · EXPLAINERS"
+        title="Gear & Guides"
         bgImage="/images/gear-hero-bg.jpg"
       />
 
@@ -79,7 +79,7 @@ export default function Gear() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
           <div className="flex flex-col gap-1 items-start">
             <span className="text-primary text-[11px] tracking-[2px] font-medium">
-              FILTER GUIDES
+              LIGHTWEIGHT NON-GAME CONTENT
             </span>
             <h2 className="text-dark font-medium text-[28px] md:text-[32px] tracking-[-0.5px]">
               Explore by Level
