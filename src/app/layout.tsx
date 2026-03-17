@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     "Side-Out Studios",
     "rally breakdown",
   ],
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
