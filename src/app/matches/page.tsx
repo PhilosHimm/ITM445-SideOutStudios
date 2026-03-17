@@ -7,6 +7,7 @@ import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { games } from "@/lib/games";
 
 const matchFilters = [
   { label: "All Matches", count: 12 },
@@ -15,86 +16,20 @@ const matchFilters = [
   { label: "Game 9–12", count: 4 },
 ];
 
-const timelineItems = [
-  {
-    date: "Mar 1",
-    year: "2026",
-    badge: "RALLY BREAKDOWN",
-    badgeClass: "bg-[#1b4fd8] text-white",
-    title: "Game 3 — Set 2 Chaos",
-    description:
-      "Key rallies, momentum shifts, and the plays that decided the set.",
-    meta: "Game 3 · 45 min",
-    image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 1–4"
-  },
-  {
-    date: "Feb 15",
-    year: "2026",
-    badge: "PLAYER SPOTLIGHT",
-    badgeClass: "bg-[#16161d] text-white",
-    title: "Marcus Cole — The Wall",
-    description:
-      "How one middle blocker shut down the league\u2019s top hitters in Game 2.",
-    meta: "Game 2 · 38 min",
-    image: "https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 1–4"
-  },
-  {
-    date: "Jan 28",
-    year: "2026",
-    badge: "MATCH ANALYSIS",
-    badgeClass: "bg-[#1b4fd8] text-white",
-    title: "Game 7 — The Comeback",
-    description:
-      "A deep dive into the strategic adjustments that led to an improbable victory.",
-    meta: "Game 7 · 50 min",
-    image: "https://images.unsplash.com/photo-1541534741688-60cab3c3dc17?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 5–8"
-  },
-  {
-    date: "Jan 10",
-    year: "2026",
-    badge: "TACTICS BOARD",
-    badgeClass: "bg-[#16161d] text-white",
-    title: "Tactical Masterclass",
-    description:
-      "Unpacking the innovative plays that dominated Game 6.",
-    meta: "Game 6 · 40 min",
-    image: "https://images.unsplash.com/photo-1579952962646-993774640106?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 5–8"
-  },
-  {
-    date: "Dec 20",
-    year: "2025",
-    badge: "HIGHLIGHT REEL",
-    badgeClass: "bg-[#1b4fd8] text-white",
-    title: "Game 10 — Final Set Thriller",
-    description:
-      "The most electrifying moments from the nail-biting final set.",
-    meta: "Game 10 · 30 min",
-    image: "https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 9–12"
-  },
-  {
-    date: "Dec 5",
-    year: "2025",
-    badge: "PLAYER SPOTLIGHT",
-    badgeClass: "border border-[#16161d] text-[#16161d]",
-    title: "Rookie Sensation",
-    description:
-      "Meet the new talent who took Game 9 by storm with an unforgettable performance.",
-    meta: "Game 9 · 35 min",
-    image: "https://images.unsplash.com/photo-1582650074213-91117ecaf524?q=80&w=600&auto=format&fit=crop",
-    link: "/stories",
-    category: "Game 9–12"
-  },
-];
+const timelineItems = games.map((g) => ({
+  date: g.date,
+  year: g.year,
+  badge: g.badge,
+  badgeClass: g.badgeClass,
+  title: g.title,
+  description: g.description,
+  meta: `Game ${g.number} · ${g.duration}`,
+  image: g.heroImage,
+  link: `/matches/${g.slug}`,
+  category: g.category,
+  result: g.result,
+  score: g.score,
+}));
 
 export default function Matches() {
   const [activeFilter, setActiveFilter] = useState("All Matches");
@@ -107,19 +42,20 @@ export default function Matches() {
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
       <Navbar activePage="Matches" />
       <PageHero
-        subtitle="BROWSE BY MATCH · CONTENT TYPE · SEASON"
+        subtitle="BROWSE BY GAME · CONTENT FORMAT · COLLECTION"
         title="Our Matches"
+        bgImage="/images/matches-hero-bg.jpg"
       />
 
       {/* Page Body */}
       <div className="bg-white flex flex-col md:flex-row items-start w-full flex-1">
         {/* Filter Sidebar */}
         <ScrollSection as="aside" animation="fade-right"
-          className="bg-white border-b md:border-b-0 md:border-r border-[#f0f0f0] flex flex-col gap-8 items-start px-6 md:px-8 py-8 md:py-10 w-full md:w-[260px] shrink-0 md:self-stretch"
+          className="bg-white border-b md:border-b-0 md:border-r border-border-light flex flex-col gap-8 items-start px-6 md:px-8 py-8 md:py-10 w-full md:w-[260px] shrink-0 md:self-stretch"
         >
           {/* Match Filter */}
           <div className="flex flex-col gap-3 items-start w-full" role="radiogroup" aria-label="Filter by match range">
-            <span className="text-[#888] text-[11px] tracking-[1px] font-medium" id="match-filter-label">
+            <span className="text-muted text-[11px] tracking-[1px] font-medium" id="match-filter-label">
               MATCH
             </span>
             {matchFilters.map((f) => {
@@ -130,7 +66,7 @@ export default function Matches() {
                   onClick={() => setActiveFilter(f.label)}
                   role="radio"
                   aria-checked={isActive}
-                  className={`flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer transition-colors duration-200 ${isActive ? "bg-[#16161d]" : "hover:bg-[#f7f7f7]"
+                  className={`flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer transition-colors duration-200 ${isActive ? "bg-dark" : "hover:bg-dark/5"
                     }`}
                 >
                   <div className="flex gap-2 items-center">
@@ -142,13 +78,13 @@ export default function Matches() {
                     <span
                       className={`text-[13px] ${isActive
                           ? "font-medium text-white"
-                          : "text-[#666]"
+                          : "text-dark/60"
                         }`}
                     >
                       {f.label}
                     </span>
                   </div>
-                  <span className="text-[#888] text-[11px]">
+                  <span className="text-muted text-[11px]">
                     {f.count}
                   </span>
                 </button>
@@ -156,16 +92,34 @@ export default function Matches() {
             })}
           </div>
 
-          {/* Content Type Filter */}
+          {/* Content Format Filter */}
           <div className="flex flex-col gap-3 items-start w-full mt-2">
-            <span className="text-[#888] text-[11px] tracking-[1px] font-medium">
-              CONTENT TYPE
+            <span className="text-muted text-[11px] tracking-[1px] font-medium">
+              CONTENT FORMAT
             </span>
-            <div className="border border-[#f0f0f0] flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-[#f7f7f7] transition-colors duration-200">
-              <span className="text-[#16161d] text-[13px]">
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
                 Rally Breakdowns
               </span>
-              <span className="text-[#888] text-[11px]">6</span>
+              <span className="text-muted text-[11px]">4</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Game Recaps
+              </span>
+              <span className="text-muted text-[11px]">5</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Player Spotlights
+              </span>
+              <span className="text-muted text-[11px]">1</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Side-by-Side Matchups
+              </span>
+              <span className="text-muted text-[11px]">2</span>
             </div>
           </div>
         </ScrollSection>
@@ -173,19 +127,19 @@ export default function Matches() {
         {/* Timeline Main */}
         <main className="flex flex-1 flex-col items-start min-w-0 px-6 md:px-12 py-8 md:py-10">
           {/* Timeline Header */}
-          <div className="border-b border-[#f0f0f0] flex items-center justify-between pb-6 w-full">
-            <span className="text-[#888] text-[11px] tracking-[1px] font-medium">
-              TIMELINE — 2026 SEASON
+          <div className="border-b border-border-light flex items-center justify-between pb-6 w-full">
+            <span className="text-muted text-[11px] tracking-[1px] font-medium">
+              ALL COLLECTIONS — 2025/2026 SEASON
             </span>
             <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
-              <span className="text-[#16161d] text-[11px] font-medium">Newest first</span>
-              <ChevronDown size={14} className="text-[#16161d]" aria-hidden="true" />
+              <span className="text-dark text-[11px] font-medium">Newest first</span>
+              <ChevronDown size={14} className="text-dark" aria-hidden="true" />
             </div>
           </div>
 
           {/* Timeline Items */}
           {filteredItems.length === 0 ? (
-            <div className="flex w-full items-center justify-center py-20 text-[#888] text-[14px]" role="status">
+            <div className="flex w-full items-center justify-center py-20 text-muted text-[14px]" role="status">
               No matches found for this category.
             </div>
           ) : (
@@ -196,15 +150,15 @@ export default function Matches() {
                   as="article"
                   animation="fade-up"
                   delay={i * 80}
-                  className={`flex gap-4 md:gap-6 items-start py-7 w-full ${i > 0 ? "border-t border-[#f0f0f0]" : ""
+                  className={`flex gap-4 md:gap-6 items-start py-7 w-full ${i > 0 ? "border-t border-border-light" : ""
                     }`}
                 >
                   {/* Date */}
                   <div className="hidden md:flex flex-col gap-[2px] items-end w-[72px] shrink-0">
-                    <time className="text-[#888] text-[11px] tracking-[0.5px]">
+                    <time className="text-muted text-[11px] tracking-[0.5px]">
                       {item.date}
                     </time>
-                    <span className="text-[#ccc] text-[10px] font-medium">{item.year}</span>
+                    <span className="text-dark/20 text-[10px] font-medium">{item.year}</span>
                   </div>
 
                   {/* Timeline Dot & Line */}
@@ -225,16 +179,16 @@ export default function Matches() {
                         fill="white"
                       />
                     </svg>
-                    <div className="bg-[#f0f0f0] flex-1 w-px -mt-[2px]" />
+                    <div className="bg-border-light flex-1 w-px -mt-[2px]" />
                   </div>
 
                   {/* Card */}
                   <Link
                     href={item.link}
-                    className="border border-[#e0e0e0] flex flex-col sm:flex-row flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+                    className="border border-border flex flex-col sm:flex-row flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
                   >
                     <div
-                      className="bg-[#ccc] h-[180px] sm:h-[140px] w-full sm:w-[200px] shrink-0 group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                      className="bg-dark/20 h-[180px] sm:h-[140px] w-full sm:w-[200px] shrink-0 group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
                       style={{ backgroundImage: `url('${item.image}')` }}
                       role="img"
                       aria-label={item.title}
@@ -249,20 +203,31 @@ export default function Matches() {
                               {item.badge}
                             </span>
                           </div>
-                          <span className="text-[#888] text-[10px] md:hidden">{item.date} {item.year}</span>
+                          <span className="text-muted text-[10px] md:hidden">{item.date} {item.year}</span>
                         </div>
-                        <p className="font-medium text-[#16161d] text-[15px] tracking-[-0.3px] line-clamp-1">
+                        <p className="font-medium text-dark text-[15px] tracking-[-0.3px] line-clamp-1">
                           {item.title}
                         </p>
-                        <p className="text-[#666] text-[13px] w-full line-clamp-2">
+                        <p className="text-dark/60 text-[13px] w-full line-clamp-2">
                           {item.description}
                         </p>
                       </div>
-                      <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-[#f0f0f0]">
-                        <span className="text-[#888] font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
+                      <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-border-light">
+                        <div className="flex gap-3 items-center flex-wrap">
+                          <span className="text-muted font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
+                          <span className={`text-[9px] font-medium px-2 py-[2px] rounded-full border ${
+                            item.result === "Win"
+                              ? "bg-emerald-500/10 text-emerald-600 border-emerald-200"
+                              : item.result === "Loss"
+                              ? "bg-red-500/10 text-red-600 border-red-200"
+                              : "bg-primary/10 text-primary border-primary/20"
+                          }`}>
+                            {item.result} {item.score}
+                          </span>
+                        </div>
                         <div className="flex gap-[6px] items-center">
-                          <span className="text-[#1b4fd8] font-medium text-[12px]">Watch</span>
-                          <ArrowRight size={14} className="text-[#1b4fd8] transition-transform duration-200 group-hover:translate-x-1" />
+                          <span className="text-primary font-medium text-[12px]">Watch</span>
+                          <ArrowRight size={14} className="text-primary transition-transform duration-200 group-hover:translate-x-1" />
                         </div>
                       </div>
                     </div>
