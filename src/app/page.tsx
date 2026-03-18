@@ -12,7 +12,7 @@ const episodes = [
     description: "A heartbreaker told from both sides of the court. Two perspectives on the same match — what went wrong, what almost went right.",
     meta: "EP 1 · 8 min",
     image: "/images/home-ep1-blocks.png",
-    link: "/stories/the-close-call"
+    link: "/stories?story=the-close-call"
   },
   {
     badge: "MINI FILM",
@@ -21,7 +21,7 @@ const episodes = [
     description: "Coming back from sitting cold, the engines turned on just in time. A rivalry match told through momentum swings and bench reactions.",
     meta: "EP 2 · 10 min",
     image: "/images/home-ep2-spike.png",
-    link: "/stories/rivalry-night"
+    link: "/stories?story=rivalry-night"
   },
   {
     badge: "FULL STORY",
@@ -30,7 +30,7 @@ const episodes = [
     description: "Losing the first set 10–25, nobody expected what came next. A rotation switch and a timeout speech that rewrote the season narrative.",
     meta: "EP 4 · 12 min",
     image: "/images/home-ep3-game.png",
-    link: "/stories/the-comeback"
+    link: "/stories?story=the-comeback"
   },
   {
     badge: "TACTICAL FILM",
@@ -39,7 +39,7 @@ const episodes = [
     description: "How do you attack when the block is unbeatable? Tip shots, roll shots, and the missed serve that ended it all.",
     meta: "EP 3 · 7 min",
     image: "/images/home-ep4-ironwall.jpg",
-    link: "/stories/iron-wall"
+    link: "/stories?story=iron-wall"
   },
 ];
 

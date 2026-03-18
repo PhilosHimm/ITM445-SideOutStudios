@@ -15,12 +15,30 @@ import {
   Clock,
   Calendar,
 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { stories } from "@/lib/stories";
 import type { Story } from "@/lib/stories";
 
-export default function Stories() {
-  const [activeStoryId, setActiveStoryId] = useState(stories[0].id);
+function StoriesContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const storyParam = searchParams.get("story");
+
+  const initialStoryId = stories.find(s => s.id === storyParam)?.id || stories[0].id;
+  const [activeStoryId, setActiveStoryId] = useState(initialStoryId);
+
+  useEffect(() => {
+    if (storyParam && stories.find(s => s.id === storyParam)) {
+      setActiveStoryId(storyParam);
+    }
+  }, [storyParam]);
+
+  const handleStoryChange = (id: string) => {
+    setActiveStoryId(id);
+    router.push(`/stories?story=${id}`, { scroll: false });
+  };
+
   const story = stories.find((s) => s.id === activeStoryId) as Story;
 
   // Perspective toggle
@@ -132,7 +150,7 @@ export default function Stories() {
               return (
                 <button
                   key={s.id}
-                  onClick={() => setActiveStoryId(s.id)}
+                  onClick={() => handleStoryChange(s.id)}
                   aria-current={isActive ? "page" : undefined}
                   className={`flex gap-3 items-start p-3 rounded-[4px] w-full cursor-pointer transition-all duration-200 text-left ${
                     isActive ? "bg-dark" : "hover:bg-dark/5"
@@ -554,5 +572,13 @@ export default function Stories() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function Stories() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <StoriesContent />
+    </Suspense>
   );
 }

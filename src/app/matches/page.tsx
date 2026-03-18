@@ -10,10 +10,10 @@ import { useState } from "react";
 import { games } from "@/lib/games";
 
 const matchFilters = [
-  { label: "All Matches", count: 12 },
-  { label: "Game 1–4", count: 4 },
-  { label: "Game 5–8", count: 4 },
-  { label: "Game 9–12", count: 4 },
+  { label: "All Matches", count: 5 },
+  { label: "Game 1–4", count: 2 },
+  { label: "Game 5–8", count: 1 },
+  { label: "Game 9–12", count: 2 },
 ];
 
 const timelineItems = games.map((g) => ({
@@ -102,27 +102,27 @@ export default function Matches() {
             </span>
             <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
               <span className="text-dark text-[13px]">
-                Rally Breakdowns
-              </span>
-              <span className="text-muted text-[11px]">4</span>
-            </div>
-            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
-              <span className="text-dark text-[13px]">
                 Game Recaps
               </span>
-              <span className="text-muted text-[11px]">5</span>
+              <span className="text-muted text-[11px]">2</span>
             </div>
             <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
               <span className="text-dark text-[13px]">
-                Player Spotlights
+                Rally Breakdowns
               </span>
               <span className="text-muted text-[11px]">1</span>
             </div>
             <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
               <span className="text-dark text-[13px]">
-                Side-by-Side Matchups
+                Tactical Films
               </span>
-              <span className="text-muted text-[11px]">2</span>
+              <span className="text-muted text-[11px]">1</span>
+            </div>
+            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
+              <span className="text-dark text-[13px]">
+                Season Finales
+              </span>
+              <span className="text-muted text-[11px]">1</span>
             </div>
           </div>
         </ScrollSection>
@@ -132,7 +132,7 @@ export default function Matches() {
           {/* Timeline Header */}
           <div className="border-b border-border-light flex items-center justify-between pb-6 w-full">
             <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              MATCH ARCHIVE — 2025/2026 SEASON
+              STORY MATCHES — 2025/2026 SEASON
             </span>
             <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-dark text-[11px] font-medium">Newest first</span>
