@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Calendar, Clock, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollSection from "@/components/ScrollSection";
-import GameSidebar from "@/components/GameSidebar";
 import { games, getGame, getPrevNext } from "@/lib/games";
 
 export async function generateStaticParams() {
@@ -28,177 +27,301 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
 
   const { prev, next } = getPrevNext(slug);
 
-  const resultColor =
-    game.result === "Win"
-      ? "bg-emerald-500/10 text-emerald-600 border-emerald-200"
-      : game.result === "Loss"
-      ? "bg-red-500/10 text-red-600 border-red-200"
-      : "bg-primary/10 text-primary border-primary/20";
+  const isWin = game.result === "Win";
+  const isLoss = game.result === "Loss";
+
+  const resultBg = isWin
+    ? "bg-emerald-500"
+    : isLoss
+    ? "bg-red-500"
+    : "bg-primary";
+
+  const resultAccent = isWin
+    ? "border-emerald-500"
+    : isLoss
+    ? "border-red-500"
+    : "border-primary";
 
   return (
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
       <Navbar activePage="Matches" />
 
-      {/* Hero */}
+      {/* ── 1. SCOREBOARD HEADER ─────────────────────────────────────────── */}
       <section
-        aria-label={game.title}
-        className="bg-dark h-[300px] md:h-[380px] overflow-clip relative flex flex-col w-full"
+        aria-label={`${game.title} scoreboard`}
+        className={`relative w-full overflow-hidden border-b-4 ${resultAccent}`}
       >
+        {/* Background texture: hero image at very low opacity */}
         <div
           className="absolute inset-0 bg-cover bg-center scale-105"
           style={{ backgroundImage: `url('${game.heroImage}')` }}
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-dark/75" aria-hidden="true" />
+        <div className="absolute inset-0 bg-[#080808]/90" aria-hidden="true" />
 
-        {/* Back breadcrumb */}
-        <div className="absolute top-0 left-0 px-6 md:px-16 pt-6 z-10">
+        {/* Breadcrumb */}
+        <div className="relative z-10 px-6 md:px-16 pt-6">
           <Link
             href="/matches"
-            className="flex gap-2 items-center text-white/60 hover:text-white transition-colors duration-200 group"
+            className="inline-flex gap-2 items-center text-white/40 hover:text-white/80 transition-colors duration-200 group"
           >
-            <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-1" />
-            <span className="text-[12px] font-medium tracking-[1px]">ALL MATCHES</span>
+            <ArrowLeft size={13} className="transition-transform duration-200 group-hover:-translate-x-1" />
+            <span className="text-[11px] font-medium tracking-[1.5px]">ALL MATCHES</span>
           </Link>
         </div>
 
-        {/* Hero content */}
-        <div className="absolute bottom-0 left-0 flex flex-col gap-3 items-start px-6 md:px-16 pb-10 z-10">
-          <div className="flex gap-2 items-center flex-wrap">
-            <div className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${game.badgeClass}`}>
-              <span className="font-medium text-[9px] tracking-[1.5px]">{game.badge}</span>
+        {/* Scoreboard content */}
+        <div className="relative z-10 px-6 md:px-16 pt-6 pb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+
+          {/* Left: game info */}
+          <div className="flex flex-col gap-3">
+            <div className="flex gap-2 items-center flex-wrap">
+              <div className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${game.badgeClass}`}>
+                <span className="font-medium text-[9px] tracking-[1.5px]">{game.badge}</span>
+              </div>
+              <span className="text-white/30 text-[11px] font-medium tracking-[1px]">
+                GAME {game.number}
+              </span>
             </div>
-            <span className="text-white/50 text-[11px] font-medium tracking-[1px]">
-              GAME {game.number} · {game.date} {game.year}
-            </span>
+            <h1 className="font-light text-[32px] md:text-[52px] text-white tracking-[-2px] leading-[1.05]">
+              {game.title}
+            </h1>
+            <div className="flex gap-4 items-center flex-wrap mt-1">
+              <div className="flex gap-1.5 items-center">
+                <Calendar size={12} className="text-white/30" />
+                <span className="text-white/50 text-[12px]">{game.date}, {game.year}</span>
+              </div>
+              <div className="flex gap-1.5 items-center">
+                <Clock size={12} className="text-white/30" />
+                <span className="text-white/50 text-[12px]">{game.duration}</span>
+              </div>
+            </div>
           </div>
-          <h1 className="font-light text-[36px] md:text-[56px] text-white tracking-[-2px] leading-[1]">
-            {game.title}
-          </h1>
-          <p className="text-white/70 text-[14px] max-w-[560px]">{game.description}</p>
+
+          {/* Right: scoreboard panel */}
+          <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
+            {/* Win / Loss badge */}
+            <div className={`${resultBg} px-4 py-1.5 rounded-[3px]`}>
+              <span className="text-white text-[11px] font-bold tracking-[3px]">
+                {game.result === "Win" ? "WIN" : game.result === "Loss" ? "LOSS" : "UPCOMING"}
+              </span>
+            </div>
+
+            {/* Score */}
+            <div className="flex flex-col items-start md:items-end gap-0.5">
+              <span className="text-white text-[64px] md:text-[80px] font-bold tracking-[-4px] leading-none tabular-nums">
+                {game.score}
+              </span>
+              <span className="text-white/40 text-[12px] tracking-[1px] font-medium">
+                vs. {game.opponent.toUpperCase()}
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Game Metadata Bar */}
-      <div className="bg-dark/5 border-b border-border-light flex flex-wrap gap-6 items-center px-6 md:px-16 py-4 w-full">
-        <div className="flex gap-2 items-center">
-          <Trophy size={14} className="text-primary" aria-hidden="true" />
-          <span className="text-dark/60 text-[12px]">vs. {game.opponent}</span>
-        </div>
-        <div className="flex gap-2 items-center">
-          <span
-            className={`border px-3 py-[3px] rounded-full text-[11px] font-medium ${resultColor}`}
-          >
-            {game.result} {game.score}
-          </span>
-        </div>
-        <div className="flex gap-2 items-center">
-          <Calendar size={14} className="text-muted" aria-hidden="true" />
-          <span className="text-dark/60 text-[12px]">{game.date}, {game.year}</span>
-        </div>
-        <div className="flex gap-2 items-center">
-          <Clock size={14} className="text-muted" aria-hidden="true" />
-          <span className="text-dark/60 text-[12px]">{game.duration}</span>
-        </div>
-      </div>
+      {/* ── Main content ────────────────────────────────────────────────── */}
+      <div className="w-full flex-1">
 
-      {/* Main Content */}
-      <div className="flex flex-col md:flex-row items-start w-full flex-1">
+        <main className="flex flex-col gap-12 px-6 md:px-16 py-10 w-full">
 
-        {/* Left: Highlights */}
-        <main className="flex flex-col gap-10 flex-1 min-w-0 px-6 md:px-16 py-10">
-
-          {/* Placeholder Video Thumbnail */}
+          {/* ── 2. HERO IMAGE COLLAGE ───────────────────────────────────── */}
           <ScrollSection animation="fade-up">
-            <div
-              className="relative w-full rounded-[4px] overflow-hidden bg-dark/10"
-              style={{ aspectRatio: "16/9" }}
-            >
+            <div className="grid grid-cols-3 grid-rows-2 gap-2 rounded-[4px] overflow-hidden h-[260px] md:h-[340px]">
+              {/* Main image — spans 2 cols × 2 rows */}
               <div
-                className="absolute inset-0 bg-cover bg-center"
+                className="col-span-2 row-span-2 bg-cover bg-center bg-dark/20"
                 style={{ backgroundImage: `url('${game.heroImage}')` }}
                 role="img"
-                aria-label={`${game.title} video thumbnail`}
+                aria-label={`${game.title} — hero image`}
               />
-              <div className="absolute inset-0 bg-dark/50" aria-hidden="true" />
-              {/* Play button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-primary/90 hover:bg-primary transition-colors duration-200 cursor-pointer rounded-full w-16 h-16 flex items-center justify-center shadow-xl group">
-                  <svg
-                    width="20"
-                    height="22"
-                    viewBox="0 0 20 22"
-                    fill="none"
-                    aria-hidden="true"
-                    className="ml-1 group-hover:scale-110 transition-transform duration-200"
-                  >
-                    <path d="M2 2L18 11L2 20V2Z" fill="white" />
-                  </svg>
+              {/* Side thumbnails */}
+              {game.highlights.slice(0, 2).map((h, i) => (
+                <div
+                  key={i}
+                  className="relative bg-cover bg-center bg-dark/20 overflow-hidden group"
+                  style={{ backgroundImage: `url('${h.image}')` }}
+                  role="img"
+                  aria-label={h.title}
+                >
+                  <div className="absolute inset-0 bg-dark/40 group-hover:bg-dark/20 transition-colors duration-300" />
+                  <div className="absolute bottom-0 left-0 p-2">
+                    <span className="text-white/80 text-[9px] font-medium leading-tight line-clamp-1">{h.title}</span>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </ScrollSection>
+
+          {/* ── 3. MATCH SUMMARY ────────────────────────────────────────── */}
+          <ScrollSection animation="fade-up" delay={60}>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-1">
+                <span className="text-primary font-medium text-[10px] tracking-[3px]">MATCH SUMMARY</span>
+                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Game Overview</h2>
               </div>
-              <div className="absolute bottom-4 left-4">
-                <span className="bg-dark/70 text-white text-[11px] font-medium px-2 py-1 rounded">
-                  Game Recap · {game.duration}
-                </span>
+
+              <p className="text-dark/70 text-[15px] leading-relaxed max-w-[780px]">
+                {game.matchSummary}
+              </p>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+                {game.stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="border border-border rounded-[4px] flex flex-col items-center justify-center py-4 px-3 gap-1"
+                  >
+                    <span className="text-[28px] font-bold text-dark tracking-[-1.5px] leading-none tabular-nums">
+                      {stat.value}
+                    </span>
+                    <span className="text-[10px] font-medium text-dark/40 tracking-[1.5px]">
+                      {stat.label.toUpperCase()}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </ScrollSection>
 
-          {/* Key Moments */}
+          {/* ── 4. SET-BY-SET BREAKDOWN ─────────────────────────────────── */}
           <ScrollSection animation="fade-up" delay={80}>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">RALLY BREAKDOWN</span>
-                <h2 className="font-light text-dark text-[28px] tracking-[-1px]">Key Rallies & Highlights</h2>
+                <span className="text-primary font-medium text-[10px] tracking-[3px]">SET BREAKDOWN</span>
+                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Set-by-Set Analysis</h2>
               </div>
 
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3">
+                {game.sets.map((set, i) => {
+                  const setWon = set.result === "Won";
+                  return (
+                    <ScrollSection key={set.setNumber} animation="fade-up" delay={i * 70} as="div">
+                      <div className={`rounded-[4px] overflow-hidden border ${setWon ? "border-emerald-200" : "border-red-200"}`}>
+                        {/* Set header */}
+                        <div
+                          className={`flex items-center justify-between px-5 py-3 ${
+                            setWon ? "bg-emerald-50" : "bg-red-50"
+                          }`}
+                        >
+                          <span className="font-semibold text-dark text-[13px] tracking-[-0.3px]">
+                            Set {set.setNumber}
+                          </span>
+                          <div className="flex items-center gap-3">
+                            <span className="text-[22px] font-bold text-dark tracking-[-1.2px] leading-none tabular-nums">
+                              {set.ourScore}–{set.theirScore}
+                            </span>
+                            <span
+                              className={`text-[9px] font-bold tracking-[1.5px] px-2 py-[3px] rounded-[2px] ${
+                                setWon ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
+                              }`}
+                            >
+                              {set.result === "Won" ? "WON" : "LOST"}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Score bar */}
+                        <div className="h-1.5 w-full bg-dark/5">
+                          <div
+                            className={`h-full ${setWon ? "bg-emerald-400" : "bg-red-400"} transition-all`}
+                            style={{
+                              width: `${Math.round(
+                                (set.ourScore / (set.ourScore + set.theirScore)) * 100
+                              )}%`,
+                            }}
+                          />
+                        </div>
+
+                        {/* Bullets */}
+                        <ul className="flex flex-col gap-2 px-5 py-4">
+                          {set.bullets.map((bullet, bi) => (
+                            <li key={bi} className="flex items-start gap-2.5 text-[13px] text-dark/65 leading-snug">
+                              <span className={`mt-[3px] text-[8px] ${setWon ? "text-emerald-500" : "text-red-400"}`}>
+                                ●
+                              </span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </ScrollSection>
+                  );
+                })}
+              </div>
+            </div>
+          </ScrollSection>
+
+          {/* ── 5. ACTION GALLERY ───────────────────────────────────────── */}
+          <ScrollSection animation="fade-up" delay={60}>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-1">
+                <span className="text-primary font-medium text-[10px] tracking-[3px]">ACTION GALLERY</span>
+                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Freeze Frames</h2>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {game.highlights.map((h, i) => (
-                  <ScrollSection
-                    key={h.title}
-                    as="article"
-                    animation="fade-up"
-                    delay={i * 80}
-                    className="border border-border flex flex-col sm:flex-row items-start rounded-[4px] overflow-hidden group hover:border-[#aaa] hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                  >
-                    <div
-                      className="bg-dark/10 h-[160px] sm:h-[120px] w-full sm:w-[180px] shrink-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                      style={{ backgroundImage: `url('${h.image}')` }}
-                      role="img"
-                      aria-label={h.title}
-                    />
-                    <div className="flex flex-col gap-2 items-start justify-center p-5 flex-1">
-                      <div className="flex gap-3 items-center">
-                        <span className="bg-dark text-white text-[9px] font-medium tracking-[1px] px-2 py-[3px] rounded-[2px]">
+                  <ScrollSection key={h.title} animation="fade-up" delay={i * 60} as="article">
+                    <div className="relative rounded-[4px] overflow-hidden group" style={{ aspectRatio: "4/3" }}>
+                      <div
+                        className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+                        style={{ backgroundImage: `url('${h.image}')` }}
+                        role="img"
+                        aria-label={h.title}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark/85 via-dark/20 to-transparent" />
+
+                      {/* Timestamp chip */}
+                      <div className="absolute top-3 left-3">
+                        <span className="bg-dark/70 text-white/80 text-[9px] font-medium tracking-[0.5px] px-2 py-[3px] rounded-[2px]">
                           {h.timestamp}
                         </span>
-                        <p className="font-medium text-dark text-[14px] tracking-[-0.3px]">{h.title}</p>
                       </div>
-                      <p className="text-dark/60 text-[13px]">{h.description}</p>
+
+                      {/* Caption */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3">
+                        <p className="text-white text-[12px] font-medium leading-tight">{h.title}</p>
+                        <p className="text-white/65 text-[11px] mt-0.5 leading-tight line-clamp-2">
+                          {h.description}
+                        </p>
+                      </div>
                     </div>
                   </ScrollSection>
                 ))}
               </div>
             </div>
           </ScrollSection>
+
+          {/* ── 6. STORY CTA ────────────────────────────────────────────── */}
+          <ScrollSection animation="fade-up" delay={40}>
+            <div
+              className={`relative rounded-[4px] overflow-hidden border-l-4 ${resultAccent} bg-dark/[0.03] px-6 py-7 flex flex-col sm:flex-row sm:items-center gap-5 justify-between`}
+            >
+              <div className="flex flex-col gap-1.5 max-w-[420px]">
+                <span className="text-primary font-medium text-[10px] tracking-[3px]">SIDE-OUT STORY</span>
+                <p className="text-dark text-[16px] font-medium leading-snug tracking-[-0.3px]">
+                  Relive the drama — watch the Side-Out Story for this match
+                </p>
+                <p className="text-dark/50 text-[13px]">
+                  The full narrative vlog: behind-the-scenes moments, player reactions, and the story the score doesn't tell.
+                </p>
+              </div>
+              <Link
+                href={game.storyLink}
+                className="inline-flex items-center gap-2 bg-dark text-white px-5 py-3 rounded-[3px] text-[13px] font-medium hover:bg-dark/80 transition-colors duration-200 shrink-0 group"
+              >
+                <span>Watch the Story</span>
+                <ExternalLink size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              </Link>
+            </div>
+          </ScrollSection>
+
         </main>
 
-        {/* Sidebar: Poll + Audio + Comments */}
-        <ScrollSection as="div" animation="fade-left" className="w-full md:w-[280px] shrink-0">
-          <GameSidebar
-            pollQuestion={game.pollQuestion}
-            pollOptionLabels={game.pollOptionLabels}
-            pollVotes={game.pollVotes}
-            audioTitle={game.audioTitle}
-            commentPrompt={game.commentPrompt}
-            sampleComment={game.sampleComment}
-            gameNumber={game.number}
-            totalGames={games.length}
-          />
-        </ScrollSection>
       </div>
 
-      {/* Prev / Next Navigation */}
+      {/* ── PREV / NEXT NAVIGATION ──────────────────────────────────────── */}
       <ScrollSection
         animation="fade-up"
         className="border-t border-border-light flex flex-col sm:flex-row items-stretch w-full"

@@ -10,6 +10,14 @@ export interface GameStat {
   value: string;
 }
 
+export interface GameSet {
+  setNumber: number;
+  ourScore: number;
+  theirScore: number;
+  result: "Won" | "Lost";
+  bullets: string[];
+}
+
 export interface Game {
   slug: string;
   number: number;
@@ -22,12 +30,15 @@ export interface Game {
   badge: string;
   badgeClass: string;
   description: string;
+  matchSummary: string;
   heroImage: string;
   category: "Game 1–4" | "Game 5–8" | "Game 9–12";
   duration: string;
   highlights: GameHighlight[];
+  sets: GameSet[];
   stats: GameStat[];
   keyPlayers: string[];
+  storyLink: string;
   pollQuestion: string;
   pollOptionLabels: string[];
   pollVotes: number[];
@@ -60,6 +71,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "60-second match summary from the first intramural game: score, key plays, and MVP moment. A close-fought three-setter that set the tone.",
+    matchSummary:
+      "The season opener was anything but easy — Team Spike pushed us to three sets with relentless passing and timely blocks. We weathered an uneven Set 2 where our offense stalled, before regrouping for a nerve-wracking Set 3 finish. Philos' 23–23 dig was the defining play of the night, keeping the rally alive when everything was on the line.",
     heroImage: "/images/home-ep3-game.png",
     category: "Game 1–4",
     duration: "38 min",
@@ -83,6 +96,41 @@ export const games: Game[] = [
         timestamp: "34:10",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 22,
+        result: "Won",
+        bullets: [
+          "Kevin's opening jump serve ace set an aggressive tone from point one",
+          "Clean serve-receive through the middle gave us consistent transition attacks",
+          "Closed out the set on a stuff block that silenced their outside hitter",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 18,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Three back-to-back service errors handed them free points early",
+          "Their setter found the seams in our block repeatedly",
+          "We couldn't convert in-system attacks — offense stalled completely",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 15,
+        theirScore: 13,
+        result: "Won",
+        bullets: [
+          "Philos' platform dig at 23–23 kept the rally alive when we needed it most",
+          "Defensive composure held under match pressure in the final points",
+          "Closed it out with a kill down the line — season first W secured",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "14" },
       { label: "Blocks", value: "6" },
@@ -90,6 +138,7 @@ export const games: Game[] = [
       { label: "Digs", value: "18" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "What was the turning point against Team Spike?",
     pollOptionLabels: ["Kevin's opening serve ace", "Set 2 stuff block", "Philos' 23–23 dig"],
     pollVotes: [98, 72, 131],
@@ -114,6 +163,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "Top 5 rallies with slow-mo replays and arrow overlays showing Kevin's blocking positioning. A dominant two-set victory.",
+    matchSummary:
+      "Against Net Ninjas we were in control from the very first rotation — our blocking system was airtight and our serve pressure was relentless. Kevin recorded five blocks on the night as we limited the opposition to just 9 points in Set 2. The straight-set win was arguably our most complete team performance of the early season.",
     heroImage: "/images/home-ep1-blocks.png",
     category: "Game 1–4",
     duration: "30 min",
@@ -137,6 +188,30 @@ export const games: Game[] = [
         timestamp: "28:40",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 16,
+        result: "Won",
+        bullets: [
+          "A 7-0 closing run — back-to-back blocks completely demoralized their offense",
+          "Kevin read their outside hitter's approach angle perfectly all set",
+          "Triple-digit percentage on serve-receive kept us in system every rally",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 9,
+        result: "Won",
+        bullets: [
+          "Held Net Ninjas to 9 points — a season-best defensive set",
+          "Kevin's three-ace corner serve streak broke their rhythm completely",
+          "Full-extension outside kill closed it — the cleanest finish of the season",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "18" },
       { label: "Blocks", value: "9" },
@@ -144,6 +219,7 @@ export const games: Game[] = [
       { label: "Digs", value: "12" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Best rally of the Blocks Masterclass?",
     pollOptionLabels: ["The 7-0 Set 1 shutout run", "Kevin's triple ace streak", "Match point full-extension spike"],
     pollVotes: [145, 88, 63],
@@ -168,6 +244,8 @@ export const games: Game[] = [
     badgeClass: "border border-primary text-primary",
     description:
       "Score, key plays, and MVP moment from a heartbreaker. Came back from sitting cold, started slow in Set 3 and couldn't close it out.",
+    matchSummary:
+      "Setter's Edge exposed our cold-start weakness early — three unforced errors in the first five points put us in a hole we never fully escaped in Set 1. We fought back brilliantly in Set 2 with a 10-3 run, only to watch Set 3 slip away at 13–15. A one-point margin in the final set was brutal, but the tactical adjustments we found mid-match gave us a blueprint for next time.",
     heroImage: "/images/matches-tc1.jpg",
     category: "Game 1–4",
     duration: "45 min",
@@ -191,6 +269,41 @@ export const games: Game[] = [
         timestamp: "42:55",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 17,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Three early unforced errors in the first five points — cold-start damage we couldn't undo",
+          "Their setter found the corners of our block while we were still warming up mentally",
+          "Down 5-0 within the first three minutes — never recovered the opening deficit",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 20,
+        result: "Won",
+        bullets: [
+          "Timeout at 0-5 sparked an immediate 10-3 run — the team responded perfectly",
+          "Serve pressure finally materialized and forced three reception errors",
+          "Closed the set with confidence — momentum was fully on our side heading into Set 3",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 13,
+        theirScore: 15,
+        result: "Lost",
+        bullets: [
+          "Neck and neck all the way — never more than 2 points separated at any stage",
+          "13-all was the pivot — nerves crept in at the worst possible moment",
+          "One missed serve was the difference — a lesson in closing out tight sets",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "11" },
       { label: "Blocks", value: "4" },
@@ -198,6 +311,7 @@ export const games: Game[] = [
       { label: "Digs", value: "22" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Where did the match slip away?",
     pollOptionLabels: ["Cold start errors in Set 1", "Set 3 nerves at 13-all", "Never recovered the momentum"],
     pollVotes: [124, 85, 42],
@@ -222,6 +336,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "Coming back from sitting got us cold. Started off slow but the engines turned on just in time for the rivalry match.",
+    matchSummary:
+      "Nobody likes coming in cold for a rivalry match — and Set 1 showed exactly why, with three service errors in the first five points. But once the engines finally turned on in Set 2, this was a different team entirely. Philos' back-to-back kills sparked a run we never gave back, and a match-clinching solo block at the net sent the crowd home talking.",
     heroImage: "/images/matches-tc1.jpg",
     category: "Game 1–4",
     duration: "45 min",
@@ -245,6 +361,41 @@ export const games: Game[] = [
         timestamp: "43:00",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 18,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Three service errors in the opening five points — sitting cold with zero warm-up time",
+          "Rivalry FC smelled blood and ran a 6-0 run before we could recalibrate",
+          "Physically and mentally not present for the first set — pure cold-start damage",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 20,
+        result: "Won",
+        bullets: [
+          "Philos' back-to-back left-side kills were the spark — energy shifted completely",
+          "Serve pressure finally activated and forced Rivalry FC into passive receive",
+          "Closed the set with a mini 5-0 run — momentum was fully flipped",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 15,
+        theirScore: 11,
+        result: "Won",
+        bullets: [
+          "Never looked back after the Set 2 energy swing — owned this set from the start",
+          "Tight serving kept them out of system throughout the final set",
+          "Kevin's solo stuff block at the net sealed it — loudest moment of the rivalry match",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "16" },
       { label: "Blocks", value: "7" },
@@ -252,6 +403,7 @@ export const games: Game[] = [
       { label: "Digs", value: "20" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "When did you know the comeback was on?",
     pollOptionLabels: ["Philos' back-to-back kills", "Right after the first timeout", "That match-clinching block"],
     pollVotes: [109, 57, 83],
@@ -276,6 +428,8 @@ export const games: Game[] = [
     badgeClass: "bg-dark text-white",
     description:
       "A masterclass in defensive volleyball. The team held the opposition to single digits in both sets with elite reading of the game.",
+    matchSummary:
+      "Block Party came in with a strong attack game, but we were simply unbreakable at the back. Our reading of the game was at its peak — every transition dug, every angle covered — and Kevin's triple block in Set 2 was the highlight of the night. Holding an opponent to 9 points in a set at this level is extraordinary, and it's a benchmark we've set for ourselves going forward.",
     heroImage: UNSPLASH.dig,
     category: "Game 5–8",
     duration: "28 min",
@@ -299,6 +453,30 @@ export const games: Game[] = [
         timestamp: "25:00",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 14,
+        result: "Won",
+        bullets: [
+          "Every transition ball dug cleanly — platform passing was textbook all set",
+          "Our reading of Block Party's attack patterns was ahead of them all night",
+          "Closed the set comfortably — the defense gave the offense an easy job",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 9,
+        result: "Won",
+        bullets: [
+          "All three front-row players timed the triple block perfectly — roofed a hard-driven ball",
+          "9 points allowed — a season-best defensive set, possibly an intramural record",
+          "Block Party called two timeouts to break the momentum, but there was no stopping this defense",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "12" },
       { label: "Blocks", value: "11" },
@@ -306,6 +484,7 @@ export const games: Game[] = [
       { label: "Digs", value: "28" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Most impressive defensive play of the clinic?",
     pollOptionLabels: ["The all-three-players triple block", "Libero's platform dig series", "Set 2 shutout to single digits"],
     pollVotes: [77, 103, 61],
@@ -330,6 +509,8 @@ export const games: Game[] = [
     badgeClass: "bg-dark text-white",
     description:
       "Compare two players' approaches to the same plays from Game 6. Side-by-side perspective toggle showing set plays and tactical adjustments.",
+    matchSummary:
+      "Serve & Volley had a sophisticated system and it showed in a competitive Set 2 where they outplayed us tactically. But the key adjustment — introducing the back-row pipe combination in Set 3 — opened up angles their block simply couldn't cover. The surprise setter dump in Set 2 was pure improvisation, but it might have been the play that saved the match.",
     heroImage: UNSPLASH.court,
     category: "Game 5–8",
     duration: "40 min",
@@ -353,6 +534,41 @@ export const games: Game[] = [
         timestamp: "35:00",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 21,
+        result: "Won",
+        bullets: [
+          "The pipe combination opened up Set 1 — a back-row attack their block had no answer for",
+          "Our serve-receive was clean and allowed the setter to work multiple attack options",
+          "Won the set by staying disciplined in transition — no flashy plays needed",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 20,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Serve & Volley's tactical system dismantled our serve-receive in the middle rotations",
+          "The surprise setter dump — though brilliant — came in a lost set where the deficit was too large",
+          "Couldn't find answers for their angle attacks — gave back the tactical edge we'd built",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 15,
+        theirScore: 10,
+        result: "Won",
+        bullets: [
+          "Introduced a new serve-receive formation to counter their serving zones — worked immediately",
+          "Aces in the 5th and 6th rotations broke the set open",
+          "Closed it out tactically rather than on power — the most cerebral win of the season",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "15" },
       { label: "Blocks", value: "5" },
@@ -360,6 +576,7 @@ export const games: Game[] = [
       { label: "Digs", value: "17" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "What play best showed the tactical edge?",
     pollOptionLabels: ["The back-row pipe combination", "The surprise setter dump", "Serve-receive system domination"],
     pollVotes: [66, 138, 49],
@@ -384,6 +601,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "How the team's strategy evolved mid-game — before and after dropping the first set 10–25. See the adjustments that led to an improbable comeback.",
+    matchSummary:
+      "Losing Set 1 by 15 points — 10–25 — is the kind of scoreline that breaks teams. This team used it as a reset. The halftime adjustment to a 6-2 rotation in Set 2 unlocked the back-row attack and completely changed the dynamic. Winning Set 3 15–12 after being down 8–12 is the kind of result you look back on at the end of a season.",
     heroImage: UNSPLASH.team,
     category: "Game 5–8",
     duration: "50 min",
@@ -407,6 +626,41 @@ export const games: Game[] = [
         timestamp: "47:30",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 10,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "10–25 — the scoreline says everything. Iron Setters were dominant in every phase",
+          "Our serve-receive broke down early and never recovered across the full set",
+          "Timeout conversations at 5-18 couldn't arrest the slide — the set was already gone",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 18,
+        result: "Won",
+        bullets: [
+          "Switching to 6-2 rotation unlocked the back-row attack — their block couldn't adjust",
+          "The team came out with a different energy entirely — the Set 1 collapse became the fuel",
+          "Won the set convincingly — a complete tactical and emotional turnaround",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 15,
+        theirScore: 12,
+        result: "Won",
+        bullets: [
+          "Down 8–12 with the match slipping away — back-to-back kills brought it back to 10–12",
+          "A 7-0 run from that moment was arguably the best stretch of volleyball we've played all season",
+          "15–12 final — one of the most memorable wins in Side-Out Studios history",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "19" },
       { label: "Blocks", value: "8" },
@@ -414,6 +668,7 @@ export const games: Game[] = [
       { label: "Digs", value: "24" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "What turned the match around after Set 1?",
     pollOptionLabels: ["Switching to the 6-2 rotation", "The team's timeout talk", "Sheer willpower and momentum"],
     pollVotes: [112, 91, 74],
@@ -438,6 +693,8 @@ export const games: Game[] = [
     badgeClass: "border border-dark text-dark",
     description:
       "A tough straight-set loss to a disciplined defensive team. The opposition's serve-receive was airtight and we couldn't create offense.",
+    matchSummary:
+      "The Diggers had a game plan and executed it flawlessly — their float serve exposed every gap in our receive formation and we never found a fix. The rare 5-1 run late in Set 2 showed we had the offense, but by then the deficit was too steep to overcome. This loss was a valuable midseason reality check about what happens when we can't create offense from serve-receive.",
     heroImage: UNSPLASH.dig,
     category: "Game 5–8",
     duration: "32 min",
@@ -461,6 +718,30 @@ export const games: Game[] = [
         timestamp: "29:50",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 15,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "The Diggers' float serve hit our seams from point one — three mishandled balls in the first seven points",
+          "Out-of-system attacks gifted them easy digs and transition kills",
+          "Never found a rhythm — a messy, passive set that set the wrong tone",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 17,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Multiple in-system attacks stuffed at the net — they read our patterns before we set them",
+          "The 5-1 run late was promising but came when the gap was already 10+ points",
+          "Couldn't create offense — serve-receive never gave the setter a clean ball all set",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "9" },
       { label: "Blocks", value: "3" },
@@ -468,6 +749,7 @@ export const games: Game[] = [
       { label: "Digs", value: "16" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Biggest issue against The Diggers?",
     pollOptionLabels: ["Their serve pressure all match", "Our transition attack breakdown", "Couldn't create offense at all"],
     pollVotes: [95, 58, 72],
@@ -492,6 +774,8 @@ export const games: Game[] = [
     badgeClass: "border border-dark text-dark",
     description:
       "Best moments from a breakout intramural performance — 12 kills and zero errors — with a quick post-game audio interview.",
+    matchSummary:
+      "12 kills and zero attack errors in two sets — a stat line that simply doesn't show up at the intramural level. Against Fresh Cuts, everything clicked offensively: the full-extension aerial outside kill was the visual peak, but the zero-error discipline across 35 minutes was the real story. This was a performance that sets a standard for what consistent high-level play looks like for this program.",
     heroImage: UNSPLASH.spike,
     category: "Game 9–12",
     duration: "35 min",
@@ -515,6 +799,30 @@ export const games: Game[] = [
         timestamp: "33:00",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 17,
+        result: "Won",
+        bullets: [
+          "6 kills in Set 1, zero errors — the efficiency was immediately apparent",
+          "The aerial outside kill at 14:35 was the defining image of the whole match",
+          "Fresh Cuts doubled their block coverage but couldn't stop the attack angle",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 14,
+        result: "Won",
+        bullets: [
+          "6 more kills in Set 2 — the second half was just as clinical as the first",
+          "Zero errors across the full match — a number that will stand in this team's record books",
+          "Sealed it with a jump-float ace straight down the line — an exclamation point finish",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "20" },
       { label: "Blocks", value: "5" },
@@ -522,6 +830,7 @@ export const games: Game[] = [
       { label: "Digs", value: "14" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Best moment of the breakout performance?",
     pollOptionLabels: ["The full 12-kill zero-error night", "That aerial outside spike", "Closing ace straight down the line"],
     pollVotes: [84, 117, 55],
@@ -546,6 +855,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "Top rallies from the nail-biting final set with slow-mo replays and freeze-frame annotations. Down 10–14, the team clawed back to win 17–15.",
+    matchSummary:
+      "Surviving four match points is the kind of story that only happens in volleyball — one point separating a loss from one of the season's best wins. Against Set Point, we were done at 10–14. A back-to-back ace sequence started the comeback, a block fueled the momentum, and a corner line kill to close at 17–15 was the perfect ending. That composure under pressure is something you can't script.",
     heroImage: UNSPLASH.block,
     category: "Game 9–12",
     duration: "30 min",
@@ -569,6 +880,41 @@ export const games: Game[] = [
         timestamp: "28:55",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 20,
+        result: "Won",
+        bullets: [
+          "Controlled Set 1 through strong serve pressure and clean transition",
+          "Set Point's offense was dangerous but we covered the angles well throughout",
+          "Won the set efficiently — no sign of what was about to happen in Set 3",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 18,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Set Point flipped the script — their serving unlocked our serve-receive weaknesses",
+          "Multiple stuffed attacks when we were in system, which broke our offensive confidence",
+          "Dropped the set cleanly — it was heading to a deciding third set",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 17,
+        theirScore: 15,
+        result: "Won",
+        bullets: [
+          "Down 10–14, facing match point four separate times — mental fortitude on display",
+          "Back-to-back aces started the 7-1 run that pulled us level at 14–14",
+          "Corner line kill at 17–15 — the most dramatic finish of the season",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "22" },
       { label: "Blocks", value: "6" },
@@ -576,6 +922,7 @@ export const games: Game[] = [
       { label: "Digs", value: "21" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Down 10-14 facing match point — which play saved it?",
     pollOptionLabels: ["The back-to-back aces", "The momentum-shifting block", "Corner line shot to close it out"],
     pollVotes: [153, 88, 102],
@@ -600,6 +947,8 @@ export const games: Game[] = [
     badgeClass: "bg-dark text-white",
     description:
       "Down one set, digging deep to work around the Iron Wall in front of us. A close loss that had playoff implications.",
+    matchSummary:
+      "Iron Wall FC's middle blocker was a force of nature — 7 blocks across two sets is extraordinary, and it shut down our power game entirely. The tip-shot adjustment in Set 2 worked beautifully, taking us to a deciding third set. But one missed serve at a critical moment in Set 3 was the difference, and the playoff implications of the loss made it sting even more.",
     heroImage: "/images/home-ep4-ironwall.jpg",
     category: "Game 9–12",
     duration: "40 min",
@@ -623,6 +972,41 @@ export const games: Game[] = [
         timestamp: "38:45",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 18,
+        theirScore: 25,
+        result: "Lost",
+        bullets: [
+          "Their middle blocker recorded 7 blocks in the first two sets — impenetrable in front of us",
+          "Every power attack was roofed or deflected — we had no answer for their closing speed",
+          "Needed to adjust to tips and roll shots much sooner — waited too long to change approach",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 21,
+        result: "Won",
+        bullets: [
+          "The tip-shot adjustment paid off immediately — their blocker couldn't cover height and angle simultaneously",
+          "Roll shots over the block opened up the court and gave us clean attack angles",
+          "Won the set with tactical discipline — force and power abandoned in favor of craft",
+        ],
+      },
+      {
+        setNumber: 3,
+        ourScore: 13,
+        theirScore: 15,
+        result: "Lost",
+        bullets: [
+          "A tight, hard-fought set where either team could have taken it",
+          "One missed serve in a critical rotation opened the door for their closing run",
+          "Fell short 13–15 — the playoff implications made this two-point loss especially painful",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "13" },
       { label: "Blocks", value: "4" },
@@ -630,6 +1014,7 @@ export const games: Game[] = [
       { label: "Digs", value: "19" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Could the Iron Wall result have been different?",
     pollOptionLabels: ["Gone to tip attacks earlier", "Better serve execution in Set 3", "More angle shots, less power"],
     pollVotes: [79, 112, 65],
@@ -654,6 +1039,8 @@ export const games: Game[] = [
     badgeClass: "bg-primary text-white",
     description:
       "The final regular-season match. A focused, sharp performance to close the season — back-to-back sets won 25–18 and 25–20.",
+    matchSummary:
+      "Everything clicked in the season finale — the 6-1 opening run set the tone, and from there the team never looked back. Five straight aces in Set 2 is the kind of run that breaks opponents mentally, and Top Seeds had no response. Going out on a straight-set win against the second seed in the table was the perfect way to close the regular season and head into the postseason with momentum.",
     heroImage: UNSPLASH.team,
     category: "Game 9–12",
     duration: "36 min",
@@ -677,6 +1064,30 @@ export const games: Game[] = [
         timestamp: "34:50",
       },
     ],
+    sets: [
+      {
+        setNumber: 1,
+        ourScore: 25,
+        theirScore: 18,
+        result: "Won",
+        bullets: [
+          "6-1 opening run — put Top Seeds on the back foot from the very first rotation",
+          "Clean serving and tight blocking made it impossible for them to build momentum",
+          "Controlled the set wire-to-wire — exactly the focused finish to the regular season we wanted",
+        ],
+      },
+      {
+        setNumber: 2,
+        ourScore: 25,
+        theirScore: 20,
+        result: "Won",
+        bullets: [
+          "Five consecutive aces in Set 2 — Top Seeds called back-to-back timeouts and still couldn't stop it",
+          "The serve run was the defining sequence of the season — unstoppable and relentless",
+          "Finished 25–20 — the season's last kill celebrated by the whole squad on court",
+        ],
+      },
+    ],
     stats: [
       { label: "Kills", value: "17" },
       { label: "Blocks", value: "8" },
@@ -684,6 +1095,7 @@ export const games: Game[] = [
       { label: "Digs", value: "15" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    storyLink: "/stories",
     pollQuestion: "Best moment of the season finale?",
     pollOptionLabels: ["The 6-1 tone-setting opening run", "Five straight aces in Set 2", "The season-closing kill on court"],
     pollVotes: [68, 201, 94],
