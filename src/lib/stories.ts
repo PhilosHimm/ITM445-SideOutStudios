@@ -9,10 +9,9 @@ export interface Story {
   badge: string;
   badgeClass: string;
   thumbnail: string;
-  videoSrc: string;
   perspectives: {
-    kevin: { videoTitle: string; annotation: string };
-    philos: { videoTitle: string; annotation: string };
+    kevin: { videoSrc: string; videoTitle: string; annotation: string };
+    philos: { videoSrc: string; videoTitle: string; annotation: string };
   };
   pollQuestion: string;
   pollOptions: { id: number; text: string; votes: number }[];
@@ -42,15 +41,16 @@ export const stories: Story[] = [
     duration: "8 min",
     badge: "RALLY BREAKDOWN",
     badgeClass: "bg-primary text-white",
-    thumbnail: "/images/matches-tc1.jpg",
-    videoSrc: "https://www.youtube.com/embed/iUhOZtCDKFU",
+    thumbnail: "/images/home-ep1-blocks.png",
     perspectives: {
       kevin: {
+        videoSrc: "https://www.youtube.com/embed/aLdXLZdsfak",
         videoTitle: "Game 3 — Kevin's Top Rallies",
         annotation:
           "Kevin focuses on the block timing and outside approach that kept the defense honest all game. His read on the Set 2 timeout was key to the momentum shift.",
       },
       philos: {
+        videoSrc: "https://www.youtube.com/embed/DNlXPZYeoTY",
         videoTitle: "Game 3 — Philos' Top Rallies",
         annotation:
           "Philos breaks down the passing lanes and backcourt coverage that set up every transition kill. The final rally dig was instinct, not plan.",
@@ -81,15 +81,16 @@ export const stories: Story[] = [
     duration: "10 min",
     badge: "MINI FILM",
     badgeClass: "bg-dark text-white",
-    thumbnail: "/images/matches-tc1.jpg",
-    videoSrc: "https://www.youtube.com/embed/iUhOZtCDKFU",
+    thumbnail: "/images/home-ep2-spike.png",
     perspectives: {
       kevin: {
+        videoSrc: "https://www.youtube.com/embed/VYSpun0kbFk",
         videoTitle: "Game 4 — Kevin's Rivalry Breakdown",
         annotation:
           "Kevin walks through the adjustment at the net that turned the momentum — moving from power to placement after the first-set struggles.",
       },
       philos: {
+        videoSrc: "https://www.youtube.com/embed/c4wmyrfkQZA",
         videoTitle: "Game 4 — Philos' Rivalry Breakdown",
         annotation:
           "Philos covers the backcourt chaos of Set 1 and the calm that settled in once the back-to-back kills started flowing in Set 2.",
@@ -121,14 +122,15 @@ export const stories: Story[] = [
     badge: "TACTICAL FILM",
     badgeClass: "border border-dark text-dark",
     thumbnail: "/images/home-ep4-ironwall.jpg",
-    videoSrc: "https://www.youtube.com/embed/iUhOZtCDKFU",
     perspectives: {
       kevin: {
+        videoSrc: "https://www.youtube.com/embed/jaq5Wmt0ba8",
         videoTitle: "Game 11 — Kevin on the Iron Wall",
         annotation:
           "Kevin breaks down the blocking scheme that shut down the outside attack, and why switching to tips in Set 2 was the only way through.",
       },
       philos: {
+        videoSrc: "https://www.youtube.com/embed/msPx8K2Qab4",
         videoTitle: "Game 11 — Philos on the Iron Wall",
         annotation:
           "Philos covers the defensive reads that kept rallies alive despite the wall, and the serve execution that ultimately decided the match.",
@@ -159,15 +161,16 @@ export const stories: Story[] = [
     duration: "12 min",
     badge: "FULL STORY",
     badgeClass: "bg-primary text-white",
-    thumbnail: UNSPLASH.team,
-    videoSrc: "https://www.youtube.com/embed/iUhOZtCDKFU",
+    thumbnail: "/images/home-ep3-game.png",
     perspectives: {
       kevin: {
+        videoSrc: "https://www.youtube.com/embed/1Pf28g-Bwmo",
         videoTitle: "Game 7 — Kevin's Comeback Story",
         annotation:
           "Kevin recounts the timeout talk that changed the energy, and how switching to the 6-2 opened up back-row attacks that the Iron Setters weren't ready for.",
       },
       philos: {
+        videoSrc: "https://www.youtube.com/embed/MpimG5SzwKU",
         videoTitle: "Game 7 — Philos' Comeback Story",
         annotation:
           "Philos walks through the defensive adjustments that turned a blowout into a dogfight — and the composure needed to close out Set 3 from 8–12 down.",
@@ -181,8 +184,7 @@ export const stories: Story[] = [
     ],
     audioTitle: "Game 7 — Comeback Story Audio",
     audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-    commentPrompt:
-      "Down 10-25 in Set 1 — would you have believed the comeback?",
+    commentPrompt: "Down 10-25 in Set 1 — would you have believed the comeback?",
     sampleComment: {
       text: "Losing 10-25 and then coming all the way back is genuinely unhinged.",
       author: "SetterFanatico",
@@ -200,14 +202,15 @@ export const stories: Story[] = [
     badge: "SEASON FINALE",
     badgeClass: "bg-dark text-white",
     thumbnail: UNSPLASH.court,
-    videoSrc: "https://www.youtube.com/embed/iUhOZtCDKFU",
     perspectives: {
       kevin: {
+        videoSrc: "https://www.youtube.com/embed/F9PHyzQSmZs",
         videoTitle: "Game 12 — Kevin's Season Wrap",
         annotation:
           "Kevin reflects on the 6-1 opening run that set the tone and the five-ace streak that became the defining moment of the season.",
       },
       philos: {
+        videoSrc: "https://www.youtube.com/embed/1whmR-Zz97s",
         videoTitle: "Game 12 — Philos' Season Wrap",
         annotation:
           "Philos covers the emotional side — the final kill, the on-court celebration, and what this season meant for Side-Out Studios as a project.",
@@ -231,4 +234,12 @@ export const stories: Story[] = [
 
 export function getStory(id: string): Story | undefined {
   return stories.find((s) => s.id === id);
+}
+
+export function getPrevNextStory(id: string): { prev: Story | null; next: Story | null } {
+  const idx = stories.findIndex((s) => s.id === id);
+  return {
+    prev: idx > 0 ? stories[idx - 1] : null,
+    next: idx < stories.length - 1 ? stories[idx + 1] : null,
+  };
 }

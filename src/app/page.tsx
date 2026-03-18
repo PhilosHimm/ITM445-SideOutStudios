@@ -8,38 +8,38 @@ const episodes = [
   {
     badge: "RALLY BREAKDOWN",
     badgeClass: "bg-primary text-white",
-    title: "Best Rallies — Game 2 Round Robin",
-    description: "Top 5 rallies with slow-mo replays, freeze-frame annotations, and positioning breakdowns.",
-    meta: "Game 2 · Highlights",
+    title: "The Close Call",
+    description: "A heartbreaker told from both sides of the court. Two perspectives on the same match — what went wrong, what almost went right.",
+    meta: "EP 1 · 8 min",
     image: "/images/home-ep1-blocks.png",
-    link: "/stories"
+    link: "/stories/the-close-call"
   },
   {
-    badge: "PLAYER SPOTLIGHT",
+    badge: "MINI FILM",
     badgeClass: "bg-dark text-white",
-    title: "Kevin — The Ace Machine",
-    description: "Best moments from intramural and league play, plus a quick post-game interview.",
-    meta: "Game 2 · Spotlight",
+    title: "Rivalry Night",
+    description: "Coming back from sitting cold, the engines turned on just in time. A rivalry match told through momentum swings and bench reactions.",
+    meta: "EP 2 · 10 min",
     image: "/images/home-ep2-spike.png",
-    link: "/stories"
+    link: "/stories/rivalry-night"
   },
   {
-    badge: "GAME RECAP",
-    badgeClass: "border border-primary text-primary",
-    title: "Game 1 — Season Opener Recap",
-    description: "60-second match summary: score, key plays, and MVP moment from the first intramural game.",
-    meta: "Game 1 · 90 sec",
+    badge: "FULL STORY",
+    badgeClass: "bg-primary text-white",
+    title: "Down 10–25",
+    description: "Losing the first set 10–25, nobody expected what came next. A rotation switch and a timeout speech that rewrote the season narrative.",
+    meta: "EP 4 · 12 min",
     image: "/images/home-ep3-game.png",
-    link: "/matches"
+    link: "/stories/the-comeback"
   },
   {
-    badge: "SIDE-BY-SIDE",
-    badgeClass: "bg-dark text-white",
-    title: "The Iron Wall — Perspective Matchup",
-    description: "Compare two players' approaches to the same block using the perspective toggle feature.",
-    meta: "Playoff · Comparison",
+    badge: "TACTICAL FILM",
+    badgeClass: "border border-dark text-dark",
+    title: "The Iron Wall",
+    description: "How do you attack when the block is unbeatable? Tip shots, roll shots, and the missed serve that ended it all.",
+    meta: "EP 3 · 7 min",
     image: "/images/home-ep4-ironwall.jpg",
-    link: "/matches"
+    link: "/stories/iron-wall"
   },
 ];
 
