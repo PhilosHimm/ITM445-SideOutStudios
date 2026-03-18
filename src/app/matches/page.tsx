@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import ScrollSection from "@/components/ScrollSection";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Calendar, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { games } from "@/lib/games";
@@ -29,6 +29,9 @@ const timelineItems = games.map((g) => ({
   category: g.category,
   result: g.result,
   score: g.score,
+  opponent: g.opponent,
+  recapLine: g.recapLine,
+  number: g.number,
 }));
 
 export default function Matches() {
@@ -42,7 +45,7 @@ export default function Matches() {
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
       <Navbar activePage="Matches" />
       <PageHero
-        subtitle="BROWSE BY GAME · CONTENT FORMAT · COLLECTION"
+        subtitle="BROWSE BY GAME · COMPARE RESULTS · VIEW RECAPS"
         title="Our Matches"
         bgImage="/images/matches-hero-bg.jpg"
       />
@@ -129,7 +132,7 @@ export default function Matches() {
           {/* Timeline Header */}
           <div className="border-b border-border-light flex items-center justify-between pb-6 w-full">
             <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              ALL COLLECTIONS — 2025/2026 SEASON
+              MATCH ARCHIVE — 2025/2026 SEASON
             </span>
             <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-dark text-[11px] font-medium">Newest first</span>
@@ -182,51 +185,84 @@ export default function Matches() {
                     <div className="bg-border-light flex-1 w-px -mt-[2px]" />
                   </div>
 
-                  {/* Card */}
+                  {/* Recap Card */}
                   <Link
                     href={item.link}
-                    className="border border-border flex flex-col sm:flex-row flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+                    className="border border-border flex flex-col flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
                   >
-                    <div
-                      className="bg-dark/20 h-[180px] sm:h-[140px] w-full sm:w-[200px] shrink-0 group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${item.image}')` }}
-                      role="img"
-                      aria-label={item.title}
-                    />
-                    <div className="flex flex-1 flex-col sm:h-[140px] items-start justify-between min-w-0 p-5 bg-white z-10">
-                      <div className="flex flex-col gap-2 items-start w-full">
-                        <div className="flex gap-2 items-center">
-                          <div
-                            className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${item.badgeClass}`}
-                          >
-                            <span className="font-medium text-[9px] text-center tracking-[1.5px]">
-                              {item.badge}
-                            </span>
-                          </div>
-                          <span className="text-muted text-[10px] md:hidden">{item.date} {item.year}</span>
-                        </div>
-                        <p className="font-medium text-dark text-[15px] tracking-[-0.3px] line-clamp-1">
-                          {item.title}
-                        </p>
-                        <p className="text-dark/60 text-[13px] w-full line-clamp-2">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-between w-full mt-2 pt-3 border-t border-border-light">
-                        <div className="flex gap-3 items-center flex-wrap">
-                          <span className="text-muted font-medium uppercase tracking-[1px] text-[10px]">{item.meta}</span>
-                          <span className={`text-[9px] font-medium px-2 py-[2px] rounded-full border ${
-                            item.result === "Win"
-                              ? "bg-emerald-500/10 text-emerald-600 border-emerald-200"
-                              : item.result === "Loss"
-                              ? "bg-red-500/10 text-red-600 border-red-200"
-                              : "bg-primary/10 text-primary border-primary/20"
+                    {/* Hero Image — screenshot / recap collage */}
+                    <div className="relative w-full">
+                      <div
+                        className="h-[200px] sm:h-[220px] w-full group-hover:scale-[1.02] transition-transform duration-500 bg-cover bg-center"
+                        style={{ backgroundImage: `url('${item.image}')` }}
+                        role="img"
+                        aria-label={item.title}
+                      />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                      {/* Score overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between px-5 pb-4">
+                        <div className="flex items-center gap-3">
+                          <span className={`text-[22px] font-bold tracking-tight ${
+                            item.result === "Win" ? "text-emerald-400" : item.result === "Loss" ? "text-red-400" : "text-white"
                           }`}>
-                            {item.result} {item.score}
+                            {item.score}
+                          </span>
+                          <span className={`text-[11px] font-medium px-2 py-[3px] rounded-[2px] ${
+                            item.result === "Win"
+                              ? "bg-emerald-500/90 text-white"
+                              : item.result === "Loss"
+                              ? "bg-red-500/90 text-white"
+                              : "bg-primary/90 text-white"
+                          }`}>
+                            {item.result.toUpperCase()}
                           </span>
                         </div>
+                        <div
+                          className={`flex items-center justify-center px-2 py-[3px] rounded-[2px] ${item.badgeClass}`}
+                        >
+                          <span className="font-medium text-[9px] text-center tracking-[1.5px]">
+                            {item.badge}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="flex flex-1 flex-col items-start justify-between min-w-0 p-5 bg-white w-full gap-3">
+                      {/* Top metadata row */}
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={12} aria-hidden="true" />
+                          {item.date}, {item.year}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users size={12} aria-hidden="true" />
+                          vs {item.opponent}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Trophy size={12} aria-hidden="true" />
+                          Game {item.number}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <p className="font-medium text-dark text-[16px] tracking-[-0.3px] line-clamp-1">
+                        {item.title}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-dark/60 text-[13px] w-full line-clamp-2 leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      {/* Recap highlights & CTA */}
+                      <div className="flex items-center justify-between w-full pt-3 border-t border-border-light">
+                        <span className="text-primary/80 font-medium text-[11px] tracking-[0.5px]">
+                          {item.recapLine}
+                        </span>
                         <div className="flex gap-[6px] items-center">
-                          <span className="text-primary font-medium text-[12px]">Watch</span>
+                          <span className="text-primary font-medium text-[12px]">View recap</span>
                           <ArrowRight size={14} className="text-primary transition-transform duration-200 group-hover:translate-x-1" />
                         </div>
                       </div>

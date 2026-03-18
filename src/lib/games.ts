@@ -28,6 +28,13 @@ export interface Game {
   highlights: GameHighlight[];
   stats: GameStat[];
   keyPlayers: string[];
+  pollQuestion: string;
+  pollOptionLabels: string[];
+  pollVotes: number[];
+  audioTitle: string;
+  commentPrompt: string;
+  sampleComment: { text: string; author: string };
+  recapLine: string;
 }
 
 const UNSPLASH = {
@@ -83,6 +90,16 @@ export const games: Game[] = [
       { label: "Digs", value: "18" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "What was the turning point against Team Spike?",
+    pollOptionLabels: ["Kevin's opening serve ace", "Set 2 stuff block", "Philos' 23–23 dig"],
+    pollVotes: [98, 72, 131],
+    audioTitle: "Game 1 — Raw Post-Game Reactions",
+    commentPrompt: "Cold start or not — what would you have done in Set 3?",
+    sampleComment: {
+      text: "That 23-23 dig was literally the whole match. Season saved in a single platform.",
+      author: "SpikeFan88",
+    },
+    recapLine: "Top rally · Clutch dig at 23–23",
   },
   {
     slug: "game-2",
@@ -127,6 +144,16 @@ export const games: Game[] = [
       { label: "Digs", value: "12" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Best rally of the Blocks Masterclass?",
+    pollOptionLabels: ["The 7-0 Set 1 shutout run", "Kevin's triple ace streak", "Match point full-extension spike"],
+    pollVotes: [145, 88, 63],
+    audioTitle: "Game 2 — Kevin's Post-Block Interview",
+    commentPrompt: "Which block made you actually stand up?",
+    sampleComment: {
+      text: "Those three corner serves were completely unreadable. Net Ninjas never had a chance.",
+      author: "NetNinjaHater",
+    },
+    recapLine: "Big block · 7-0 shutout run",
   },
   {
     slug: "game-3",
@@ -171,6 +198,16 @@ export const games: Game[] = [
       { label: "Digs", value: "22" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Where did the match slip away?",
+    pollOptionLabels: ["Cold start errors in Set 1", "Set 3 nerves at 13-all", "Never recovered the momentum"],
+    pollVotes: [124, 85, 42],
+    audioTitle: "Game 3 — Honest Debrief",
+    commentPrompt: "What call would you have made at 13-all in the final set?",
+    sampleComment: {
+      text: "The rotation switch was definitely the turning point!",
+      author: "VolleyFan99",
+    },
+    recapLine: "Momentum swing · 10-3 comeback run",
   },
   {
     slug: "game-4",
@@ -215,6 +252,16 @@ export const games: Game[] = [
       { label: "Digs", value: "20" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "When did you know the comeback was on?",
+    pollOptionLabels: ["Philos' back-to-back kills", "Right after the first timeout", "That match-clinching block"],
+    pollVotes: [109, 57, 83],
+    audioTitle: "Game 4 — Rivalry Night Debrief",
+    commentPrompt: "Sitting cold all match — what's your warm-up routine?",
+    sampleComment: {
+      text: "The engines came on exactly when we needed them. That final block was LOUD.",
+      author: "RivalryWatcher",
+    },
+    recapLine: "Big block · Rivalry comeback",
   },
   {
     slug: "game-5",
@@ -259,6 +306,16 @@ export const games: Game[] = [
       { label: "Digs", value: "28" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Most impressive defensive play of the clinic?",
+    pollOptionLabels: ["The all-three-players triple block", "Libero's platform dig series", "Set 2 shutout to single digits"],
+    pollVotes: [77, 103, 61],
+    audioTitle: "Game 5 — Defensive Debrief",
+    commentPrompt: "Have you ever seen defense this dominant at the intramural level?",
+    sampleComment: {
+      text: "9 points in a set. Absolutely suffocating. Block Party had no answers.",
+      author: "BlockPartySurvivor",
+    },
+    recapLine: "Defensive clinic · 9-point shutout set",
   },
   {
     slug: "game-6",
@@ -303,6 +360,16 @@ export const games: Game[] = [
       { label: "Digs", value: "17" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "What play best showed the tactical edge?",
+    pollOptionLabels: ["The back-row pipe combination", "The surprise setter dump", "Serve-receive system domination"],
+    pollVotes: [66, 138, 49],
+    audioTitle: "Game 6 — Tactical Film Session Audio",
+    commentPrompt: "Which tactical adjustment had you shaking your head?",
+    sampleComment: {
+      text: "That setter dump was the most disrespectful play of the season. Unannounced.",
+      author: "TacticalNerd",
+    },
+    recapLine: "Tactical edge · Setter dump highlight",
   },
   {
     slug: "game-7",
@@ -347,6 +414,16 @@ export const games: Game[] = [
       { label: "Digs", value: "24" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "What turned the match around after Set 1?",
+    pollOptionLabels: ["Switching to the 6-2 rotation", "The team's timeout talk", "Sheer willpower and momentum"],
+    pollVotes: [112, 91, 74],
+    audioTitle: "Game 7 — Comeback Story Audio",
+    commentPrompt: "Down 10-25 in Set 1 — would you have believed the comeback?",
+    sampleComment: {
+      text: "Losing 10-25 and then coming all the way back is genuinely unhinged. That's this team.",
+      author: "SetterFanatico",
+    },
+    recapLine: "Comeback story · Down 10–25 to win",
   },
   {
     slug: "game-8",
@@ -391,6 +468,16 @@ export const games: Game[] = [
       { label: "Digs", value: "16" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Biggest issue against The Diggers?",
+    pollOptionLabels: ["Their serve pressure all match", "Our transition attack breakdown", "Couldn't create offense at all"],
+    pollVotes: [95, 58, 72],
+    audioTitle: "Game 8 — Honest Midseason Review",
+    commentPrompt: "What would you fix heading into the second half of the season?",
+    sampleComment: {
+      text: "Their float serve was on a completely different level. We never adjusted.",
+      author: "MidSeasonAnalyst",
+    },
+    recapLine: "Tough loss · Serve-receive exposed",
   },
   {
     slug: "game-9",
@@ -435,6 +522,16 @@ export const games: Game[] = [
       { label: "Digs", value: "14" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Best moment of the breakout performance?",
+    pollOptionLabels: ["The full 12-kill zero-error night", "That aerial outside spike", "Closing ace straight down the line"],
+    pollVotes: [84, 117, 55],
+    audioTitle: "Game 9 — Breakout Player Audio Interview",
+    commentPrompt: "Where does this breakout rank in team history?",
+    sampleComment: {
+      text: "12 kills and zero errors is a video game stat line. That kind of efficiency doesn't exist.",
+      author: "FreshCutsFan",
+    },
+    recapLine: "Breakout game · 12 kills, zero errors",
   },
   {
     slug: "game-10",
@@ -479,6 +576,16 @@ export const games: Game[] = [
       { label: "Digs", value: "21" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Down 10-14 facing match point — which play saved it?",
+    pollOptionLabels: ["The back-to-back aces", "The momentum-shifting block", "Corner line shot to close it out"],
+    pollVotes: [153, 88, 102],
+    audioTitle: "Game 10 — Final Set Thriller Debrief",
+    commentPrompt: "Four match points survived — what's going through your head at 10-14?",
+    sampleComment: {
+      text: "Four match points. Four. And they still won. That composure is something you can't coach.",
+      author: "ThrillerFanatic",
+    },
+    recapLine: "Thriller · Survived 4 match points",
   },
   {
     slug: "game-11",
@@ -523,6 +630,16 @@ export const games: Game[] = [
       { label: "Digs", value: "19" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Could the Iron Wall result have been different?",
+    pollOptionLabels: ["Gone to tip attacks earlier", "Better serve execution in Set 3", "More angle shots, less power"],
+    pollVotes: [79, 112, 65],
+    audioTitle: "Game 11 — Iron Wall Post-Game Audio",
+    commentPrompt: "How do you crack a middle blocker with 7 blocks in a set?",
+    sampleComment: {
+      text: "Tip shots worked in Set 2. Should've gone right back there in Set 3. That missed serve hurt.",
+      author: "TacticalTalk",
+    },
+    recapLine: "Iron wall · 7-block opponent",
   },
   {
     slug: "game-12",
@@ -567,6 +684,16 @@ export const games: Game[] = [
       { label: "Digs", value: "15" },
     ],
     keyPlayers: ["Kevin Lin", "Philos Himm"],
+    pollQuestion: "Best moment of the season finale?",
+    pollOptionLabels: ["The 6-1 tone-setting opening run", "Five straight aces in Set 2", "The season-closing kill on court"],
+    pollVotes: [68, 201, 94],
+    audioTitle: "Game 12 — Season Wrap Audio",
+    commentPrompt: "What's the one thing you take away from this season?",
+    sampleComment: {
+      text: "Five aces in a row to close out the season. That's the stuff of legends right there.",
+      author: "SeasonFan2025",
+    },
+    recapLine: "Season closer · 5 straight aces",
   },
 ];
 

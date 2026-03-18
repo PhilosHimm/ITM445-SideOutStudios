@@ -92,27 +92,7 @@ export default function Home() {
           </div>
         </ScrollSection>
 
-        {/* Stats Bar */}
-        <div className="absolute bg-dark/90 backdrop-blur-sm flex gap-[10px] h-[72px] items-center left-0 px-6 md:px-16 top-[488px] w-full border-t border-white/10">
-          {[
-            { value: "12", label: "MATCHES" },
-            { value: "24K", label: "VIEWS" },
-            { value: "9", label: "CONTENT TYPES" },
-            { value: "2026", label: "SEASON" },
-          ].map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-[10px]">
-              {i > 0 && <div className="bg-[#666] h-[32px] w-px" aria-hidden="true" />}
-              <div className="flex flex-col gap-[2px] items-center px-4 hover:scale-105 transition-transform duration-200">
-                <span className="font-light text-[32px] text-white tracking-[-1px]">
-                  {stat.value}
-                </span>
-                <span className="font-medium text-muted text-[9px] tracking-[2px]">
-                  {stat.label}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+
       </section>
 
       {/* Episodes Section */}

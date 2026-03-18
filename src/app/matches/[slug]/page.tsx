@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Calendar, Clock, Trophy } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollSection from "@/components/ScrollSection";
+import GameSidebar from "@/components/GameSidebar";
 import { games, getGame, getPrevNext } from "@/lib/games";
 
 export async function generateStaticParams() {
@@ -182,68 +183,18 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
           </ScrollSection>
         </main>
 
-        {/* Sidebar: Stats + Players */}
-        <ScrollSection
-          as="aside"
-          animation="fade-left"
-          className="border-t md:border-t-0 md:border-l border-border-light flex flex-col gap-8 px-6 md:px-8 py-10 w-full md:w-[280px] shrink-0"
-        >
-          {/* Stats */}
-          <div className="flex flex-col gap-4">
-            <span className="text-muted text-[11px] tracking-[1px] font-medium">MATCH STATS</span>
-            <div className="grid grid-cols-2 gap-3">
-              {game.stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="border border-border-light flex flex-col gap-1 items-center justify-center py-4 rounded-[4px] hover:border-primary/30 hover:bg-primary/5 transition-colors duration-200"
-                >
-                  <span className="font-light text-dark text-[32px] tracking-[-1px]">{s.value}</span>
-                  <span className="text-muted text-[9px] font-medium tracking-[1.5px] uppercase">{s.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Key Players */}
-          <div className="flex flex-col gap-4">
-            <span className="text-muted text-[11px] tracking-[1px] font-medium">KEY PLAYERS</span>
-            <div className="flex flex-col gap-2">
-              {game.keyPlayers.map((player) => (
-                <div
-                  key={player}
-                  className="border border-border-light flex gap-3 items-center px-4 py-3 rounded-[4px]"
-                >
-                  <div className="bg-primary/10 flex h-8 w-8 items-center justify-center rounded-full shrink-0">
-                    <span className="text-primary font-medium text-[12px]">
-                      {player.split(" ").map((n) => n[0]).join("")}
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-[2px]">
-                    <span className="text-dark font-medium text-[13px]">{player}</span>
-                    <span className="text-muted text-[10px]">OUTSIDE HITTER</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Season Progress */}
-          <div className="flex flex-col gap-4">
-            <span className="text-muted text-[11px] tracking-[1px] font-medium">SEASON</span>
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center justify-between">
-                <span className="text-dark/60 text-[12px]">Game {game.number} of 12</span>
-                <span className="text-dark text-[12px] font-medium">{Math.round((game.number / 12) * 100)}%</span>
-              </div>
-              <div className="bg-border-light h-1.5 w-full rounded-full overflow-hidden">
-                <div
-                  className="bg-primary h-full rounded-full transition-all duration-500"
-                  style={{ width: `${(game.number / 12) * 100}%` }}
-                  aria-label={`Game ${game.number} of 12`}
-                />
-              </div>
-            </div>
-          </div>
+        {/* Sidebar: Poll + Audio + Comments */}
+        <ScrollSection as="div" animation="fade-left" className="w-full md:w-[280px] shrink-0">
+          <GameSidebar
+            pollQuestion={game.pollQuestion}
+            pollOptionLabels={game.pollOptionLabels}
+            pollVotes={game.pollVotes}
+            audioTitle={game.audioTitle}
+            commentPrompt={game.commentPrompt}
+            sampleComment={game.sampleComment}
+            gameNumber={game.number}
+            totalGames={games.length}
+          />
         </ScrollSection>
       </div>
 
