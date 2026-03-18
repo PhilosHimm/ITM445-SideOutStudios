@@ -1,45 +1,49 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollSection from "@/components/ScrollSection";
-import { Play, ArrowRight } from "lucide-react";
+import { Play, ArrowRight, BarChart2 } from "lucide-react";
 import Link from "next/link";
 
 const episodes = [
   {
+    type: "story" as const,
     badge: "RALLY BREAKDOWN",
     badgeClass: "bg-primary text-white",
     title: "The Close Call",
-    description: "A heartbreaker told from both sides of the court. Two perspectives on the same match — what went wrong, what almost went right.",
-    meta: "EP 1 · 8 min",
+    description: "A heartbreaker told from both sides. Two perspectives on the same match — what went wrong, what almost went right, and the rally that changed everything.",
+    meta: "Game 3 · 8 min",
     image: "/images/home-ep1-blocks.png",
     link: "/stories?story=the-close-call"
   },
   {
+    type: "story" as const,
     badge: "MINI FILM",
     badgeClass: "bg-dark text-white",
     title: "Rivalry Night",
-    description: "Coming back from sitting cold, the engines turned on just in time. A rivalry match told through momentum swings and bench reactions.",
-    meta: "EP 2 · 10 min",
+    description: "Coming back from sitting cold, the engines turned on just in time. A rivalry match told through momentum swings and the block that sealed it.",
+    meta: "Game 4 · 10 min",
     image: "/images/home-ep2-spike.png",
     link: "/stories?story=rivalry-night"
   },
   {
-    badge: "FULL STORY",
-    badgeClass: "bg-primary text-white",
-    title: "Down 10–25",
-    description: "Losing the first set 10–25, nobody expected what came next. A rotation switch and a timeout speech that rewrote the season narrative.",
-    meta: "EP 4 · 12 min",
-    image: "/images/home-ep3-game.png",
-    link: "/stories?story=the-comeback"
+    type: "recap" as const,
+    badge: "GAME RECAP",
+    badgeClass: "border border-primary text-primary",
+    title: "EP 1 — The Close Call",
+    description: "Score, key plays, and MVP moment from a heartbreaker. Came back from sitting cold, started slow in Set 3 and couldn't close it out.",
+    meta: "Game 3 · 45 min",
+    image: "/images/home-ep1-blocks.png",
+    link: "/matches/game-3"
   },
   {
+    type: "recap" as const,
     badge: "TACTICAL FILM",
     badgeClass: "border border-dark text-dark",
     title: "The Iron Wall",
     description: "How do you attack when the block is unbeatable? Tip shots, roll shots, and the missed serve that ended it all.",
-    meta: "EP 3 · 7 min",
+    meta: "Game 11 · 45 min",
     image: "/images/home-ep4-ironwall.jpg",
-    link: "/stories?story=iron-wall"
+    link: "/matches/game-11"
   },
 ];
 
@@ -145,7 +149,16 @@ export default function Home() {
                   {ep.description}
                 </p>
                 <div className="flex items-center justify-between w-full mt-auto pt-4 border-t border-border-light">
-                  <span className="text-muted font-medium text-[10px] uppercase tracking-[1px]">{ep.meta}</span>
+                  <div className="flex items-center gap-[6px]">
+                    {ep.type === "story" ? (
+                      <Play size={10} className="text-primary fill-primary" />
+                    ) : (
+                      <BarChart2 size={10} className="text-muted" />
+                    )}
+                    <span className={`font-medium text-[10px] uppercase tracking-[1px] ${ep.type === "story" ? "text-primary" : "text-muted"}`}>
+                      {ep.type === "story" ? "Watch Story" : "Match Recap"}
+                    </span>
+                  </div>
                   <ArrowRight size={14} className="text-primary transition-transform duration-200 group-hover:translate-x-1" />
                 </div>
               </div>
@@ -168,7 +181,7 @@ export default function Home() {
             Full collection: rally breakdowns, recaps, spotlights, and audio clips — all from one game
           </p>
         </div>
-        <Link href="/coming-soon" className="bg-primary flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">
+        <Link href="/stories" className="bg-primary flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">
           <Play size={16} className="text-white fill-white" />
           <span className="font-medium text-[14px] text-white">Get Notified</span>
         </Link>

@@ -20,6 +20,7 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
 
   const perspectiveData = game.perspectives?.[perspective];
   const activeSummary = perspectiveData?.summary ?? game.matchSummary;
+  const activeStats = perspectiveData?.stats ?? game.stats;
 
   return (
     <>
@@ -137,7 +138,7 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
 
               {/* Stats row */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
-                {game.stats.map((stat) => (
+                {activeStats.map((stat) => (
                   <div
                     key={stat.label}
                     className="border border-border rounded-[4px] flex flex-col items-center justify-center py-4 px-3 gap-1"
@@ -183,7 +184,11 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
 
               <div className="flex flex-col gap-3">
                 {game.sets.map((set, i) => {
-                  const setWon = set.result === "Won";
+                  const pSet = perspectiveData?.sets?.[i];
+                  const ourScore = pSet?.ourScore ?? set.ourScore;
+                  const theirScore = pSet?.theirScore ?? set.theirScore;
+                  const result = pSet?.result ?? set.result;
+                  const setWon = result === "Won";
                   return (
                     <ScrollSection key={set.setNumber} animation="fade-up" delay={i * 70} as="div">
                       <div
@@ -201,14 +206,14 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
                           </span>
                           <div className="flex items-center gap-3">
                             <span className="text-[22px] font-bold text-dark tracking-[-1.2px] leading-none tabular-nums">
-                              {set.ourScore}–{set.theirScore}
+                              {ourScore}–{theirScore}
                             </span>
                             <span
                               className={`text-[9px] font-bold tracking-[1.5px] px-2 py-[3px] rounded-[2px] ${
                                 setWon ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
                               }`}
                             >
-                              {set.result === "Won" ? "WON" : "LOST"}
+                              {setWon ? "WON" : "LOST"}
                             </span>
                           </div>
                         </div>
@@ -220,14 +225,14 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
                             } transition-all`}
                             style={{
                               width: `${Math.round(
-                                (set.ourScore / (set.ourScore + set.theirScore)) * 100
+                                (ourScore / (ourScore + theirScore)) * 100
                               )}%`,
                             }}
                           />
                         </div>
 
                         <ul className="flex flex-col gap-2 px-5 py-4">
-                          {set.bullets.map((bullet, bi) => (
+                          {(perspectiveData?.setBullets?.[i] ?? set.bullets).map((bullet, bi) => (
                             <li
                               key={bi}
                               className="flex items-start gap-2.5 text-[13px] text-dark/65 leading-snug"
@@ -283,7 +288,7 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
                       <div className="absolute bottom-0 left-0 right-0 p-3">
                         <p className="text-white text-[12px] font-medium leading-tight">{h.title}</p>
                         <p className="text-white/65 text-[11px] mt-0.5 leading-tight line-clamp-2">
-                          {h.description}
+                          {perspectiveData?.highlightNotes?.[i] ?? h.description}
                         </p>
                       </div>
                     </div>

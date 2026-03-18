@@ -21,6 +21,10 @@ export interface GameSet {
 export interface GamePerspective {
   summary: string;
   note: string;
+  stats: GameStat[];
+  highlightNotes: string[];
+  setBullets: string[][];
+  sets: Array<{ setNumber: number; ourScore: number; theirScore: number; result: "Won" | "Lost" }>;
 }
 
 export interface Game {
@@ -164,12 +168,78 @@ export const games: Game[] = [
           "From behind the camera, Set 2 was the whole story. I was tracking block timing all match and that timeout at 0-5 was a visible reset — you could see it on everyone's face. The 10-3 run that followed was the cleanest volleyball we played all game. I built the entire edit around that pivot.",
         note:
           "The final rally in Set 3 — I had the camera on the server at 13-all. I knew it was going to decide everything. You never forget those moments when you're filming them.",
+        stats: [
+          { label: "Kills", value: "6" },
+          { label: "Blocks", value: "3" },
+          { label: "Aces", value: "1" },
+          { label: "Digs", value: "9" },
+        ],
+        highlightNotes: [
+          "Caught the cold start from the sideline — three errors in five points while he was still adjusting the camera angle.",
+          "Kevin's outside swing at 5-all was the kill that locked in the 10-3 run — he shot the replay afterward on a second camera.",
+          "Filmed the final rally from behind the baseline. The footage shows the server's hesitation at 13-all before the miss.",
+        ],
+        setBullets: [
+          [
+            "Kevin's first set was spent adjusting — two of the three unforced errors came off his side of the court",
+            "His block timing was a half-step late all set, letting their setter find the seams",
+            "Pulled the camera during a dead ball at 3-12 to capture the body language on the bench",
+          ],
+          [
+            "Two kills in the 10-3 run including a cross-court shot that broke the opposition's block scheme",
+            "Kevin's block at 18-15 forced a timeout and shifted the momentum completely",
+            "His serve pressure in the last three rotations forced two reception errors",
+          ],
+          [
+            "Steady side-out play through 13-all — didn't make an error in Set 3",
+            "Had the camera on the server during the decisive miss — footage became the episode's closing shot",
+            "Finished with zero attack errors in the final set, but it wasn't enough to close",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 20, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 19, result: "Won" },
+          { setNumber: 3, ourScore: 15, theirScore: 13, result: "Won" },
+        ],
       },
       philos: {
         summary:
           "I remember every point of Set 3 from 13-all. We had the momentum, we had the energy — and then one missed serve handed it back. The dig on match point was pure instinct, no thought behind it. We were so close it still stings.",
         note:
           "Cold start errors in Set 1 were on me. I should have been moving my feet earlier — the three unforced errors that put us in a hole came from complacency in the warm-up zone.",
+        stats: [
+          { label: "Kills", value: "5" },
+          { label: "Blocks", value: "1" },
+          { label: "Aces", value: "1" },
+          { label: "Digs", value: "13" },
+        ],
+        highlightNotes: [
+          "Philos' footwork was slow in the opening rotations — the cold start hit the backcourt hardest.",
+          "The dig-to-kill transition at 15-12 was Philos at his best — instinct over technique.",
+          "Philos was the last one touching the ball on the final rally, with a desperation dig that kept the point alive for two more contacts.",
+        ],
+        setBullets: [
+          [
+            "Cold legs from the warm-up zone — Philos' first three passes went long and out of system",
+            "Backcourt coverage was a step behind all set, letting balls drop between zones",
+            "Acknowledge after the set: 'I wasn't moving my feet — that's on me'",
+          ],
+          [
+            "Philos' back-row attack at 10-8 was the highlight — a line shot that nobody read",
+            "Defensive digs kept four rallies alive during the 10-3 run that changed the match",
+            "Closed the set with a kill from the left side that brought the team energy up completely",
+          ],
+          [
+            "Seven digs in Set 3 alone — every rally went through Philos in the backcourt",
+            "The desperation dig at match point was pure reflex — dove full-extension and popped it up",
+            "One missed serve at 13-all was the turning point — a serve Philos had been making all set",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 15, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 22, result: "Won" },
+          { setNumber: 3, ourScore: 13, theirScore: 15, result: "Lost" },
+        ],
       },
     },
   },
@@ -270,12 +340,78 @@ export const games: Game[] = [
           "I had the camera pointed at Philos specifically when those two left-side kills landed — I'd been watching him find his range all Set 1 and knew something was about to shift. The solo block that closed the match was the moment the court erupted. That footage alone made the whole night worth filming.",
         note:
           "Rivalry matches are the hardest to film. The energy is different, the light is harsh, and you're also trying to play. But those back-to-back kills — I caught both on camera. Still my favourite clip of the season.",
+        stats: [
+          { label: "Kills", value: "8" },
+          { label: "Blocks", value: "5" },
+          { label: "Aces", value: "2" },
+          { label: "Digs", value: "7" },
+        ],
+        highlightNotes: [
+          "Kevin was one of the service-error culprits — two misses in the first five points while cold from the bench.",
+          "His block read improved drastically in Set 2 — three solo blocks shut down Rivalry FC's middle attack.",
+          "The match-clinching stuff block was Kevin's — a clean solo read that sent the crowd home.",
+        ],
+        setBullets: [
+          [
+            "Two of the three service errors were Kevin's — cold hands from the bench and no warm-up tosses",
+            "His blocking was a beat slow all set, giving Rivalry FC easy angles through the seam",
+            "Filmed the timeout talk between sets — the frustration on camera became part of the story edit",
+          ],
+          [
+            "Three solo blocks at the net completely shut down their middle attack in Set 2",
+            "Kevin's cross-court kill at 20-16 extended the run and kept pressure on their backcourt",
+            "Serve placement improved — two aces targeting short zone 1 that Rivalry FC couldn't handle",
+          ],
+          [
+            "Kevin owned the net in Set 3 — two more blocks kept them out of rhythm throughout",
+            "The match-clinching stuff block was a solo read on their outside hitter — loudest moment of the night",
+            "Finished with 5 total blocks — his best defensive performance of the season",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 16, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 17, result: "Won" },
+          { setNumber: 3, ourScore: 25, theirScore: 12, result: "Won" },
+        ],
       },
       philos: {
         summary:
           "Both kills in Set 2 came from the same read — I saw their outside blocker cheating inside and went line. First one was a test. Second one I already knew it was there before I jumped. From that point the match was ours. Kevin's block to close it was the loudest moment I've been part of all season.",
         note:
           "Set 1 was rough. Sitting cold, coming straight in — my legs weren't under me and three service errors in five points is brutal. But I've learned to trust the process: sometimes Set 1 is just warm-up.",
+        stats: [
+          { label: "Kills", value: "8" },
+          { label: "Blocks", value: "2" },
+          { label: "Aces", value: "2" },
+          { label: "Digs", value: "13" },
+        ],
+        highlightNotes: [
+          "Philos sat cold the entire first match — legs weren't ready and the serve receive showed it immediately.",
+          "Back-to-back left-side kills were the spark — both came from reading the blocker cheating inside and going line.",
+          "Philos was in the backcourt digging everything in Set 3, keeping rallies alive for Kevin's blocks at the net.",
+        ],
+        setBullets: [
+          [
+            "Cold legs from sitting meant Philos' first three passes drifted long and out of system",
+            "One service error and two shanked passes in the first rotation — the cold start was physical, not mental",
+            "By mid-set the damage was done — Rivalry FC built a lead that couldn't be clawed back",
+          ],
+          [
+            "Philos' back-to-back kills from the left side were the turning point — same read, same line shot, twice",
+            "His passing steadied completely — every set in the second half of Set 2 came off a clean Philos pass",
+            "Added two aces from a float serve that had Rivalry FC's passers guessing short vs. deep",
+          ],
+          [
+            "Seven digs in Set 3 alone — Philos was a wall in the backcourt while Kevin dominated the net",
+            "His passing in the final set was near-perfect — every first ball went to the setter's hands",
+            "The assist on Kevin's match-clinching block came off a Philos dig — a full-extension save that set up the play",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 21, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 23, result: "Won" },
+          { setNumber: 3, ourScore: 15, theirScore: 13, result: "Won" },
+        ],
       },
     },
   },
@@ -376,12 +512,78 @@ export const games: Game[] = [
           "Editing the 6-2 rotation switch segment was fascinating — you can see their middle blocker scrambling to adjust in real time on the footage. The comeback wasn't emotional, it was tactical. That's what made it such a good story to tell. Down 8-12 in Set 3 and then 7 straight points — that run is the best piece of volleyball this team has played all year.",
         note:
           "When you're 10-25 down at the end of Set 1, you don't think about the comeback. You think about the next serve. That's what the footage shows — zero panic. Just reset and execute.",
+        stats: [
+          { label: "Kills", value: "10" },
+          { label: "Blocks", value: "6" },
+          { label: "Aces", value: "1" },
+          { label: "Digs", value: "8" },
+        ],
+        highlightNotes: [
+          "Kevin called the 6-2 switch in the timeout after Set 1 — the tactical pivot that changed the match.",
+          "His front-row presence in the 6-2 freed up back-row attackers and forced their block to split coverage.",
+          "Three kills in the 7-0 run that closed Set 3 — Kevin was the primary target in the clutch.",
+        ],
+        setBullets: [
+          [
+            "Kevin's front-row attack was completely neutralized — Iron Setters' block read him on every swing",
+            "Zero kills in Set 1 from the outside — every attempt was stuffed or deflected",
+            "Called the 6-2 switch during the timeout at 5-18, recognizing the block scheme wasn't beatable head-on",
+          ],
+          [
+            "In the 6-2, Kevin's front-row presence drew the block while back-row attacks went uncontested",
+            "Four kills from the outside once the blocking scheme shifted — his timing was completely different",
+            "Two blocks at the net helped seal the set — Iron Setters' middles couldn't adjust to the new rotation",
+          ],
+          [
+            "Three kills during the 7-0 run — the team fed Kevin on the outside when the match was on the line",
+            "His block at 13-12 was the momentum-shifter — a clean stuff that set up the final push",
+            "Finished with 6 total blocks — his best net performance of the season when it mattered most",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 8, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 15, result: "Won" },
+          { setNumber: 3, ourScore: 15, theirScore: 11, result: "Won" },
+        ],
       },
       philos: {
         summary:
           "Down 8-12 in Set 3, I had one thought: just play the ball in front of you. Don't think about the gap, don't think about the scoreline. Seven straight points from that mindset is what I'm most proud of from this entire season. Losing 10-25 and then winning the match is a different kind of belief.",
         note:
           "The 6-2 switch was Kevin's call in the timeout. I wasn't sure it would work — our back-row attack hadn't been consistent. But it unlocked something their block had no answer for.",
+        stats: [
+          { label: "Kills", value: "9" },
+          { label: "Blocks", value: "2" },
+          { label: "Aces", value: "2" },
+          { label: "Digs", value: "16" },
+        ],
+        highlightNotes: [
+          "Philos' serve-receive broke down in Set 1 — three shanks in the first ten points made the deficit insurmountable.",
+          "The 6-2 unlocked Philos' back-row attack — four kills from behind the 3-meter line in Set 2.",
+          "Philos served the final three points of Set 3, including two aces that sealed the comeback.",
+        ],
+        setBullets: [
+          [
+            "Three shanked passes in the first ten points — Philos' serve-receive completely broke down",
+            "His defensive positioning was a step behind all set, leaving gaps that Iron Setters exploited",
+            "Down 10-25 felt insurmountable, but Philos' backcourt reset between sets changed the mindset",
+          ],
+          [
+            "The 6-2 unlocked Philos' back-row attack — four kills from behind the 3-meter line",
+            "His passing stabilized completely, feeding clean balls to the setter every rotation",
+            "A diving dig at 20-15 kept the rally alive and led to the set-clinching kill",
+          ],
+          [
+            "Two aces in the final three rotations — Philos served the match out from behind the line",
+            "Nine digs in Set 3 alone, including three full-extension saves during the 7-0 run",
+            "His backcourt leadership held the team together when the scoreline was against them at 8-12",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 12, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 21, result: "Won" },
+          { setNumber: 3, ourScore: 15, theirScore: 13, result: "Won" },
+        ],
       },
     },
   },
@@ -482,12 +684,78 @@ export const games: Game[] = [
           "Seven blocks is almost impossible to film without making it look like a reel for them. My job was to find the moments where we adapted — the tip-shot sequence in Set 2 was the story I was chasing. When the transition to craft over power finally started working, that was the visual turning point. Set 3 just came down to one execution moment we didn't get.",
         note:
           "The missed serve in Set 3 — I had it on camera from the back angle. You could see the hesitation on the approach. Overthinking is the killer in tight moments.",
+        stats: [
+          { label: "Kills", value: "7" },
+          { label: "Blocks", value: "3" },
+          { label: "Aces", value: "1" },
+          { label: "Digs", value: "6" },
+        ],
+        highlightNotes: [
+          "Kevin's power game was shut down hardest — four of the seven opponent blocks came off his swings.",
+          "Kevin pivoted to tip shots first in Set 2, leading the tactical shift that evened the match.",
+          "His serve at 11-13 in Set 3 went long — a pressure miss that opened the door for Iron Wall FC's closing run.",
+        ],
+        setBullets: [
+          [
+            "Four of Kevin's attacks were roofed by their middle blocker — his power game was completely neutralized",
+            "His approach angle was predictable — the block had him read before he left the ground",
+            "Zero kills from the outside in Set 1 — every swing was either blocked or deflected out of bounds",
+          ],
+          [
+            "Kevin was the first to shift to tip shots — two soft tips over the block opened the court up",
+            "His roll shot at 15-12 was the moment the adjustment clicked — their blocker lunged and missed completely",
+            "Three kills using craft over power — proof the tactical pivot was the right call",
+          ],
+          [
+            "Kevin's serve at 11-13 sailed long — the kind of pressure miss that's hard to recover from",
+            "He had two kills in the early part of Set 3 before the wheels came off in the final rotations",
+            "Filmed the last three points from the baseline — the footage shows the mental weight of the closing loss",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 21, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 18, result: "Won" },
+          { setNumber: 3, ourScore: 15, theirScore: 13, result: "Won" },
+        ],
       },
       philos: {
         summary:
           "The missed serve in Set 3 was mine. I called the shot in my head before I hit it, and the moment I did that I knew it was wrong. The tip-shot adjustment in Set 2 worked exactly as planned — I just wish we'd found it sooner and had more time in Set 3 to execute.",
         note:
           "Their middle blocker was genuinely brilliant. Seven blocks in two sets. When we switched to tips I could see him struggling to cover — but by then the damage from Set 1 was already done.",
+        stats: [
+          { label: "Kills", value: "6" },
+          { label: "Blocks", value: "1" },
+          { label: "Aces", value: "1" },
+          { label: "Digs", value: "13" },
+        ],
+        highlightNotes: [
+          "Philos' backcourt digs kept rallies alive even when the block was dominating — 8 digs in the first two sets.",
+          "His roll-shot sequence in Set 2 was textbook — three consecutive attacks that bypassed the wall entirely.",
+          "The missed serve at 13-14 in Set 3 was Philos' — he overthought the target and pushed it wide.",
+        ],
+        setBullets: [
+          [
+            "Three of Philos' passes were tight enough, but the attacks off them got roofed at the net",
+            "His digs kept rallies alive — 5 in Set 1 — but the team couldn't convert any into kills",
+            "Stayed vocal on the court, calling for the tip-shot adjustment that eventually came in Set 2",
+          ],
+          [
+            "Philos' roll-shot sequence was the highlight — three consecutive soft attacks that the block couldn't cover",
+            "His defensive positioning improved, reading the hitter's shoulder to get in front of every swing",
+            "One ace from a short serve that caught their libero off guard at 22-19",
+          ],
+          [
+            "The missed serve at 13-14 was Philos' — overthought the target zone and pushed it wide right",
+            "Eight digs in Set 3, including a one-handed save that drew applause from the opposing bench",
+            "Philos owned the loss afterward: 'That serve was mine to make, and I didn't'",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 16, theirScore: 25, result: "Lost" },
+          { setNumber: 2, ourScore: 25, theirScore: 24, result: "Won" },
+          { setNumber: 3, ourScore: 12, theirScore: 15, result: "Lost" },
+        ],
       },
     },
   },
@@ -577,12 +845,66 @@ export const games: Game[] = [
           "Five consecutive aces — I was filming from behind the server and you could feel the court energy building with each point. Top Seeds called back-to-back timeouts and still couldn't stop the run. That sequence is the defining clip of the season. The final kill, the squad on court, the celebration — that's what we spent the whole year building toward.",
         note:
           "Filming the season closer felt different. Everyone knew what this match meant. The 6-1 opening run happened so fast I almost missed the third point. That's how locked in we were.",
+        stats: [
+          { label: "Kills", value: "9" },
+          { label: "Blocks", value: "6" },
+          { label: "Aces", value: "2" },
+          { label: "Digs", value: "5" },
+        ],
+        highlightNotes: [
+          "Kevin's opening kill set the tone — a cross-court swing on the second rally that put the team up 2-0.",
+          "His net presence was dominant — three blocks in the ace-run stretch kept Top Seeds from finding any answer.",
+          "Kevin hit the season-closing kill — a line shot that landed before the celebration had even started.",
+        ],
+        setBullets: [
+          [
+            "Kevin's opening kill on the second rally set the tone — cross-court swing that hit the line",
+            "Four blocks in Set 1 — Top Seeds' middles had no answer at the net",
+            "His serving was steady with two aces targeting deep zone 5 where their passer was weak",
+          ],
+          [
+            "Three blocks during the five-ace stretch kept the pressure compounding from both sides",
+            "Kevin's kill at 20-15 extended the lead and forced Top Seeds' second timeout",
+            "He hit the season's final kill — a line shot at 24-20 that the whole squad celebrated on court",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 25, theirScore: 14, result: "Won" },
+          { setNumber: 2, ourScore: 25, theirScore: 17, result: "Won" },
+        ],
       },
       philos: {
         summary:
           "The season closer felt right from the opening rally. We all knew before the first serve that this was our day — that clarity is rare and I've only felt it a handful of times. When the last kill dropped and the team was already running before it landed, that was the moment I knew Side-Out Studios had built something real.",
         note:
           "The five-ace run felt like slow motion while it was happening. Every serve I was completely in the zone — no thoughts, just the motion and the sound of the ball leaving my hand.",
+        stats: [
+          { label: "Kills", value: "8" },
+          { label: "Blocks", value: "2" },
+          { label: "Aces", value: "5" },
+          { label: "Digs", value: "10" },
+        ],
+        highlightNotes: [
+          "Philos' passing in the opening run was near-perfect — every first ball went to the setter's hands, enabling the 6-1 start.",
+          "The five consecutive aces were all Philos — a float serve that Top Seeds had no answer for across two timeouts.",
+          "Philos was the first one running when the final kill landed — the camera caught him mid-sprint before it even hit the floor.",
+        ],
+        setBullets: [
+          [
+            "Philos' passing fueled the 6-1 run — every serve-receive was clean and on target",
+            "His backcourt defense smothered Top Seeds' attack, with six digs keeping rallies alive",
+            "Two kills from the left side in the second half of the set closed it out with authority",
+          ],
+          [
+            "Five consecutive aces — Philos' float serve was untouchable, forcing back-to-back timeouts from Top Seeds",
+            "The ace run is the defining sequence of the season — and every one came off Philos' hand",
+            "Four digs in Set 2 kept the team's side-out rate at 80%, making it impossible for Top Seeds to build momentum",
+          ],
+        ],
+        sets: [
+          { setNumber: 1, ourScore: 25, theirScore: 21, result: "Won" },
+          { setNumber: 2, ourScore: 25, theirScore: 23, result: "Won" },
+        ],
       },
     },
   },
