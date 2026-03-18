@@ -8,7 +8,7 @@ import { ArrowLeft, Construction } from "lucide-react";
 export default function ComingSoonPage() {
   return (
     <div className="bg-white flex flex-col min-h-screen w-full">
-      <Navbar />
+      <Navbar activePage="" />
 
       <main className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center gap-6">
         <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10">
