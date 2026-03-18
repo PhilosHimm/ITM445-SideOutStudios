@@ -17,7 +17,7 @@ const gearItems = [
       "Quick walkthrough of our actual game gear — shoes, knee pads, and more — paired with honest opinions.",
     meta: "All levels · Video",
     image: "/images/gear-warmup.png",
-    link: "/about",
+    link: "/coming-soon",
     level: "All Levels"
   },
   {
@@ -28,7 +28,7 @@ const gearItems = [
       "From beginner knee pads to advanced libero shoes — our honest picks from what we actually use at intramurals and leagues.",
     meta: "All levels · Video + Photo",
     image: "/images/gear-passes.png",
-    link: "/about",
+    link: "/coming-soon",
     level: "Beginner"
   },
   {
@@ -39,7 +39,7 @@ const gearItems = [
       "Screen-recorded and graphic-based explainers covering volleyball concepts — produced entirely in Figma + ClipChamp.",
     meta: "All levels · Figma + Video",
     image: "https://images.unsplash.com/photo-1593787406536-3696a152d0b6?q=80&w=600&auto=format&fit=crop",
-    link: "/about",
+    link: "/coming-soon",
     level: "Intermediate"
   },
   {
@@ -50,7 +50,7 @@ const gearItems = [
       "Master the jump float and top spin serve — graphic-based breakdown produced without needing court access.",
     meta: "Advanced · Figma + Video",
     image: "https://images.unsplash.com/photo-1544298150-1fc4cb4659b8?q=80&w=600&auto=format&fit=crop",
-    link: "/about",
+    link: "/coming-soon",
     level: "Advanced"
   },
 ];

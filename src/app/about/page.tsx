@@ -167,7 +167,7 @@ export default function About() {
               Game-day collections, gear tours, and post-game audio — straight to your inbox.
             </p>
           </div>
-          <Link href="/matches" className="bg-primary flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-primary-hover transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
+          <Link href="/coming-soon" className="bg-primary flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-primary-hover transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
             <span className="font-medium text-[14px] text-white">Subscribe</span>
             <ArrowRight size={16} className="text-white" aria-hidden="true" />
           </Link>

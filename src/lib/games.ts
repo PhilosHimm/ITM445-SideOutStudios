@@ -18,6 +18,11 @@ export interface GameSet {
   bullets: string[];
 }
 
+export interface GamePerspective {
+  summary: string;
+  note: string;
+}
+
 export interface Game {
   slug: string;
   number: number;
@@ -46,6 +51,10 @@ export interface Game {
   commentPrompt: string;
   sampleComment: { text: string; author: string };
   recapLine: string;
+  perspectives?: {
+    kevin: GamePerspective;
+    philos: GamePerspective;
+  };
 }
 
 const UNSPLASH = {
@@ -149,6 +158,20 @@ export const games: Game[] = [
       author: "VolleyFan99",
     },
     recapLine: "Momentum swing · 10-3 comeback run",
+    perspectives: {
+      kevin: {
+        summary:
+          "From behind the camera, Set 2 was the whole story. I was tracking block timing all match and that timeout at 0-5 was a visible reset — you could see it on everyone's face. The 10-3 run that followed was the cleanest volleyball we played all game. I built the entire edit around that pivot.",
+        note:
+          "The final rally in Set 3 — I had the camera on the server at 13-all. I knew it was going to decide everything. You never forget those moments when you're filming them.",
+      },
+      philos: {
+        summary:
+          "I remember every point of Set 3 from 13-all. We had the momentum, we had the energy — and then one missed serve handed it back. The dig on match point was pure instinct, no thought behind it. We were so close it still stings.",
+        note:
+          "Cold start errors in Set 1 were on me. I should have been moving my feet earlier — the three unforced errors that put us in a hole came from complacency in the warm-up zone.",
+      },
+    },
   },
   {
     slug: "game-4",
@@ -241,6 +264,20 @@ export const games: Game[] = [
       author: "RivalryWatcher",
     },
     recapLine: "Big block · Rivalry comeback",
+    perspectives: {
+      kevin: {
+        summary:
+          "I had the camera pointed at Philos specifically when those two left-side kills landed — I'd been watching him find his range all Set 1 and knew something was about to shift. The solo block that closed the match was the moment the court erupted. That footage alone made the whole night worth filming.",
+        note:
+          "Rivalry matches are the hardest to film. The energy is different, the light is harsh, and you're also trying to play. But those back-to-back kills — I caught both on camera. Still my favourite clip of the season.",
+      },
+      philos: {
+        summary:
+          "Both kills in Set 2 came from the same read — I saw their outside blocker cheating inside and went line. First one was a test. Second one I already knew it was there before I jumped. From that point the match was ours. Kevin's block to close it was the loudest moment I've been part of all season.",
+        note:
+          "Set 1 was rough. Sitting cold, coming straight in — my legs weren't under me and three service errors in five points is brutal. But I've learned to trust the process: sometimes Set 1 is just warm-up.",
+      },
+    },
   },
   {
     slug: "game-7",
@@ -333,6 +370,20 @@ export const games: Game[] = [
       author: "SetterFanatico",
     },
     recapLine: "Comeback story · Down 10–25 to win",
+    perspectives: {
+      kevin: {
+        summary:
+          "Editing the 6-2 rotation switch segment was fascinating — you can see their middle blocker scrambling to adjust in real time on the footage. The comeback wasn't emotional, it was tactical. That's what made it such a good story to tell. Down 8-12 in Set 3 and then 7 straight points — that run is the best piece of volleyball this team has played all year.",
+        note:
+          "When you're 10-25 down at the end of Set 1, you don't think about the comeback. You think about the next serve. That's what the footage shows — zero panic. Just reset and execute.",
+      },
+      philos: {
+        summary:
+          "Down 8-12 in Set 3, I had one thought: just play the ball in front of you. Don't think about the gap, don't think about the scoreline. Seven straight points from that mindset is what I'm most proud of from this entire season. Losing 10-25 and then winning the match is a different kind of belief.",
+        note:
+          "The 6-2 switch was Kevin's call in the timeout. I wasn't sure it would work — our back-row attack hadn't been consistent. But it unlocked something their block had no answer for.",
+      },
+    },
   },
   {
     slug: "game-11",
@@ -425,6 +476,20 @@ export const games: Game[] = [
       author: "TacticalTalk",
     },
     recapLine: "Iron wall · 7-block opponent",
+    perspectives: {
+      kevin: {
+        summary:
+          "Seven blocks is almost impossible to film without making it look like a reel for them. My job was to find the moments where we adapted — the tip-shot sequence in Set 2 was the story I was chasing. When the transition to craft over power finally started working, that was the visual turning point. Set 3 just came down to one execution moment we didn't get.",
+        note:
+          "The missed serve in Set 3 — I had it on camera from the back angle. You could see the hesitation on the approach. Overthinking is the killer in tight moments.",
+      },
+      philos: {
+        summary:
+          "The missed serve in Set 3 was mine. I called the shot in my head before I hit it, and the moment I did that I knew it was wrong. The tip-shot adjustment in Set 2 worked exactly as planned — I just wish we'd found it sooner and had more time in Set 3 to execute.",
+        note:
+          "Their middle blocker was genuinely brilliant. Seven blocks in two sets. When we switched to tips I could see him struggling to cover — but by then the damage from Set 1 was already done.",
+      },
+    },
   },
   {
     slug: "game-12",
@@ -506,6 +571,20 @@ export const games: Game[] = [
       author: "SeasonFan2025",
     },
     recapLine: "Season closer · 5 straight aces",
+    perspectives: {
+      kevin: {
+        summary:
+          "Five consecutive aces — I was filming from behind the server and you could feel the court energy building with each point. Top Seeds called back-to-back timeouts and still couldn't stop the run. That sequence is the defining clip of the season. The final kill, the squad on court, the celebration — that's what we spent the whole year building toward.",
+        note:
+          "Filming the season closer felt different. Everyone knew what this match meant. The 6-1 opening run happened so fast I almost missed the third point. That's how locked in we were.",
+      },
+      philos: {
+        summary:
+          "The season closer felt right from the opening rally. We all knew before the first serve that this was our day — that clarity is rare and I've only felt it a handful of times. When the last kill dropped and the team was already running before it landed, that was the moment I knew Side-Out Studios had built something real.",
+        note:
+          "The five-ace run felt like slow motion while it was happening. Every serve I was completely in the zone — no thoughts, just the motion and the sound of the ball leaving my hand.",
+      },
+    },
   },
 ];
 

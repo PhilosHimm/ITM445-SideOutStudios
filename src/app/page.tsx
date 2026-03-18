@@ -168,7 +168,7 @@ export default function Home() {
             Full collection: rally breakdowns, recaps, spotlights, and audio clips — all from one game
           </p>
         </div>
-        <Link href="/stories" className="bg-primary flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">
+        <Link href="/coming-soon" className="bg-primary flex gap-[10px] h-[44px] items-center justify-center px-7 py-2 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shrink-0 shadow-lg hover:shadow-xl active:scale-95 relative z-10 rounded-[2px]">
           <Play size={16} className="text-white fill-white" />
           <span className="font-medium text-[14px] text-white">Get Notified</span>
         </Link>
