@@ -19,6 +19,7 @@ import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { stories } from "@/lib/stories";
 import type { Story } from "@/lib/stories";
+import HighlightsReel from "@/components/HighlightsReel";
 
 function StoriesContent() {
   const searchParams = useSearchParams();
@@ -253,28 +254,15 @@ function StoriesContent() {
               </p>
             </section>
 
-            {/* 2. Dominant Video Player */}
-            <section className="flex flex-col gap-0">
-              <div
-                className="bg-dark overflow-hidden relative rounded-t-[4px] w-full shadow-lg aspect-video"
-                role="region"
-                aria-label={`Video player: ${activePerspective.videoTitle}`}
-              >
-                <iframe
-                  className="absolute inset-0 h-full w-full"
-                  src={activePerspective.videoSrc}
-                  title={activePerspective.videoTitle}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
+            {/* 2. Highlights Reel */}
+            <section className="flex flex-col gap-4">
+              <div className="flex items-baseline justify-between">
+                <span className="text-muted text-[11px] tracking-[3px] font-medium">HIGHLIGHTS REEL</span>
+                <span className="text-muted text-[11px]">
+                  {story.highlights.filter(h => h.player === perspective).length} clips
+                </span>
               </div>
-              {/* Annotation bar under video */}
-              <div className="bg-dark/5 border border-t-0 border-border-light rounded-b-[4px] px-5 py-3">
-                <p className="text-dark/70 text-[13px] leading-relaxed italic">
-                  {activePerspective.annotation}
-                </p>
-              </div>
+              <HighlightsReel highlights={story.highlights} perspective={perspective} />
             </section>
 
             {/* 3. Perspective Toggle */}
