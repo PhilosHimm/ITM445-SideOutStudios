@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight, Calendar, Trophy, Users } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { games } from "@/lib/games";
 
 const timelineItems = games.map((g) => ({
@@ -42,31 +42,11 @@ const playerMeta = {
   },
 } as const;
 
-const gameRangeFilters = ["All Matches", "Game 1–4", "Game 5–8", "Game 9–12"] as const;
-
 export default function Matches() {
   const [activePlayer, setActivePlayer] = useState<"kevin" | "philos">("kevin");
-  const [activeFilter, setActiveFilter] = useState<string>("All Matches");
-
-  // Reset range filter when switching players so no empty state appears
-  useEffect(() => {
-    setActiveFilter("All Matches");
-  }, [activePlayer]);
 
   const playerGames = timelineItems.filter((i) => i.player === activePlayer);
-
-  const matchFilters = gameRangeFilters.map((label) => ({
-    label,
-    count:
-      label === "All Matches"
-        ? playerGames.length
-        : playerGames.filter((i) => i.category === label).length,
-  }));
-
-  const filteredItems =
-    activeFilter === "All Matches"
-      ? playerGames
-      : playerGames.filter((i) => i.category === activeFilter);
+  const filteredItems = playerGames;
 
   const wins = playerGames.filter((i) => i.result === "Win").length;
   const losses = playerGames.filter((i) => i.result === "Loss").length;
@@ -82,87 +62,7 @@ export default function Matches() {
       />
 
       {/* Page Body */}
-      <div className="bg-white flex flex-col md:flex-row items-start w-full flex-1">
-
-        {/* Filter Sidebar */}
-        <ScrollSection
-          as="aside"
-          animation="fade-right"
-          className="bg-white border-b md:border-b-0 md:border-r border-border-light flex flex-col gap-8 items-start px-6 md:px-8 py-8 md:py-10 w-full md:w-[260px] shrink-0 md:self-stretch"
-        >
-          {/* Match range filter */}
-          <div
-            className="flex flex-col gap-3 items-start w-full"
-            role="radiogroup"
-            aria-label="Filter by match range"
-          >
-            <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              MATCH
-            </span>
-            {matchFilters.map((f) => {
-              const isActive = activeFilter === f.label;
-              return (
-                <button
-                  key={f.label}
-                  onClick={() => setActiveFilter(f.label)}
-                  role="radio"
-                  aria-checked={isActive}
-                  className={`flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer transition-colors duration-200 ${
-                    isActive ? "bg-dark" : "hover:bg-dark/5"
-                  }`}
-                >
-                  <div className="flex gap-2 items-center">
-                    {!isActive && (
-                      <svg
-                        width="8"
-                        height="8"
-                        viewBox="0 0 8 8"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <circle cx="4" cy="4" r="4" fill="#1b4fd8" />
-                      </svg>
-                    )}
-                    <span
-                      className={`text-[13px] ${
-                        isActive ? "font-medium text-white" : "text-dark/60"
-                      }`}
-                    >
-                      {f.label}
-                    </span>
-                  </div>
-                  <span className="text-muted text-[11px]">{f.count}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Content Format filter */}
-          <div className="flex flex-col gap-3 items-start w-full mt-2">
-            <span className="text-muted text-[11px] tracking-[1px] font-medium">
-              CONTENT FORMAT
-            </span>
-            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
-              <span className="text-dark text-[13px]">Game Recaps</span>
-              <span className="text-muted text-[11px]">2</span>
-            </div>
-            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
-              <span className="text-dark text-[13px]">Rally Breakdowns</span>
-              <span className="text-muted text-[11px]">1</span>
-            </div>
-            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
-              <span className="text-dark text-[13px]">Tactical Films</span>
-              <span className="text-muted text-[11px]">1</span>
-            </div>
-            <div className="border border-border-light flex h-9 items-center justify-between px-3 rounded-[2px] w-full cursor-pointer hover:bg-dark/5 transition-colors duration-200">
-              <span className="text-dark text-[13px]">Season Finales</span>
-              <span className="text-muted text-[11px]">1</span>
-            </div>
-          </div>
-        </ScrollSection>
-
-        {/* Timeline Main */}
-        <main className="flex flex-1 flex-col items-start min-w-0 px-6 md:px-12 py-8 md:py-10">
+      <main className="bg-white flex flex-col items-start w-full flex-1 px-6 md:px-12 lg:px-20 py-8 md:py-10">
 
           {/* ── Player Tabs ─────────────────────────────────────────────── */}
           <div className="border border-border-light rounded-[4px] p-1 flex w-full max-w-[380px] mb-6">
@@ -402,8 +302,7 @@ export default function Matches() {
               ))}
             </div>
           )}
-        </main>
-      </div>
+      </main>
 
       <Footer />
     </div>
