@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import type { Story } from "@/lib/stories";
+import type { Story } from "@/lib/highlights";
 
 interface Props {
   story: Story;
@@ -85,7 +85,7 @@ export default function StoryClient({ story, prev, next }: Props) {
       {/* Back nav */}
       <div className="border-b border-border-light flex items-center justify-between px-6 md:px-16 py-3 w-full">
         <Link
-          href="/stories"
+          href="/highlights"
           className="flex items-center gap-2 text-muted text-[12px] hover:text-dark transition-colors duration-200"
         >
           <ArrowLeft size={14} />
@@ -94,7 +94,7 @@ export default function StoryClient({ story, prev, next }: Props) {
         <div className="flex items-center gap-4">
           {prev && (
             <Link
-              href={`/stories/${prev.id}`}
+              href={`/highlights/${prev.id}`}
               className="flex items-center gap-1 text-muted text-[12px] hover:text-dark transition-colors duration-200"
             >
               <ArrowLeft size={13} />
@@ -103,7 +103,7 @@ export default function StoryClient({ story, prev, next }: Props) {
           )}
           {next && (
             <Link
-              href={`/stories/${next.id}`}
+              href={`/highlights/${next.id}`}
               className="flex items-center gap-1 text-muted text-[12px] hover:text-dark transition-colors duration-200"
             >
               EP {next.episode}
@@ -378,7 +378,7 @@ export default function StoryClient({ story, prev, next }: Props) {
             <div className="flex items-center justify-between border-t border-border-light pt-8">
               {prev ? (
                 <Link
-                  href={`/stories/${prev.id}`}
+                  href={`/highlights/${prev.id}`}
                   className="flex items-center gap-3 group"
                 >
                   <div className="border border-border-light flex h-9 w-9 items-center justify-center rounded-[2px] group-hover:bg-dark/5 transition-colors duration-200">
@@ -392,7 +392,7 @@ export default function StoryClient({ story, prev, next }: Props) {
               ) : <div />}
               {next && (
                 <Link
-                  href={`/stories/${next.id}`}
+                  href={`/highlights/${next.id}`}
                   className="flex items-center gap-3 group text-right"
                 >
                   <div className="flex flex-col gap-[2px]">

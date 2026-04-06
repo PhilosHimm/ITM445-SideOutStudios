@@ -32,7 +32,7 @@ const highlightCards = [
       "Kevin loads from zone 1 and cuts cross-court at a sharp angle — block commits left, seam opens right.",
     meta: "Kevin Lin · Intramural S1",
     image: "/images/clips/kevin-hit-1.jpg",
-    link: "/stories",
+    link: "/highlights",
   },
   {
     badge: "BLOCK",
@@ -42,7 +42,7 @@ const highlightCards = [
       "Philos reads the outside hitter's shoulder angle, closes hard from the right side, and stuffs cleanly back into the attacker's court.",
     meta: "Philos Himm · Rec League",
     image: "/images/clips/philos-block-1.jpg",
-    link: "/stories",
+    link: "/highlights",
   },
 ];
 
@@ -133,7 +133,7 @@ export default function Home() {
 
           <div className="flex gap-3 items-center flex-wrap">
             <Link
-              href="/stories"
+              href="/highlights"
               className="bg-primary flex gap-[10px] h-[44px] items-center px-6 hover:bg-primary-hover transition-colors duration-200 cursor-pointer shadow-lg hover:shadow-xl active:scale-95"
             >
               <Play size={16} className="text-white fill-white" />
@@ -172,7 +172,7 @@ export default function Home() {
               </p>
             </div>
             <Link
-              href="/stories"
+              href="/highlights"
               className="border border-dark flex gap-2 h-9 items-center px-4 hover:bg-dark/5 transition-all duration-200 hover:shadow-sm cursor-pointer group rounded-[2px] active:scale-95 shrink-0 mt-1"
             >
               <span className="font-medium text-dark text-[11px] tracking-[1px]">

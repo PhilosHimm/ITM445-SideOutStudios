@@ -13,7 +13,7 @@ export default function Navbar({ activePage }: NavbarProps) {
 
   const navLinks = [
     { label: "Matches", href: "/matches" },
-    { label: "Highlights", href: "/stories" },
+    { label: "Highlights", href: "/highlights" },
     { label: "Gear", href: "/gear" },
     { label: "About", href: "/about" },
   ];

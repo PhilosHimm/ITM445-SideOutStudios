@@ -47,14 +47,26 @@ export default function HighlightsReel({ highlights, perspective }: Props) {
 
       {/* B. Active video player */}
       <div>
-        <video
-          key={activeClip.videoSrc}
-          src={activeClip.videoSrc}
-          poster={activeClip.thumbnail}
-          controls
-          playsInline
-          className="w-full bg-dark aspect-video rounded-t-[4px]"
-        />
+        {activeClip.videoSrc.includes("youtube.com/embed") ? (
+          <div className="relative w-full bg-dark aspect-video rounded-t-[4px] overflow-hidden">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={activeClip.videoSrc}
+              title={activeClip.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        ) : (
+          <video
+            key={activeClip.videoSrc}
+            src={activeClip.videoSrc}
+            poster={activeClip.thumbnail}
+            controls
+            playsInline
+            className="w-full bg-dark aspect-video rounded-t-[4px]"
+          />
+        )}
         <div className="bg-dark/5 border border-t-0 border-border-light rounded-b-[4px] px-5 py-3">
           <p className="text-dark/70 text-[13px] leading-relaxed italic">
             <span className="not-italic text-[9px] font-medium border border-dark/30 text-dark/60 px-2 py-[1px] rounded-[2px] mr-2 inline-block align-middle uppercase">

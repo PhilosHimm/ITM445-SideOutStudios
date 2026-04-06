@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
-import { Play, Pause, Volume2, Check } from "lucide-react";
+import AudioPlayer from "@/components/AudioPlayer";
+import { Play, Pause, Check } from "lucide-react";
 import { highlights, clipTypeMeta } from "@/lib/highlights";
 import type { Highlight } from "@/lib/highlights";
 
@@ -14,9 +15,17 @@ export default function Stories() {
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [pollVoted, setPollVoted] = useState(false);
   const [pollOption, setPollOption] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioProgress, setAudioProgress] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [pollCounts, setPollCounts] = useState<Record<number, number>>({ 1: 0, 2: 0, 3: 0, 4: 0 });
+  const [pollLoading, setPollLoading] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/poll")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.counts) setPollCounts(data.counts);
+      })
+      .catch(() => {});
+  }, []);
 
   const filtered = highlights.filter(
     (h) =>
@@ -29,24 +38,6 @@ export default function Stories() {
   const focusedClip = focusedId
     ? highlights.find((h) => h.id === focusedId) ?? defaultClip
     : defaultClip;
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const progress =
-        (audioRef.current.currentTime / audioRef.current.duration) * 100;
-      setAudioProgress(progress || 0);
-    }
-  };
-
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   const filterButtonBase =
     "text-[11px] font-medium px-3 h-8 rounded-[2px] transition-all duration-150 cursor-pointer";
@@ -139,14 +130,26 @@ export default function Stories() {
           {/* A. Hero player */}
           <section className="flex flex-col gap-0">
             <div className="relative">
-              <video
-                key={focusedClip.videoSrc}
-                src={focusedClip.videoSrc}
-                poster={focusedClip.thumbnail}
-                controls
-                playsInline
-                className="w-full bg-dark aspect-video rounded-t-[4px] shadow-lg"
-              />
+              {focusedClip.videoSrc.includes("youtube.com/embed") ? (
+                <div className="relative w-full bg-dark aspect-video rounded-t-[4px] shadow-lg overflow-hidden">
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={focusedClip.videoSrc}
+                    title={focusedClip.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <video
+                  key={focusedClip.videoSrc}
+                  src={focusedClip.videoSrc}
+                  poster={focusedClip.thumbnail}
+                  controls
+                  playsInline
+                  className="w-full bg-dark aspect-video rounded-t-[4px] shadow-lg"
+                />
+              )}
               {/* Player attribution badge */}
               <div className="absolute top-3 left-3 flex items-center gap-2 bg-dark/70 px-3 py-1.5 rounded-[3px]">
                 <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white">
@@ -347,54 +350,21 @@ export default function Stories() {
             </div>
           </section>
 
-          {/* B. Audio player */}
+          {/* B. Audio players */}
           <section className="flex flex-col gap-3">
             <span className="text-muted text-[11px] tracking-[3px] font-medium">
-              POST-GAME AUDIO
+              REFLECTIONS ON THE SEASON
             </span>
-            <div className="border border-border-light rounded-[4px] p-4 flex flex-col gap-3">
-              <div className="flex flex-col gap-0.5">
-                <span className="text-dark text-[13px] font-medium">
-                  Season Debrief
-                </span>
-                <span className="text-muted text-[11px]">
-                  Kevin &amp; Philos · Recorded post-match
-                </span>
-              </div>
-              <audio
-                ref={audioRef}
-                src="/audio/season-debrief.mp3"
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={() => setIsPlaying(false)}
-              />
-              <div className="flex flex-col gap-2">
-                {/* Progress bar */}
-                <div className="bg-border-light h-1 w-full rounded-full overflow-hidden">
-                  <div
-                    className="bg-primary h-full rounded-full transition-all duration-150"
-                    style={{ width: `${audioProgress}%` }}
-                  />
-                </div>
-                {/* Controls */}
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={toggleAudio}
-                    className="w-9 h-9 rounded-full bg-dark flex items-center justify-center hover:bg-dark/80 transition-colors cursor-pointer"
-                    aria-label={isPlaying ? "Pause" : "Play"}
-                  >
-                    {isPlaying ? (
-                      <Pause size={14} className="text-white" />
-                    ) : (
-                      <Play size={14} className="text-white fill-white ml-0.5" />
-                    )}
-                  </button>
-                  <Volume2 size={14} className="text-muted" />
-                  <span className="text-muted text-[11px] ml-auto">
-                    {isPlaying ? "Playing..." : "Tap to play"}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <AudioPlayer
+              src="/audio/philos-reflections.mp3"
+              playerName="Philos Himm"
+              initials="PH"
+            />
+            <AudioPlayer
+              src="/audio/kevin-reflections.mp3"
+              playerName="Kevin Lin"
+              initials="KL"
+            />
           </section>
 
           {/* C. Viewer poll */}
@@ -406,34 +376,67 @@ export default function Stories() {
               <p className="text-dark text-[13px] font-medium leading-snug">
                 Which clip type do you want to see more of?
               </p>
-              {[
-                { id: 1, text: "More kills / hitting clips" },
-                { id: 2, text: "More defensive digs" },
-                { id: 3, text: "Serve receive breakdowns" },
-                { id: 4, text: "Full rally sequences" },
-              ].map((opt) => (
-                <button
-                  key={opt.id}
-                  onClick={() => {
-                    if (!pollVoted) {
-                      setPollOption(opt.id);
-                      setPollVoted(true);
-                    }
-                  }}
-                  className={`border flex h-9 items-center px-3 rounded-[2px] w-full text-[12px] transition-all duration-200 text-left cursor-pointer ${
-                    pollVoted
-                      ? pollOption === opt.id
-                        ? "bg-dark text-white border-dark font-medium"
-                        : "bg-dark/5 border-transparent text-dark/50"
-                      : "border-border-light hover:border-dark hover:bg-dark/5 text-dark"
-                  }`}
-                >
-                  {pollVoted && pollOption === opt.id && (
-                    <Check size={12} className="text-white mr-2 shrink-0" />
-                  )}
-                  {opt.text}
-                </button>
-              ))}
+              {(() => {
+                const opts = [
+                  { id: 1, text: "More kills / hitting clips" },
+                  { id: 2, text: "More defensive digs" },
+                  { id: 3, text: "Serve receive breakdowns" },
+                  { id: 4, text: "Full rally sequences" },
+                ];
+                const total = Object.values(pollCounts).reduce((a, b) => a + b, 0);
+                return opts.map((opt) => {
+                  const pct = total > 0 ? Math.round((pollCounts[opt.id] ?? 0) / total * 100) : 0;
+                  const isChosen = pollOption === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      disabled={pollVoted || pollLoading}
+                      onClick={async () => {
+                        if (pollVoted || pollLoading) return;
+                        setPollLoading(true);
+                        setPollOption(opt.id);
+                        try {
+                          const res = await fetch("/api/poll", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ option_id: opt.id }),
+                          });
+                          const data = await res.json();
+                          if (data.counts) setPollCounts(data.counts);
+                          setPollVoted(true);
+                        } catch {
+                          setPollOption(null);
+                        } finally {
+                          setPollLoading(false);
+                        }
+                      }}
+                      className={`relative border flex flex-col justify-center px-3 py-2 rounded-[2px] w-full text-[12px] transition-all duration-200 text-left overflow-hidden ${
+                        pollVoted
+                          ? isChosen
+                            ? "border-dark bg-dark text-white font-medium"
+                            : "border-transparent bg-dark/5 text-dark/50"
+                          : "border-border-light hover:border-dark hover:bg-dark/5 text-dark cursor-pointer"
+                      } disabled:cursor-default`}
+                    >
+                      {pollVoted && (
+                        <span
+                          className={`absolute inset-y-0 left-0 transition-all duration-500 ${isChosen ? "bg-white/10" : "bg-dark/5"}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      )}
+                      <span className="relative flex items-center gap-2 h-5">
+                        {pollVoted && isChosen && (
+                          <Check size={12} className="shrink-0" />
+                        )}
+                        <span className="flex-1">{opt.text}</span>
+                        {pollVoted && (
+                          <span className="text-[11px] font-medium tabular-nums">{pct}%</span>
+                        )}
+                      </span>
+                    </button>
+                  );
+                });
+              })()}
               {pollVoted && (
                 <p className="text-muted text-[11px]">
                   Thanks for voting — we&apos;ll prioritize those clips next season.

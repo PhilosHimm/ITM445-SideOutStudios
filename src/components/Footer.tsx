@@ -34,7 +34,7 @@ export default function Footer() {
         <ul className="flex gap-6 items-center list-none m-0 p-0 flex-wrap">
           {[
             { label: "Matches", href: "/matches" },
-            { label: "Highlights", href: "/stories" },
+            { label: "Highlights", href: "/highlights" },
             { label: "Gear", href: "/gear" },
             { label: "About", href: "/about" },
           ].map((link) => (

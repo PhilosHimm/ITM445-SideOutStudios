@@ -17,5 +17,5 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function StoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  redirect(`/stories?story=${slug}`);
+  redirect(`/highlights?story=${slug}`);
 }

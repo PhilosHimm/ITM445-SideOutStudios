@@ -175,6 +175,20 @@ export const highlights: Highlight[] = [
     thumbnail: "/images/clips/philos-srx-3.jpg",
     duration: "0:14",
   },
+  // ── Philos — Hits ───────────────────────────────────────────────────────────
+  {
+    id: "philos-hit-1",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Right side swing, block touch out",
+    annotation:
+      "Right side swing into block touch out",
+    videoSrc: "https://www.youtube.com/embed/JQtMh4ehZcI",
+    thumbnail: "https://img.youtube.com/vi/JQtMh4ehZcI/mqdefault.jpg",
+    duration: "—",
+  },
   // ── Philos — Block ──────────────────────────────────────────────────────────
   {
     id: "philos-block-1",

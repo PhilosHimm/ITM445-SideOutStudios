@@ -22,7 +22,13 @@
       "Bash(npx tsc:*)",
       "Bash(xargs grep:*)",
       "Bash(npx next:*)",
-      "Bash(node node_modules/next/dist/bin/next build)"
+      "Bash(node node_modules/next/dist/bin/next build)",
+      "Bash(wc -l /c/Users/philo/Documents/GitHub/ITM445-SideOutStudios/src/lib/*.ts)",
+      "Bash(claude mcp:*)",
+      "Bash(npm install:*)",
+      "mcp__9248f51e-902e-461a-b23e-07390c3f53b4__apply_migration",
+      "Bash(powershell -Command \"Rename-Item -Path 'c:\\\\Users\\\\philo\\\\Documents\\\\GitHub\\\\ITM445-SideOutStudios\\\\src\\\\app\\\\stories' -NewName 'highlights'\")",
+      "Bash(node -e ':*)"
     ]
   }
 }
