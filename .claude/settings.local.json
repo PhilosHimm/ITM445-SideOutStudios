@@ -28,7 +28,8 @@
       "Bash(npm install:*)",
       "mcp__9248f51e-902e-461a-b23e-07390c3f53b4__apply_migration",
       "Bash(powershell -Command \"Rename-Item -Path 'c:\\\\Users\\\\philo\\\\Documents\\\\GitHub\\\\ITM445-SideOutStudios\\\\src\\\\app\\\\stories' -NewName 'highlights'\")",
-      "Bash(node -e ':*)"
+      "Bash(node -e ':*)",
+      "mcp__4dee6009-356f-4163-b3e0-e67142cd7668__list_projects"
     ]
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Play, Pause, Volume2 } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 interface Props {
   src: string;
@@ -12,6 +12,7 @@ interface Props {
 export default function AudioPlayer({ src, playerName, initials }: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioProgress, setAudioProgress] = useState(0);
+  const [volume, setVolume] = useState(1);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleTimeUpdate = () => {
@@ -20,6 +21,12 @@ export default function AudioPlayer({ src, playerName, initials }: Props) {
         (audioRef.current.currentTime / audioRef.current.duration) * 100;
       setAudioProgress(progress || 0);
     }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseFloat(e.target.value);
+    setVolume(val);
+    if (audioRef.current) audioRef.current.volume = val;
   };
 
   const toggleAudio = () => {
@@ -65,7 +72,31 @@ export default function AudioPlayer({ src, playerName, initials }: Props) {
               <Play size={14} className="text-white fill-white ml-0.5" />
             )}
           </button>
-          <Volume2 size={14} className="text-muted" />
+          <button
+            onClick={() => {
+              const next = volume === 0 ? 1 : 0;
+              setVolume(next);
+              if (audioRef.current) audioRef.current.volume = next;
+            }}
+            className="cursor-pointer"
+            aria-label={volume === 0 ? "Unmute" : "Mute"}
+          >
+            {volume === 0 ? (
+              <VolumeX size={14} className="text-muted" />
+            ) : (
+              <Volume2 size={14} className="text-muted" />
+            )}
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-16 h-1 accent-primary cursor-pointer"
+            aria-label="Volume"
+          />
           <span className="text-muted text-[11px] ml-auto">
             {isPlaying ? "Playing..." : "Tap to play"}
           </span>
