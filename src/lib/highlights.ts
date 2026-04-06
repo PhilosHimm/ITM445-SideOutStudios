@@ -184,7 +184,7 @@ export const highlights: Highlight[] = [
     gameContext: "Scoop tournament",
     title: "Right side swing, block touch out",
     annotation:
-      "Right side swing into block touch out",
+      "",
     videoSrc: "https://www.youtube.com/embed/JQtMh4ehZcI",
     thumbnail: "https://img.youtube.com/vi/JQtMh4ehZcI/mqdefault.jpg",
     duration: "—",

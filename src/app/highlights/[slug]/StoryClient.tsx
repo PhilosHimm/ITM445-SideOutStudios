@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import type { Story } from "@/lib/highlights";
+import type { Story } from "@/lib/stories";
 
 interface Props {
   story: Story;
