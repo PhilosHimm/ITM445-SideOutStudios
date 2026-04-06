@@ -264,7 +264,7 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
                 href={game.storyLink}
                 className="inline-flex items-center gap-2 bg-dark text-white px-5 py-3 rounded-[3px] text-[13px] font-medium hover:bg-dark/80 transition-colors duration-200 shrink-0 group"
               >
-                <span>Watch the Story</span>
+                <span>Watch the Highlights</span>
                 <ExternalLink
                   size={13}
                   className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
