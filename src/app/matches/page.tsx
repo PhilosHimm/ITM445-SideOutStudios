@@ -44,9 +44,12 @@ const playerMeta = {
 
 export default function Matches() {
   const [activePlayer, setActivePlayer] = useState<"kevin" | "philos">("kevin");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   const playerGames = timelineItems.filter((i) => i.player === activePlayer);
-  const filteredItems = playerGames;
+  const filteredItems = [...playerGames].sort((a, b) =>
+    sortOrder === "newest" ? b.number - a.number : a.number - b.number
+  );
 
   const wins = playerGames.filter((i) => i.result === "Win").length;
   const losses = playerGames.filter((i) => i.result === "Loss").length;
@@ -147,10 +150,19 @@ export default function Matches() {
             <span className="text-muted text-[11px] tracking-[1px] font-medium">
               {meta.name.toUpperCase()} — 2025/2026 SEASON
             </span>
-            <div className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity">
-              <span className="text-dark text-[11px] font-medium">Newest first</span>
-              <ChevronDown size={14} className="text-dark" aria-hidden="true" />
-            </div>
+            <button
+              onClick={() => setSortOrder(sortOrder === "newest" ? "oldest" : "newest")}
+              className="flex gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <span className="text-dark text-[11px] font-medium">
+                {sortOrder === "newest" ? "Newest first" : "Oldest first"}
+              </span>
+              <ChevronDown
+                size={14}
+                className={`text-dark transition-transform duration-200 ${sortOrder === "oldest" ? "rotate-180" : ""}`}
+                aria-hidden="true"
+              />
+            </button>
           </div>
 
           {/* ── Timeline Items ──────────────────────────────────────────── */}
