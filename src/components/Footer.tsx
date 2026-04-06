@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -13,17 +14,12 @@ export default function Footer() {
           className="flex items-center gap-[10px] group"
           aria-label="Side-Out Studios — Home"
         >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-            className="transition-transform duration-200 group-hover:rotate-12"
-          >
-            <rect width="20" height="20" rx="2" fill="#1b4fd8" />
-            <path d="M5 14L10 6L15 14H5Z" fill="white" />
-          </svg>
+          <Image
+            src="/images/logo.png"
+            alt="Side-Out Studios Logo"
+            width={40}
+            height={40}
+          />
           <span className="font-medium text-[14px] text-white tracking-[-0.3px]">
             Side-Out Studios
           </span>
