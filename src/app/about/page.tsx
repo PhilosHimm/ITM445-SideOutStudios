@@ -101,7 +101,7 @@ export default function About() {
               className="border border-border flex flex-1 flex-col items-start min-w-0 rounded-[2px] w-full"
             >
               <div
-                className="bg-dark/20 h-[320px] md:h-[400px] w-full bg-cover bg-center rounded-t-[2px]"
+                className="bg-dark/20 h-[320px] md:h-[400px] w-full bg-contain bg-center bg-no-repeat rounded-t-[2px]"
                 style={{ backgroundImage: `url('${creator.image}')` }}
                 role="img"
                 aria-label={`Photo of ${creator.name}`}
