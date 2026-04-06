@@ -80,7 +80,7 @@ export default function StoryClient({ story, prev, next }: Props) {
 
   return (
     <div className="bg-white flex flex-col items-start w-full min-h-screen">
-      <Navbar activePage="Stories" />
+      <Navbar activePage="Highlights" />
 
       {/* Back nav */}
       <div className="border-b border-border-light flex items-center justify-between px-6 md:px-16 py-3 w-full">
@@ -119,7 +119,7 @@ export default function StoryClient({ story, prev, next }: Props) {
           {/* 1. Episode Header */}
           <ScrollSection as="section" animation="fade-up" className="flex flex-col gap-3">
             <span className="text-primary text-[11px] tracking-[1px] font-medium">
-              SIDE-OUT STORY · EPISODE {story.episode}
+              HIGHLIGHTS GALLERY · EPISODE {story.episode}
             </span>
             <h1 className="font-medium text-dark text-[28px] md:text-[36px] tracking-[-1px]">
               {story.title}

@@ -13,7 +13,7 @@ const episodes = [
     description: "A heartbreaker told from both sides. Two perspectives on the same match — what went wrong, what almost went right, and the rally that changed everything.",
     meta: "Game 3 · 8 min",
     image: "/images/home-ep1-blocks.png",
-    link: "/stories?story=the-close-call"
+    link: "/stories"
   },
   {
     type: "story" as const,
@@ -23,7 +23,7 @@ const episodes = [
     description: "Coming back from sitting cold, the engines turned on just in time. A rivalry match told through momentum swings and the block that sealed it.",
     meta: "Game 4 · 10 min",
     image: "/images/home-ep2-spike.png",
-    link: "/stories?story=rivalry-night"
+    link: "/stories"
   },
   {
     type: "recap" as const,

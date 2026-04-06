@@ -29,6 +29,7 @@ export interface GamePerspective {
 
 export interface Game {
   slug: string;
+  player: "kevin" | "philos";
   number: number;
   title: string;
   date: string;
@@ -73,6 +74,7 @@ const UNSPLASH = {
 export const games: Game[] = [
   {
     slug: "game-3",
+    player: "kevin",
     number: 3,
     title: "EP 1 — The Close Call",
     date: "Mar 1",
@@ -245,6 +247,7 @@ export const games: Game[] = [
   },
   {
     slug: "game-4",
+    player: "philos",
     number: 4,
     title: "EP 2 — Rivalry Night",
     date: "Oct 29",
@@ -417,6 +420,7 @@ export const games: Game[] = [
   },
   {
     slug: "game-7",
+    player: "kevin",
     number: 7,
     title: "EP 4 — Down 10–25",
     date: "Jan 28",
@@ -589,6 +593,7 @@ export const games: Game[] = [
   },
   {
     slug: "game-11",
+    player: "philos",
     number: 11,
     title: "EP 3 — The Iron Wall",
     date: "Feb 17",
@@ -761,6 +766,7 @@ export const games: Game[] = [
   },
   {
     slug: "game-12",
+    player: "kevin",
     number: 12,
     title: "EP 5 — Season Closer",
     date: "Mar 1",

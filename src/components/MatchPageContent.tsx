@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import ScrollSection from "@/components/ScrollSection";
@@ -16,78 +15,27 @@ interface Props {
 }
 
 export default function MatchPageContent({ game, story, prev, next, resultAccent }: Props) {
-  const [perspective, setPerspective] = useState<"kevin" | "philos">("kevin");
-
-  const perspectiveData = game.perspectives?.[perspective];
+  const perspectiveData = game.perspectives?.[game.player];
   const activeSummary = perspectiveData?.summary ?? game.matchSummary;
   const activeStats = perspectiveData?.stats ?? game.stats;
 
   return (
     <>
-      {/* ── PERSPECTIVE TOGGLE ──────────────────────────────────────────── */}
-      <div className="border-b border-border-light bg-white w-full sticky top-[56px] z-20">
-        <div className="px-6 md:px-16 py-3 flex items-center gap-4 flex-wrap">
-          <span className="text-dark/35 text-[10px] font-medium tracking-[2px] shrink-0">
-            VIEWING FROM
-          </span>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setPerspective("kevin")}
-              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-[3px] border transition-all duration-200 ${
-                perspective === "kevin"
-                  ? "border-primary bg-primary/5"
-                  : "border-border-light bg-white hover:border-dark/20"
-              }`}
-            >
-              <div
-                className={`size-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                  perspective === "kevin" ? "bg-primary text-white" : "bg-dark/10 text-dark/40"
-                }`}
-              >
-                KL
-              </div>
-              <div className="flex flex-col items-start">
-                <span
-                  className={`text-[12px] font-medium leading-tight ${
-                    perspective === "kevin" ? "text-primary" : "text-dark/60"
-                  }`}
-                >
-                  Kevin Lin
-                </span>
-                <span className="text-[10px] text-dark/35 leading-tight">
-                  Outside Hitter · Editor
-                </span>
-              </div>
-            </button>
-
-            <button
-              onClick={() => setPerspective("philos")}
-              className={`flex items-center gap-2.5 px-3.5 py-2 rounded-[3px] border transition-all duration-200 ${
-                perspective === "philos"
-                  ? "border-primary bg-primary/5"
-                  : "border-border-light bg-white hover:border-dark/20"
-              }`}
-            >
-              <div
-                className={`size-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                  perspective === "philos" ? "bg-primary text-white" : "bg-dark/10 text-dark/40"
-                }`}
-              >
-                PH
-              </div>
-              <div className="flex flex-col items-start">
-                <span
-                  className={`text-[12px] font-medium leading-tight ${
-                    perspective === "philos" ? "text-primary" : "text-dark/60"
-                  }`}
-                >
-                  Philos Himm
-                </span>
-                <span className="text-[10px] text-dark/35 leading-tight">
-                  Outside Hitter · Camera Op
-                </span>
-              </div>
-            </button>
+      {/* ── PLAYER CREDIT ───────────────────────────────────────────────── */}
+      <div className="border-b border-border-light bg-white w-full">
+        <div className="px-6 md:px-16 py-3 flex items-center gap-3">
+          <div className="size-7 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+            {game.player === "kevin" ? "KL" : "PH"}
+          </div>
+          <div className="flex flex-col gap-0">
+            <span className="text-dark text-[12px] font-medium leading-tight">
+              {game.player === "kevin" ? "Kevin Lin" : "Philos Himm"}
+            </span>
+            <span className="text-dark/40 text-[10px] tracking-[1px]">
+              {game.player === "kevin"
+                ? "OUTSIDE HITTER · EDITOR"
+                : "OUTSIDE HITTER · CAMERA OP"}
+            </span>
           </div>
         </div>
       </div>
@@ -157,14 +105,14 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
               {perspectiveData && (
                 <div className="border-l-2 border-primary bg-primary/[0.03] rounded-r-[4px] px-5 py-4 flex gap-3.5 items-start">
                   <div className="size-8 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-bold shrink-0 mt-0.5">
-                    {perspective === "kevin" ? "KL" : "PH"}
+                    {game.player === "kevin" ? "KL" : "PH"}
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <p className="text-dark/70 text-[13px] leading-relaxed italic">
                       &ldquo;{perspectiveData.note}&rdquo;
                     </p>
                     <span className="text-dark/40 text-[11px]">
-                      {perspective === "kevin"
+                      {game.player === "kevin"
                         ? "— Kevin Lin, Outside Hitter · Editor"
                         : "— Philos Himm, Outside Hitter · Camera Op"}
                     </span>
@@ -304,9 +252,9 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
               className={`relative rounded-[4px] overflow-hidden border-l-4 ${resultAccent} bg-dark/[0.03] px-6 py-7 flex flex-col sm:flex-row sm:items-center gap-5 justify-between`}
             >
               <div className="flex flex-col gap-1.5 max-w-[420px]">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">SIDE-OUT STORY</span>
+                <span className="text-primary font-medium text-[10px] tracking-[3px]">HIGHLIGHTS GALLERY</span>
                 <p className="text-dark text-[16px] font-medium leading-snug tracking-[-0.3px]">
-                  Relive the drama — watch the Side-Out Story for this match
+                  Relive the drama — watch the Highlights Gallery for this match
                 </p>
                 <p className="text-dark/50 text-[13px]">
                   The full narrative vlog: behind-the-scenes moments, player reactions, and the story the score doesn&apos;t tell.
