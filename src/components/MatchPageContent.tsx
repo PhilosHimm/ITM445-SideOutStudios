@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ScrollSection from "@/components/ScrollSection";
 import { games } from "@/lib/games";
@@ -197,9 +198,21 @@ export default function MatchPageContent({ game, prev, next, resultAccent }: Omi
       {/* ── PLAYER CREDIT ───────────────────────────────────────────────── */}
       <div className="border-b border-border-light bg-white w-full">
         <div className="px-6 md:px-16 py-3 flex items-center gap-3">
-          <div className="size-7 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white shrink-0">
-            {game.player === "kevin" ? "KL" : "PH"}
-          </div>
+          {game.player === "philos" ? (
+            <div className="size-7 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+              <Image
+                src="/images/philos-pfp.JPG"
+                alt="Philos Himm"
+                width={28}
+                height={28}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className="size-7 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+              KL
+            </div>
+          )}
           <div className="flex flex-col gap-0">
             <span className="text-dark text-[12px] font-medium leading-tight">
               {game.player === "kevin" ? "Kevin Lin" : "Philos Himm"}

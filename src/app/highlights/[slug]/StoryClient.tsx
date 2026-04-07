@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Story } from "@/lib/stories";
 
 interface Props {
@@ -187,13 +188,25 @@ export default function StoryClient({ story, prev, next }: Props) {
                         : "border-border-light hover:border-dark/20 bg-white"
                     }`}
                   >
-                    <div
-                      className={`size-10 rounded-full flex items-center justify-center text-[14px] font-bold ${
-                        isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/50"
-                      }`}
-                    >
-                      {initials}
-                    </div>
+                    {p === "philos" ? (
+                      <div className="size-10 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                        <Image
+                          src="/images/philos-pfp.JPG"
+                          alt="Philos Himm"
+                          width={40}
+                          height={40}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className={`size-10 rounded-full flex items-center justify-center text-[14px] font-bold ${
+                          isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/50"
+                        }`}
+                      >
+                        {initials}
+                      </div>
+                    )}
                     <span className={`text-[13px] font-medium ${isActive ? "text-primary" : "text-dark/60"}`}>
                       {name}
                     </span>

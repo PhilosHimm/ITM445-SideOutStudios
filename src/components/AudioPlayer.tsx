@@ -1,15 +1,17 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 interface Props {
   src: string;
   playerName: string;
   initials: string;
+  avatarSrc?: string;
 }
 
-export default function AudioPlayer({ src, playerName, initials }: Props) {
+export default function AudioPlayer({ src, playerName, initials, avatarSrc }: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioProgress, setAudioProgress] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -42,9 +44,21 @@ export default function AudioPlayer({ src, playerName, initials }: Props) {
   return (
     <div className="border border-border-light rounded-[4px] p-4 flex flex-col gap-3">
       <div className="flex items-center gap-2">
-        <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white shrink-0">
-          {initials}
-        </div>
+        {avatarSrc ? (
+          <div className="size-5 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+            <Image
+              src={avatarSrc}
+              alt={playerName}
+              width={20}
+              height={20}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white shrink-0">
+            {initials}
+          </div>
+        )}
         <span className="text-dark text-[13px] font-medium">{playerName}</span>
       </div>
       <audio

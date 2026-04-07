@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import type { Story } from "@/lib/stories";
 
 interface Props {
@@ -30,16 +31,27 @@ export default function HighlightsReel({ highlights, perspective }: Props) {
     return "border border-dark/40 text-dark bg-white";
   };
 
-  const initials = perspective === "kevin" ? "KL" : "PH";
   const playerName = perspective === "kevin" ? "Kevin Lin" : "Philos Himm";
 
   return (
     <div className="flex flex-col gap-4">
       {/* A. Active player label */}
       <div className="flex items-center gap-2">
-        <div className="size-6 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold shrink-0">
-          {initials}
-        </div>
+        {perspective === "philos" ? (
+          <div className="size-6 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+            <Image
+              src="/images/philos-pfp.JPG"
+              alt="Philos Himm"
+              width={24}
+              height={24}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="size-6 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold shrink-0">
+            KL
+          </div>
+        )}
         <span className="text-[11px] text-muted tracking-[1px] font-medium">
           {playerName}&rsquo;s clips &middot; {filtered.length} clip{filtered.length !== 1 ? "s" : ""}
         </span>

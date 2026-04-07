@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Image from "next/image";
 
 const kevinGear = [
   { item: "Mizuno Wave Lightning Z7", note: "Primary match shoe — lightweight, low-profile sole" },
@@ -9,17 +10,15 @@ const kevinGear = [
   { item: "Nike Dri-FIT Compression Shorts", note: "Base layer under athletic shorts" },
   { item: "Swiftwick Aspire Zero Socks", note: "No-show, snug fit, prevents heel slip in court shoes" },
   { item: "Mikasa MVA200 Ball", note: "Personal training ball — used for serve practice" },
-  { item: "Resistance Band (loop)", note: "Pre-game shoulder warm-up and rotator cuff activation" },
-];
+ ];
 
 const philosGear = [
-  { item: "ASICS Gel-Rocket 10", note: "Everyday match shoe — reliable grip on gym floors" },
-  { item: "Volleyball Knee Pads (Mizuno T10)", note: "Full-coverage pad, preferred for diving digs" },
-  { item: "Mueller Jumper's Knee Strap", note: "Worn on left knee during long sessions" },
-  { item: "Under Armour Compression Tights", note: "Full-length, worn under shorts for warmth pre-game" },
-  { item: "Balega Hidden Comfort Socks", note: "Cushioned sole, keeps feet stable in lateral cuts" },
-  { item: "Wilson AVP Outdoor Ball", note: "Used for backyard and outdoor passing drills" },
-  { item: "Foam Roller", note: "Post-game IT band and quad recovery" },
+  { item: "Way of Wade Shadow 6s", note: "Everyday match shoe — reliable grip on gym floors" },
+  { item: "Jumplete Atakk Knee brace", note: "Full-coverage knee brace, Assistive knee flexion support" },
+  { item: "Costco Champion Crew Socks", note: "Cushioned sole, keeps feet comfortable during play" },
+  { item: "Molten V5M5000", note: "Used for regular drop ins and games" },
+  { item: "Resistance Band (loop)", note: "Pre-game shoulder warm-up and rotator cuff activation" },
+
 ];
 
 export default function Gear() {
@@ -70,8 +69,14 @@ export default function Gear() {
           <div className="flex-1 min-w-0 lg:pl-12">
             {/* Player header */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="size-10 rounded-full bg-dark flex items-center justify-center text-white text-[12px] font-bold shrink-0">
-                PH
+              <div className="size-10 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                <Image
+                  src="/images/philos-pfp.JPG"
+                  alt="Philos Himm"
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="flex flex-col gap-0">
                 <span className="text-dark text-[15px] font-medium leading-tight">Philos Himm</span>

@@ -33,6 +33,7 @@ export default function Footer() {
       <nav aria-label="Footer navigation">
         <ul className="flex gap-6 items-center list-none m-0 p-0 flex-wrap">
           {[
+            { label: "Home", href: "/" },
             { label: "Matches", href: "/matches" },
             { label: "Highlights", href: "/highlights" },
             { label: "Gear", href: "/gear" },

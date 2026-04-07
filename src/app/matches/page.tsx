@@ -6,6 +6,7 @@ import PageHero from "@/components/PageHero";
 import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight, Calendar, Trophy, Users } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { games } from "@/lib/games";
 
@@ -81,13 +82,25 @@ export default function Matches() {
                     isActive ? "bg-dark" : "hover:bg-dark/5"
                   }`}
                 >
-                  <div
-                    className={`size-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 ${
-                      isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/40"
-                    }`}
-                  >
-                    {m.initials}
-                  </div>
+                  {p === "philos" ? (
+                    <div className="size-5 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light/80">
+                      <Image
+                        src="/images/philos-pfp.JPG"
+                        alt="Philos Himm"
+                        width={20}
+                        height={20}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`size-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 ${
+                        isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/40"
+                      }`}
+                    >
+                      {m.initials}
+                    </div>
+                  )}
                   <span
                     className={`text-[13px] font-medium ${
                       isActive ? "text-white" : "text-dark/60"
@@ -103,9 +116,21 @@ export default function Matches() {
           {/* ── Player Header Card ──────────────────────────────────────── */}
           <div className="border border-border-light rounded-[4px] px-5 py-4 w-full mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex items-center gap-4 flex-1 min-w-0">
-              <div className="size-12 rounded-full bg-primary flex items-center justify-center text-white text-[14px] font-bold shrink-0">
-                {meta.initials}
-              </div>
+              {activePlayer === "philos" ? (
+                <div className="size-12 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                  <Image
+                    src="/images/philos-pfp.JPG"
+                    alt="Philos Himm"
+                    width={48}
+                    height={48}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="size-12 rounded-full bg-primary flex items-center justify-center text-white text-[14px] font-bold shrink-0">
+                  {meta.initials}
+                </div>
+              )}
               <div className="flex flex-col gap-0.5 min-w-0">
                 <span className="text-dark text-[15px] font-medium leading-tight">
                   {meta.name}

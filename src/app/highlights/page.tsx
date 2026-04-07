@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import AudioPlayer from "@/components/AudioPlayer";
+import Image from "next/image";
 import { Play, Pause, Check } from "lucide-react";
 import { highlights, clipTypeMeta } from "@/lib/highlights";
 import type { Highlight } from "@/lib/highlights";
@@ -169,9 +170,21 @@ function HighlightsContent() {
               )}
               {/* Player attribution badge */}
               <div className="absolute top-3 left-3 flex items-center gap-2 bg-dark/70 px-3 py-1.5 rounded-[3px]">
-                <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white">
-                  {focusedClip.player === "kevin" ? "KL" : "PH"}
-                </div>
+                {focusedClip.player === "philos" ? (
+                  <div className="size-5 rounded-full overflow-hidden ring-1 ring-white/60">
+                    <Image
+                      src="/images/philos-pfp.JPG"
+                      alt="Philos Himm"
+                      width={20}
+                      height={20}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white">
+                    KL
+                  </div>
+                )}
                 <span className="text-white text-[11px] font-medium">
                   {focusedClip.player === "kevin" ? "Kevin Lin" : "Philos Himm"}
                 </span>
@@ -376,6 +389,7 @@ function HighlightsContent() {
               src="/audio/philos-reflections.mp3"
               playerName="Philos Himm"
               initials="PH"
+              avatarSrc="/images/philos-pfp.JPG"
             />
             <AudioPlayer
               src="/audio/kevin-reflections.mp3"
