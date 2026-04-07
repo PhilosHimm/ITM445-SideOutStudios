@@ -691,7 +691,7 @@ export const games: Game[] = [
     badgeClass: "bg-amber-500/80 text-white",
     description: "Quarter final thriller — split sets then took the tiebreaker 15–13.",
     matchSummary: "",
-    heroImage: "",
+    heroImage: "/images/matches thumbnails/Philos/game13.png",
     category: "Playoffs",
     duration: "",
     highlights: [],
