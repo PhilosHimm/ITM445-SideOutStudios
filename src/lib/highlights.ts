@@ -189,6 +189,71 @@ export const highlights: Highlight[] = [
     thumbnail: "https://img.youtube.com/vi/JQtMh4ehZcI/mqdefault.jpg",
     duration: "—",
   },
+  {
+    id: "philos-hit-2",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Left side swing around the block",
+    annotation:
+      "Philos reads the block closing early and swings around the outside hand, sending the ball past the block down the line.",
+    videoSrc: "https://www.youtube.com/embed/zk1jxvHXaZc",
+    thumbnail: "https://img.youtube.com/vi/zk1jxvHXaZc/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "philos-hit-3",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Left side block out",
+    annotation:
+      "Philos attacks the outside hand of the block intentionally, redirecting the ball out of bounds for a clean tool off the block.",
+    videoSrc: "https://www.youtube.com/embed/cZyomeVVbYc",
+    thumbnail: "https://img.youtube.com/vi/cZyomeVVbYc/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "philos-hit-4",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Left side swing through block",
+    annotation:
+      "A powerful left side approach — Philos drives the ball straight through the block with enough pace to drop in the back row.",
+    videoSrc: "https://www.youtube.com/embed/rsW5fh4L7nU",
+    thumbnail: "https://img.youtube.com/vi/rsW5fh4L7nU/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "philos-hit-5",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Left side swing line",
+    annotation:
+      "Philos takes the inside approach angle and finishes a hard line shot down the antenna side, beating a single blocker.",
+    videoSrc: "https://www.youtube.com/embed/by86YLz21fo",
+    thumbnail: "https://img.youtube.com/vi/by86YLz21fo/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "philos-hit-6",
+    player: "philos",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "Scoop tournament",
+    title: "Left side big swing",
+    annotation:
+      "Full approach, high contact — Philos unloads a big left side cut that drops into the deep cross-court corner.",
+    videoSrc: "https://www.youtube.com/embed/wlpiO8lLaA8",
+    thumbnail: "https://img.youtube.com/vi/wlpiO8lLaA8/mqdefault.jpg",
+    duration: "—",
+  },
   // ── Philos — Block ──────────────────────────────────────────────────────────
   {
     id: "philos-block-1",
@@ -203,6 +268,19 @@ export const highlights: Highlight[] = [
     thumbnail: "/images/clips/philos-block-1.jpg",
     duration: "0:26",
     featured: true,
+  },
+  {
+    id: "philos-block-2",
+    player: "philos",
+    clipType: "block",
+    label: "BLOCK",
+    gameContext: "Scoop tournament",
+    title: "Left side block",
+    annotation:
+      "Philos closes from the left side, times the jump perfectly, and gets both hands over the tape to stuff the attack back into the opponent's court.",
+    videoSrc: "https://www.youtube.com/embed/-RmTg7pN4zU",
+    thumbnail: "https://img.youtube.com/vi/-RmTg7pN4zU/mqdefault.jpg",
+    duration: "—",
   },
 ];
 

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import ScrollSection from "@/components/ScrollSection";
+import { games } from "@/lib/games";
 import type { Game } from "@/lib/games";
 import type { Story } from "@/lib/stories";
 
@@ -14,11 +15,183 @@ interface Props {
   resultAccent: string;
 }
 
-export default function MatchPageContent({ game, story, prev, next, resultAccent }: Props) {
-  const perspectiveData = game.perspectives?.[game.player];
-  const activeSummary = perspectiveData?.summary ?? game.matchSummary;
-  const activeStats = perspectiveData?.stats ?? game.stats;
+// ── Shared simplified sections ──────────────────────────────────────────────
 
+function SetScoresSection({ game }: { game: Game }) {
+  if (game.sets.length === 0) return null;
+  return (
+    <ScrollSection animation="fade-up" delay={60}>
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <span className="text-primary font-medium text-[10px] tracking-[3px]">SET SCORES</span>
+          <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Score by Set</h2>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          {game.sets.map((set) => {
+            const won = set.result === "Won";
+            return (
+              <div
+                key={set.setNumber}
+                className={`border rounded-[4px] px-5 py-5 flex flex-col gap-3 ${
+                  won ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"
+                }`}
+              >
+                <span className="text-[10px] font-medium text-dark/50 tracking-[1.5px]">
+                  SET {set.setNumber}
+                </span>
+                <span
+                  className={`text-[36px] font-bold tracking-[-2px] leading-none tabular-nums ${
+                    won ? "text-emerald-600" : "text-red-500"
+                  }`}
+                >
+                  {set.ourScore ?? "?"}&ndash;{set.theirScore ?? "?"}
+                </span>
+                <span
+                  className={`text-[9px] font-bold tracking-[1.5px] px-2 py-[3px] rounded-[2px] self-start ${
+                    won ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
+                  }`}
+                >
+                  {won ? "WON" : "LOST"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </ScrollSection>
+  );
+}
+
+function SeasonContextSection({ game }: { game: Game }) {
+  const playerGames = games.filter((g) => g.player === game.player);
+  const totalGames = playerGames.length;
+  const gamesUpToNow = playerGames.filter((g) => g.number <= game.number);
+  const w = gamesUpToNow.filter((g) => g.result === "Win").length;
+  const l = gamesUpToNow.filter((g) => g.result === "Loss").length;
+  const t = gamesUpToNow.filter((g) => g.result === "Tie").length;
+  const recordStr = `${w}W – ${l}L${t > 0 ? ` – ${t}T` : ""}`;
+  const combinedPts = game.sets.reduce(
+    (acc, s) => acc + (s.ourScore ?? 0) + (s.theirScore ?? 0),
+    0
+  );
+
+  const tiles = [
+    { label: "GAME OF SEASON", value: `${game.number} of ${totalGames}` },
+    { label: "RECORD THROUGH THIS GAME", value: recordStr },
+    ...(combinedPts > 0 ? [{ label: "COMBINED PTS THIS GAME", value: String(combinedPts) }] : []),
+  ];
+
+  return (
+    <ScrollSection animation="fade-up" delay={80}>
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <span className="text-primary font-medium text-[10px] tracking-[3px]">SEASON CONTEXT</span>
+          <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Where This Game Fits</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {tiles.map((tile) => (
+            <div
+              key={tile.label}
+              className="border border-border rounded-[4px] flex flex-col items-center justify-center py-5 px-4 gap-1.5 text-center"
+            >
+              <span className="text-[22px] font-bold text-dark tracking-[-1px] leading-none tabular-nums">
+                {tile.value}
+              </span>
+              <span className="text-[9px] font-medium text-dark/40 tracking-[1.5px]">
+                {tile.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </ScrollSection>
+  );
+}
+
+function OpponentHistorySection({ game }: { game: Game }) {
+  const playerGames = games.filter((g) => g.player === game.player);
+  const opponentGames = playerGames
+    .filter((g) => g.opponent === game.opponent)
+    .sort((a, b) => a.number - b.number);
+
+  if (opponentGames.length <= 1) return null;
+
+  const vsW = opponentGames.filter((g) => g.result === "Win").length;
+  const vsL = opponentGames.filter((g) => g.result === "Loss").length;
+  const vsT = opponentGames.filter((g) => g.result === "Tie").length;
+  const currentResult = game.result === "Win" ? "W" : game.result === "Loss" ? "L" : "T";
+
+  return (
+    <ScrollSection animation="fade-up" delay={100}>
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <span className="text-primary font-medium text-[10px] tracking-[3px]">OPPONENT HISTORY</span>
+          <h2 className="font-light text-dark text-[26px] tracking-[-1px]">
+            vs {game.opponent}
+          </h2>
+        </div>
+
+        <div className="border border-border-light rounded-[4px] px-5 py-5 flex flex-col gap-4">
+          <div className="flex items-end gap-3 flex-wrap">
+            {opponentGames.map((g) => {
+              const isCurrent = g.slug === game.slug;
+              const dotColor =
+                g.result === "Win"
+                  ? "bg-emerald-500"
+                  : g.result === "Loss"
+                  ? "bg-red-500"
+                  : "bg-amber-400";
+              return (
+                <div key={g.slug} className="flex flex-col items-center gap-1">
+                  <div
+                    className={`size-5 rounded-full ${dotColor} ${
+                      isCurrent ? "ring-2 ring-offset-2 ring-dark" : ""
+                    }`}
+                  />
+                  <span className="text-[9px] text-dark/40 font-medium">G{g.number}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col gap-1 pt-1 border-t border-border-light">
+            <span className="text-dark/60 text-[12px]">
+              Season record vs{" "}
+              <span className="text-dark font-medium">{game.opponent}</span>:{" "}
+              <span className="text-emerald-600 font-medium">{vsW}W</span>
+              {" – "}
+              <span className="text-red-500 font-medium">{vsL}L</span>
+              {vsT > 0 && (
+                <>
+                  {" – "}
+                  <span className="text-amber-500 font-medium">{vsT}T</span>
+                </>
+              )}
+            </span>
+            <span className="text-dark/40 text-[11px]">
+              You are here:{" "}
+              <span
+                className={`font-medium ${
+                  currentResult === "W"
+                    ? "text-emerald-600"
+                    : currentResult === "L"
+                    ? "text-red-500"
+                    : "text-amber-500"
+                }`}
+              >
+                {currentResult === "W" ? "Win" : currentResult === "L" ? "Loss" : "Tie"}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ScrollSection>
+  );
+}
+
+// ── Main component ──────────────────────────────────────────────────────────
+
+export default function MatchPageContent({ game, prev, next, resultAccent }: Omit<Props, "story">) {
   return (
     <>
       {/* ── PLAYER CREDIT ───────────────────────────────────────────────── */}
@@ -43,236 +216,9 @@ export default function MatchPageContent({ game, story, prev, next, resultAccent
       {/* ── MAIN CONTENT ────────────────────────────────────────────────── */}
       <div className="w-full flex-1">
         <main className="flex flex-col gap-12 px-6 md:px-16 py-10 w-full">
-
-          {/* ── 2. HERO IMAGE COLLAGE ───────────────────────────────────── */}
-          <ScrollSection animation="fade-up">
-            <div className="grid grid-cols-3 grid-rows-2 gap-2 rounded-[4px] overflow-hidden h-[260px] md:h-[340px]">
-              <div
-                className="col-span-2 row-span-2 bg-cover bg-center bg-dark/20"
-                style={{ backgroundImage: `url('${game.heroImage}')` }}
-                role="img"
-                aria-label={`${game.title} — hero image`}
-              />
-              {game.highlights.slice(0, 2).map((h, i) => (
-                <div
-                  key={i}
-                  className="relative bg-cover bg-center bg-dark/20 overflow-hidden group"
-                  style={{ backgroundImage: `url('${h.image}')` }}
-                  role="img"
-                  aria-label={h.title}
-                >
-                  <div className="absolute inset-0 bg-dark/40 group-hover:bg-dark/20 transition-colors duration-300" />
-                  <div className="absolute bottom-0 left-0 p-2">
-                    <span className="text-white/80 text-[9px] font-medium leading-tight line-clamp-1">
-                      {h.title}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollSection>
-
-          {/* ── 3. MATCH SUMMARY ────────────────────────────────────────── */}
-          <ScrollSection animation="fade-up" delay={60}>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-1">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">MATCH SUMMARY</span>
-                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Game Overview</h2>
-              </div>
-
-              <p className="text-dark/70 text-[15px] leading-relaxed max-w-[780px]">
-                {activeSummary}
-              </p>
-
-              {/* Stats row */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
-                {activeStats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="border border-border rounded-[4px] flex flex-col items-center justify-center py-4 px-3 gap-1"
-                  >
-                    <span className="text-[28px] font-bold text-dark tracking-[-1.5px] leading-none tabular-nums">
-                      {stat.value}
-                    </span>
-                    <span className="text-[10px] font-medium text-dark/40 tracking-[1.5px]">
-                      {stat.label.toUpperCase()}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Perspective Note */}
-              {perspectiveData && (
-                <div className="border-l-2 border-primary bg-primary/[0.03] rounded-r-[4px] px-5 py-4 flex gap-3.5 items-start">
-                  <div className="size-8 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-bold shrink-0 mt-0.5">
-                    {game.player === "kevin" ? "KL" : "PH"}
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-dark/70 text-[13px] leading-relaxed italic">
-                      &ldquo;{perspectiveData.note}&rdquo;
-                    </p>
-                    <span className="text-dark/40 text-[11px]">
-                      {game.player === "kevin"
-                        ? "— Kevin Lin, Outside Hitter · Editor"
-                        : "— Philos Himm, Outside Hitter · Camera Op"}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </ScrollSection>
-
-          {/* ── 4. SET-BY-SET BREAKDOWN ─────────────────────────────────── */}
-          <ScrollSection animation="fade-up" delay={80}>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-1">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">SET BREAKDOWN</span>
-                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Set-by-Set Analysis</h2>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                {game.sets.map((set, i) => {
-                  const pSet = perspectiveData?.sets?.[i];
-                  const ourScore = pSet?.ourScore ?? set.ourScore;
-                  const theirScore = pSet?.theirScore ?? set.theirScore;
-                  const result = pSet?.result ?? set.result;
-                  const setWon = result === "Won";
-                  return (
-                    <ScrollSection key={set.setNumber} animation="fade-up" delay={i * 70} as="div">
-                      <div
-                        className={`rounded-[4px] overflow-hidden border ${
-                          setWon ? "border-emerald-200" : "border-red-200"
-                        }`}
-                      >
-                        <div
-                          className={`flex items-center justify-between px-5 py-3 ${
-                            setWon ? "bg-emerald-50" : "bg-red-50"
-                          }`}
-                        >
-                          <span className="font-semibold text-dark text-[13px] tracking-[-0.3px]">
-                            Set {set.setNumber}
-                          </span>
-                          <div className="flex items-center gap-3">
-                            <span className="text-[22px] font-bold text-dark tracking-[-1.2px] leading-none tabular-nums">
-                              {ourScore}–{theirScore}
-                            </span>
-                            <span
-                              className={`text-[9px] font-bold tracking-[1.5px] px-2 py-[3px] rounded-[2px] ${
-                                setWon ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
-                              }`}
-                            >
-                              {setWon ? "WON" : "LOST"}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="h-1.5 w-full bg-dark/5">
-                          <div
-                            className={`h-full ${
-                              setWon ? "bg-emerald-400" : "bg-red-400"
-                            } transition-all`}
-                            style={{
-                              width: `${Math.round(
-                                (ourScore / (ourScore + theirScore)) * 100
-                              )}%`,
-                            }}
-                          />
-                        </div>
-
-                        <ul className="flex flex-col gap-2 px-5 py-4">
-                          {(perspectiveData?.setBullets?.[i] ?? set.bullets).map((bullet, bi) => (
-                            <li
-                              key={bi}
-                              className="flex items-start gap-2.5 text-[13px] text-dark/65 leading-snug"
-                            >
-                              <span
-                                className={`mt-[3px] text-[8px] ${
-                                  setWon ? "text-emerald-500" : "text-red-400"
-                                }`}
-                              >
-                                ●
-                              </span>
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </ScrollSection>
-                  );
-                })}
-              </div>
-            </div>
-          </ScrollSection>
-
-          {/* ── 5. ACTION GALLERY ───────────────────────────────────────── */}
-          <ScrollSection animation="fade-up" delay={60}>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-1">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">ACTION GALLERY</span>
-                <h2 className="font-light text-dark text-[26px] tracking-[-1px]">Freeze Frames</h2>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {game.highlights.map((h, i) => (
-                  <ScrollSection key={h.title} animation="fade-up" delay={i * 60} as="article">
-                    <div
-                      className="relative rounded-[4px] overflow-hidden group"
-                      style={{ aspectRatio: "4/3" }}
-                    >
-                      <div
-                        className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                        style={{ backgroundImage: `url('${h.image}')` }}
-                        role="img"
-                        aria-label={h.title}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-dark/85 via-dark/20 to-transparent" />
-
-                      <div className="absolute top-3 left-3">
-                        <span className="bg-dark/70 text-white/80 text-[9px] font-medium tracking-[0.5px] px-2 py-[3px] rounded-[2px]">
-                          {h.timestamp}
-                        </span>
-                      </div>
-
-                      <div className="absolute bottom-0 left-0 right-0 p-3">
-                        <p className="text-white text-[12px] font-medium leading-tight">{h.title}</p>
-                        <p className="text-white/65 text-[11px] mt-0.5 leading-tight line-clamp-2">
-                          {perspectiveData?.highlightNotes?.[i] ?? h.description}
-                        </p>
-                      </div>
-                    </div>
-                  </ScrollSection>
-                ))}
-              </div>
-            </div>
-          </ScrollSection>
-
-          {/* ── 6. STORY CTA ────────────────────────────────────────────── */}
-          <ScrollSection animation="fade-up" delay={40}>
-            <div
-              className={`relative rounded-[4px] overflow-hidden border-l-4 ${resultAccent} bg-dark/[0.03] px-6 py-7 flex flex-col sm:flex-row sm:items-center gap-5 justify-between`}
-            >
-              <div className="flex flex-col gap-1.5 max-w-[420px]">
-                <span className="text-primary font-medium text-[10px] tracking-[3px]">HIGHLIGHTS GALLERY</span>
-                <p className="text-dark text-[16px] font-medium leading-snug tracking-[-0.3px]">
-                  Relive the drama — watch the Highlights Gallery for this match
-                </p>
-                <p className="text-dark/50 text-[13px]">
-                  The full narrative vlog: behind-the-scenes moments, player reactions, and the story the score doesn&apos;t tell.
-                </p>
-              </div>
-              <Link
-                href={game.storyLink}
-                className="inline-flex items-center gap-2 bg-dark text-white px-5 py-3 rounded-[3px] text-[13px] font-medium hover:bg-dark/80 transition-colors duration-200 shrink-0 group"
-              >
-                <span>Watch the Highlights</span>
-                <ExternalLink
-                  size={13}
-                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
-                />
-              </Link>
-            </div>
-          </ScrollSection>
-
+          <SetScoresSection game={game} />
+          <SeasonContextSection game={game} />
+          <OpponentHistorySection game={game} />
         </main>
       </div>
 

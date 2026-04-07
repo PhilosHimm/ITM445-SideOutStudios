@@ -27,12 +27,22 @@ const highlightCards = [
   {
     badge: "HIT",
     badgeClass: "bg-primary text-white",
+    title: "Left side big swing",
+    description:
+      "Full approach, high contact — Philos unloads a big left side cut that drops into the deep cross-court corner.",
+    meta: "Philos Himm · Scoop tournament",
+    image: "https://img.youtube.com/vi/wlpiO8lLaA8/mqdefault.jpg",
+    link: "/highlights?clip=philos-hit-6",
+  },
+  {
+    badge: "HIT",
+    badgeClass: "bg-primary text-white",
     title: "Back-row cross kill",
     description:
       "Kevin loads from zone 1 and cuts cross-court at a sharp angle — block commits left, seam opens right.",
     meta: "Kevin Lin · Intramural S1",
     image: "/images/clips/kevin-hit-1.jpg",
-    link: "/highlights",
+    link: "/highlights?clip=kevin-hit-1",
   },
   {
     badge: "BLOCK",
@@ -42,7 +52,7 @@ const highlightCards = [
       "Philos reads the outside hitter's shoulder angle, closes hard from the right side, and stuffs cleanly back into the attacker's court.",
     meta: "Philos Himm · Rec League",
     image: "/images/clips/philos-block-1.jpg",
-    link: "/highlights",
+    link: "/highlights?clip=philos-block-1",
   },
 ];
 
@@ -185,7 +195,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
             {highlightCards.map((card) => (
               <Link
                 key={card.title}
@@ -193,7 +203,7 @@ export default function Home() {
                 className="border border-border flex flex-col items-start cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg rounded-[4px] bg-white overflow-hidden"
               >
                 <div
-                  className="bg-dark/20 h-[180px] w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                  className="bg-dark/20 aspect-video w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
                   style={{ backgroundImage: `url(${card.image})` }}
                   role="img"
                   aria-label={card.title}
@@ -260,7 +270,7 @@ export default function Home() {
                 className="border border-border flex flex-col items-start cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg rounded-[4px] bg-white overflow-hidden"
               >
                 <div
-                  className="bg-dark/20 h-[180px] w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
+                  className="bg-dark/20 aspect-video w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
                   style={{ backgroundImage: `url(${card.image})` }}
                   role="img"
                   aria-label={card.title}

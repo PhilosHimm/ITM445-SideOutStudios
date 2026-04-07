@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -9,10 +10,14 @@ import { Play, Pause, Check } from "lucide-react";
 import { highlights, clipTypeMeta } from "@/lib/highlights";
 import type { Highlight } from "@/lib/highlights";
 
-export default function Stories() {
+function HighlightsContent() {
+  const searchParams = useSearchParams();
+  const initialClip = searchParams.get("clip");
+
   const [activeFilter, setActiveFilter] = useState<"all" | Highlight["clipType"]>("all");
   const [activePlayer, setActivePlayer] = useState<"all" | "kevin" | "philos">("all");
-  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const [focusedId, setFocusedId] = useState<string | null>(initialClip);
+  const videoFrameRef = useRef<HTMLElement | null>(null);
   const [pollVoted, setPollVoted] = useState(false);
   const [pollOption, setPollOption] = useState<number | null>(null);
   const [pollCounts, setPollCounts] = useState<Record<number, number>>({ 1: 0, 2: 0, 3: 0, 4: 0 });
@@ -27,6 +32,12 @@ export default function Stories() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    if (initialClip && initialClip !== focusedId) {
+      setFocusedId(initialClip);
+    }
+  }, [initialClip]);
+
   const filtered = highlights.filter(
     (h) =>
       (activeFilter === "all" || h.clipType === activeFilter) &&
@@ -38,6 +49,12 @@ export default function Stories() {
   const focusedClip = focusedId
     ? highlights.find((h) => h.id === focusedId) ?? defaultClip
     : defaultClip;
+
+  const handleClipSelect = (clipId: string) => {
+    if (clipId === focusedId) return;
+    setFocusedId(clipId);
+    videoFrameRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const filterButtonBase =
     "text-[11px] font-medium px-3 h-8 rounded-[2px] transition-all duration-150 cursor-pointer";
@@ -128,7 +145,7 @@ export default function Stories() {
         {/* Left — hero player + clip grid */}
         <div className="flex-1 min-w-0 px-6 md:px-10 lg:px-12 py-8 flex flex-col gap-8">
           {/* A. Hero player */}
-          <section className="flex flex-col gap-0">
+          <section ref={videoFrameRef} className="flex flex-col gap-0">
             <div className="relative">
               {focusedClip.videoSrc.includes("youtube.com/embed") ? (
                 <div className="relative w-full bg-dark aspect-video rounded-t-[4px] shadow-lg overflow-hidden">
@@ -214,7 +231,7 @@ export default function Stories() {
                 filtered.map((clip) => (
                   <button
                     key={clip.id}
-                    onClick={() => setFocusedId(clip.id)}
+                    onClick={() => handleClipSelect(clip.id)}
                     className={`flex flex-col items-start border rounded-[4px] overflow-hidden text-left w-full transition-all duration-200 group cursor-pointer ${
                       focusedId === clip.id ||
                       (!focusedId && clip.id === defaultClip.id)
@@ -449,5 +466,13 @@ export default function Stories() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function Highlights() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <HighlightsContent />
+    </Suspense>
   );
 }

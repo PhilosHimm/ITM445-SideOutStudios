@@ -34,17 +34,22 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
 
   const isWin = game.result === "Win";
   const isLoss = game.result === "Loss";
+  const isTie = game.result === "Tie";
 
   const resultBg = isWin
     ? "bg-emerald-500"
     : isLoss
     ? "bg-red-500"
+    : isTie
+    ? "bg-amber-500"
     : "bg-primary";
 
   const resultAccent = isWin
     ? "border-emerald-500"
     : isLoss
     ? "border-red-500"
+    : isTie
+    ? "border-amber-500"
     : "border-primary";
 
   return (
@@ -93,17 +98,19 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
                 <Calendar size={12} className="text-white/30" />
                 <span className="text-white/50 text-[12px]">{game.date}, {game.year}</span>
               </div>
-              <div className="flex gap-1.5 items-center">
-                <Clock size={12} className="text-white/30" />
-                <span className="text-white/50 text-[12px]">{game.duration}</span>
-              </div>
+              {game.duration && (
+                <div className="flex gap-1.5 items-center">
+                  <Clock size={12} className="text-white/30" />
+                  <span className="text-white/50 text-[12px]">{game.duration}</span>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
             <div className={`${resultBg} px-4 py-1.5 rounded-[3px]`}>
               <span className="text-white text-[11px] font-bold tracking-[3px]">
-                {game.result === "Win" ? "WIN" : game.result === "Loss" ? "LOSS" : "UPCOMING"}
+                {game.result === "Win" ? "WIN" : game.result === "Loss" ? "LOSS" : game.result === "Tie" ? "TIE" : "UPCOMING"}
               </span>
             </div>
             <div className="flex flex-col items-start md:items-end gap-0.5">
@@ -121,7 +128,6 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
       {/* ── PERSPECTIVE-AWARE CONTENT ────────────────────────────────────── */}
       <MatchPageContent
         game={game}
-        story={story}
         prev={prev}
         next={next}
         resultAccent={resultAccent}

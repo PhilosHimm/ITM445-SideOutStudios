@@ -53,6 +53,7 @@ export default function Matches() {
 
   const wins = playerGames.filter((i) => i.result === "Win").length;
   const losses = playerGames.filter((i) => i.result === "Loss").length;
+  const ties = playerGames.filter((i) => i.result === "Tie").length;
   const meta = playerMeta[activePlayer];
 
   return (
@@ -133,6 +134,19 @@ export default function Matches() {
                   LOSSES
                 </span>
               </div>
+              {ties > 0 && (
+                <>
+                  <div className="w-px bg-border-light self-stretch" />
+                  <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-dark text-[26px] font-light tracking-[-1px] leading-none">
+                      {ties}
+                    </span>
+                    <span className="text-muted text-[10px] tracking-[1px] font-medium mt-1">
+                      TIES
+                    </span>
+                  </div>
+                </>
+              )}
               <div className="w-px bg-border-light self-stretch" />
               <div className="flex flex-col items-center gap-0.5">
                 <span className="text-dark text-[26px] font-light tracking-[-1px] leading-none">
@@ -174,7 +188,7 @@ export default function Matches() {
               No matches found for this range.
             </div>
           ) : (
-            <div role="list" aria-label="Match timeline">
+            <div role="list" aria-label="Match timeline" className="w-full">
               {filteredItems.map((item, i) => (
                 <ScrollSection
                   key={item.title}
@@ -222,12 +236,12 @@ export default function Matches() {
                   {/* Recap Card */}
                   <Link
                     href={item.link}
-                    className="border border-border flex flex-col flex-1 items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
+                    className="border border-border flex flex-col w-full md:w-1/2 lg:w-[50%] items-start min-w-0 rounded-[4px] cursor-pointer hover:border-[#aaa] transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg bg-white overflow-hidden"
                   >
                     {/* Hero image */}
                     <div className="relative w-full">
                       <div
-                        className="h-[200px] sm:h-[220px] w-full group-hover:scale-[1.02] transition-transform duration-500 bg-cover bg-center"
+                        className="aspect-video w-full group-hover:scale-[1.02] transition-transform duration-500 bg-cover bg-center"
                         style={{ backgroundImage: `url('${item.image}')` }}
                         role="img"
                         aria-label={item.title}
@@ -242,6 +256,8 @@ export default function Matches() {
                                 ? "text-emerald-400"
                                 : item.result === "Loss"
                                 ? "text-red-400"
+                                : item.result === "Tie"
+                                ? "text-amber-400"
                                 : "text-white"
                             }`}
                           >
@@ -253,6 +269,8 @@ export default function Matches() {
                                 ? "bg-emerald-500/90 text-white"
                                 : item.result === "Loss"
                                 ? "bg-red-500/90 text-white"
+                                : item.result === "Tie"
+                                ? "bg-amber-500/90 text-white"
                                 : "bg-primary/90 text-white"
                             }`}
                           >
