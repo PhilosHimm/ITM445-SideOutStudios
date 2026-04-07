@@ -7,7 +7,8 @@ import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight, Calendar, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { games } from "@/lib/games";
 
 const timelineItems = games.map((g) => ({
@@ -44,8 +45,19 @@ const playerMeta = {
 } as const;
 
 export default function Matches() {
-  const [activePlayer, setActivePlayer] = useState<"kevin" | "philos">("kevin");
+  const searchParams = useSearchParams();
+  const playerParam = searchParams.get("player");
+  const initialPlayer: "kevin" | "philos" =
+    playerParam === "philos" ? "philos" : "kevin";
+
+  const [activePlayer, setActivePlayer] = useState<"kevin" | "philos">(initialPlayer);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+
+  useEffect(() => {
+    if (playerParam === "kevin" || playerParam === "philos") {
+      setActivePlayer(playerParam);
+    }
+  }, [playerParam]);
 
   const playerGames = timelineItems.filter((i) => i.player === activePlayer);
   const filteredItems = [...playerGames].sort((a, b) =>

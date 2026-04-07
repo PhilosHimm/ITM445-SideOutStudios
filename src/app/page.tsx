@@ -351,7 +351,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {/* Kevin */}
             <Link
-              href="/matches"
+              href="/matches?player=kevin"
               className="border border-border-light rounded-[4px] p-6 flex flex-col gap-5 hover:border-[#aaa] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer"
             >
               <div className="flex items-center gap-4">
@@ -409,7 +409,7 @@ export default function Home() {
 
             {/* Philos */}
             <Link
-              href="/matches"
+              href="/matches?player=philos"
               className="border border-border-light rounded-[4px] p-6 flex flex-col gap-5 hover:border-[#aaa] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer"
             >
               <div className="flex items-center gap-4">
