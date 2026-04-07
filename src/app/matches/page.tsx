@@ -7,7 +7,7 @@ import ScrollSection from "@/components/ScrollSection";
 import { ChevronDown, ArrowRight, Calendar, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { games } from "@/lib/games";
 
@@ -44,7 +44,7 @@ const playerMeta = {
   },
 } as const;
 
-export default function Matches() {
+function MatchesContent() {
   const searchParams = useSearchParams();
   const playerParam = searchParams.get("player");
   const initialPlayer: "kevin" | "philos" =
@@ -373,5 +373,13 @@ export default function Matches() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function Matches() {
+  return (
+    <Suspense>
+      <MatchesContent />
+    </Suspense>
   );
 }
