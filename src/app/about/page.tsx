@@ -9,7 +9,7 @@ const creators = [
   {
     name: "Kevin Lin",
     role: "OUTSIDE HITTER · EDITOR",
-    bio: "Club level since 15. Obsessed with passing mechanics and hand positioning.",
+    bio: "Playing since 16. Obsessed with passing mechanics and ball placement.",
     badge: "Since 2017",
     image: "/images/about-kevin.png",
     gear: [
@@ -21,13 +21,13 @@ const creators = [
   {
     name: "Philos Himm",
     role: "OUTSIDE HITTER · CAMERA OPERATOR",
-    bio: "7 years rec and semi-competitive. Serves chaos, edits the footage, and has a 3 inch vert",
+    bio: "7 years rec and semi-competitive. Loves the energy of a good rally and the sound of a clean hit.",
     badge: "Since 2019",
     image: "/images/about-philos.png",
     gear: [
       { label: "Shoes", value: "Way of Wade Shadow 6s" },
       { label: "Knee Pads", value: "Jumplete Atakk Performance Knee" },
-      { label: "Camera", value: "Sony a6700 + 18-135mm Kit Lens" },
+      { label: "Camera", value: "Sony a6700" },
     ],
   },
 ];
@@ -58,8 +58,8 @@ export default function About() {
             <p className="text-dark/60 text-[14px] leading-[1.7] w-full">
               We&apos;re not coaches. We&apos;re not pros. We&apos;re two players who love the
               game and show up to every intramural, league, and tournament match with a camera.
-              All footage is recorded at real games and published as a complete collection —
-              rally breakdowns, player spotlights, game recaps, and raw audio from the court.
+              All footage is recorded at real games and published as part of a collection —
+              hitting highlights, game recaps, and clips from the court.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export default function About() {
               Join the Side-Out community
             </h3>
             <p className="text-white/60 text-[14px]">
-              Game-day collections, gear tours, and post-game audio — straight to your inbox.
+              Game-day highlights, gear used, and match history — straight to your inbox.
             </p>
           </div>
           <Link href="/coming-soon" className="bg-primary flex gap-[10px] h-[44px] items-center px-7 rounded-[4px] cursor-pointer hover:bg-primary-hover transition-all duration-200 hover:shadow-lg active:scale-95 shrink-0">
