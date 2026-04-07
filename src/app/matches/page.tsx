@@ -378,7 +378,7 @@ function MatchesContent() {
 
 export default function Matches() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <MatchesContent />
     </Suspense>
   );
