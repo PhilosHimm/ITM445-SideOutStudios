@@ -87,6 +87,7 @@ function HighlightsContent() {
                 { key: "pass", display: "PASS" },
                 { key: "serve-receive", display: "SERVE RX" },
                 { key: "block", display: "BLOCK" },
+                { key: "wipe", display: "WIPE" },
               ] as const
             ).map(({ key, display }) => (
               <button

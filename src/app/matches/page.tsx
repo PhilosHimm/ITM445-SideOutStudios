@@ -39,8 +39,8 @@ const playerMeta = {
   philos: {
     initials: "PH",
     name: "Philos Himm",
-    role: "Outside Hitter · Camera Op",
-    league: "Intramural + Rec League",
+    role: "Outside Hitter · Camera Operator",
+    league: "Intramural + Tournaments",
   },
 } as const;
 

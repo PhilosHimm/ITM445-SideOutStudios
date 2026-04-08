@@ -1,8 +1,8 @@
 export interface Highlight {
   id: string;
   player: "kevin" | "philos";
-  clipType: "hit" | "pass" | "serve-receive" | "block";
-  label: "HIT" | "PASS" | "SERVE RX" | "BLOCK";
+  clipType: "hit" | "pass" | "serve-receive" | "block" | "wipe";
+  label: "HIT" | "PASS" | "SERVE RX" | "BLOCK" | "WIPE";
   gameContext: string;
   title: string;
   annotation: string;
@@ -13,19 +13,18 @@ export interface Highlight {
 }
 
 export const highlights: Highlight[] = [
-  // ── Kevin — Hits ────────────────────────────────────────────────────────────
+  // ── Kevin ───────────────────────────────────────────────────────────────────
   {
     id: "kevin-hit-1",
     player: "kevin",
     clipType: "hit",
     label: "HIT",
-    gameContext: "Intramural S1",
-    title: "Back-row cross kill",
-    annotation:
-      "Kevin loads from zone 1, disguises the approach as a line shot, then cuts the ball cross-court at a sharp angle. The block commits left — the seam opens right.",
-    videoSrc: "/videos/kevin-hit-1.mp4",
-    thumbnail: "/images/clips/kevin-hit-1.jpg",
-    duration: "0:18",
+    gameContext: "MJEN",
+    title: "Pass and Roll",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/dXShPK4GJCQ",
+    thumbnail: "https://img.youtube.com/vi/dXShPK4GJCQ/mqdefault.jpg",
+    duration: "—",
     featured: true,
   },
   {
@@ -33,80 +32,84 @@ export const highlights: Highlight[] = [
     player: "kevin",
     clipType: "hit",
     label: "HIT",
-    gameContext: "Rec League",
-    title: "Sharp angle finish — left side",
-    annotation:
-      "An outside set pushed tight to the antenna — Kevin adjusts his approach, contacts high, and drives the ball down the line at a steep angle off a single blocker.",
-    videoSrc: "/videos/kevin-hit-2.mp4",
-    thumbnail: "/images/clips/kevin-hit-2.jpg",
-    duration: "0:14",
+    gameContext: "MJEN",
+    title: "Line Shot",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/3vcDR_fE1G4",
+    thumbnail: "https://img.youtube.com/vi/3vcDR_fE1G4/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "kevin-wipe-1",
+    player: "kevin",
+    clipType: "wipe",
+    label: "WIPE",
+    gameContext: "MJEN",
+    title: "Find High Hands",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/WYw-7psC-ak",
+    thumbnail: "https://img.youtube.com/vi/WYw-7psC-ak/mqdefault.jpg",
+    duration: "—",
   },
   {
     id: "kevin-hit-3",
     player: "kevin",
     clipType: "hit",
     label: "HIT",
-    gameContext: "Intramural S2",
-    title: "Pipe attack over the seam",
-    annotation:
-      "Running a pipe from the back row, Kevin reads a split block and targets the seam between the middle and right side — the ball drops untouched in the deep corner.",
-    videoSrc: "/videos/kevin-hit-3.mp4",
-    thumbnail: "/images/clips/kevin-hit-3.jpg",
-    duration: "0:22",
+    gameContext: "MJEN",
+    title: "3M Line Cross Shot",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/2O_2x0i7tSc",
+    thumbnail: "https://img.youtube.com/vi/2O_2x0i7tSc/mqdefault.jpg",
+    duration: "—",
   },
   {
     id: "kevin-hit-4",
     player: "kevin",
     clipType: "hit",
     label: "HIT",
-    gameContext: "Pickup",
-    title: "Jump set tip over the block",
-    annotation:
-      "With the block locked in on power, Kevin checks up at contact, rolls his wrist, and drops a soft tip over outstretched hands into the open zone 2 seam.",
-    videoSrc: "/videos/kevin-hit-4.mp4",
-    thumbnail: "/images/clips/kevin-hit-4.jpg",
-    duration: "0:11",
-  },
-  // ── Kevin — Passes ──────────────────────────────────────────────────────────
-  {
-    id: "kevin-pass-1",
-    player: "kevin",
-    clipType: "pass",
-    label: "PASS",
-    gameContext: "Intramural S1",
-    title: "Diving platform dig — scramble rally",
-    annotation:
-      "A sharp cross-court swing beats the defense early — Kevin dives full extension from zone 5, keeps the platform firm, and passes the ball back to the setter in transition.",
-    videoSrc: "/videos/kevin-pass-1.mp4",
-    thumbnail: "/images/clips/kevin-pass-1.jpg",
-    duration: "0:16",
+    gameContext: "Men Intramurals",
+    title: "Corner Line",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/tol36nYv1MM",
+    thumbnail: "https://img.youtube.com/vi/tol36nYv1MM/mqdefault.jpg",
+    duration: "—",
   },
   {
-    id: "kevin-pass-2",
+    id: "kevin-hit-5",
     player: "kevin",
-    clipType: "pass",
-    label: "PASS",
-    gameContext: "Rec League",
-    title: "Cross-court dig, back set",
-    annotation:
-      "A power swing targets the deep corner — Kevin reads the hitter's shoulder early, shuffles across, and digs the ball cleanly to the right side for a back-set opportunity.",
-    videoSrc: "/videos/kevin-pass-2.mp4",
-    thumbnail: "/images/clips/kevin-pass-2.jpg",
-    duration: "0:13",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "MJEN",
+    title: "Between Block Cross",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/ydmjrweUZqY",
+    thumbnail: "https://img.youtube.com/vi/ydmjrweUZqY/mqdefault.jpg",
+    duration: "—",
   },
-  // ── Kevin — Serve Receive ───────────────────────────────────────────────────
   {
-    id: "kevin-srx-1",
+    id: "kevin-hit-6",
     player: "kevin",
-    clipType: "serve-receive",
-    label: "SERVE RX",
-    gameContext: "Intramural S2",
-    title: "Float serve to target zone",
-    annotation:
-      "A knuckling float serve drifts toward the seam between zones 6 and 1 — Kevin steps in early, absorbs the late movement, and passes a platform ball directly to the setter's target zone.",
-    videoSrc: "/videos/kevin-srx-1.mp4",
-    thumbnail: "/images/clips/kevin-srx-1.jpg",
-    duration: "0:09",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "MJEN",
+    title: "YAM ball",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/PlU6S824VlU",
+    thumbnail: "https://img.youtube.com/vi/PlU6S824VlU/mqdefault.jpg",
+    duration: "—",
+  },
+  {
+    id: "kevin-hit-7",
+    player: "kevin",
+    clipType: "hit",
+    label: "HIT",
+    gameContext: "MJEN",
+    title: "No Block Line",
+    annotation: "",
+    videoSrc: "https://www.youtube.com/embed/-35XWtICrIs",
+    thumbnail: "https://img.youtube.com/vi/-35XWtICrIs/mqdefault.jpg",
+    duration: "—",
   },
   // ── Philos — Hits ───────────────────────────────────────────────────────────
   {
@@ -278,4 +281,5 @@ export const clipTypeMeta: Record<
   pass:            { label: "PASS",     badgeClass: "bg-dark text-white" },
   "serve-receive": { label: "SERVE RX", badgeClass: "bg-dark text-white" },
   block:           { label: "BLOCK",    badgeClass: "border border-dark/40 text-dark/80" },
+  wipe:            { label: "WIPE",     badgeClass: "bg-amber-500/80 text-white" },
 };
