@@ -23,6 +23,16 @@ const philosRecord = {
 const totalClips = highlights.length;
 const totalGames = games.length;
 
+const playerNames = {
+  kevin: "Kevin Lin",
+  philos: "Philos Himm",
+} as const;
+
+const recapThumbnails = {
+  kevin: "/images/home-ep1-blocks.png",
+  philos: "/images/home-ep4-ironwall.jpg",
+} as const;
+
 // Highlight preview cards — use real clip thumbnails from highlights.ts
 const highlightCards = [
   {
@@ -30,56 +40,43 @@ const highlightCards = [
     badgeClass: "bg-primary text-white",
     title: "Left side big swing",
     description:
-      "Full approach, high contact — Philos unloads a big left side cut that drops into the deep cross-court corner.",
+      "",
     meta: "Philos Himm · Scoop tournament",
-    image: "https://img.youtube.com/vi/wlpiO8lLaA8/mqdefault.jpg",
+    image: "https://img.youtube.com/vi/wlpiO8lLaA8/maxresdefault.jpg",
     link: "/highlights?clip=philos-hit-6",
   },
   {
     badge: "HIT",
     badgeClass: "bg-primary text-white",
-    title: "Back-row cross kill",
+    title: "YAM ball",
     description:
-      "Kevin loads from zone 1 and cuts cross-court at a sharp angle — block commits left, seam opens right.",
-    meta: "Kevin Lin · Intramural S1",
-    image: "/images/clips/kevin-hit-1.jpg",
-    link: "/highlights?clip=kevin-hit-1",
+      "",
+    meta: "Kevin Lin · MJEN",
+    image: "https://img.youtube.com/vi/PlU6S824VlU/maxresdefault.jpg",
+    link: "/highlights?clip=kevin-hit-6",
   },
-  {
-    badge: "BLOCK",
-    badgeClass: "border border-dark/40 text-dark/80 bg-white",
-    title: "Stuff block at the net",
-    description:
-      "Philos reads the outside hitter's shoulder angle, closes hard from the right side, and stuffs cleanly back into the attacker's court.",
-    meta: "Philos Himm · Rec League",
-    image: "/images/clips/philos-block-1.jpg",
-    link: "/highlights?clip=philos-block-1",
-  },
+
 ];
 
-// Match recap preview cards — attributed to the correct player
-const matchCards = [
-  {
-    badge: "GAME RECAP",
-    badgeClass: "border border-primary text-primary",
-    title: "Kevin Lin · Game 3 Recap",
-    description:
-      "Score, key plays, and set-by-set breakdown from a heartbreaker. One point from a win in the final set.",
-    meta: "Kevin Lin · Game 3",
-    image: "/images/home-ep1-blocks.png",
-    link: "/matches/game-3",
-  },
-  {
-    badge: "TACTICAL FILM",
-    badgeClass: "border border-dark text-dark",
-    title: "Philos Himm · The Iron Wall",
-    description:
-      "How do you attack when the block is unbeatable? Tip shots, roll shots, and the missed serve that ended it all.",
-    meta: "Philos Himm · Game 11",
-    image: "/images/home-ep4-ironwall.jpg",
-    link: "/matches/game-11",
-  },
-];
+// Match recap preview cards — sourced from latest matches data
+const latestKevinGame = [...kevinGames].sort((a, b) => b.number - a.number)[0];
+const latestPhilosGame = [...philosGames].sort((a, b) => b.number - a.number)[0];
+
+const matchCards = [latestKevinGame, latestPhilosGame]
+  .filter((game): game is NonNullable<typeof game> => Boolean(game))
+  .map((game) => ({
+    badge: game.badge,
+    badgeClass: game.result === "Win"
+      ? "border border-primary text-primary"
+      : game.result === "Loss"
+      ? "border border-dark text-dark"
+      : "border border-muted text-muted",
+    title: `${playerNames[game.player]} · ${game.title}`,
+    description: game.description || game.recapLine,
+    meta: `${playerNames[game.player]} · ${game.date} ${game.year}`,
+    image: recapThumbnails[game.player],
+    link: `/matches/${game.slug}`,
+  }));
 
 export default function Home() {
   return (
@@ -196,7 +193,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
             {highlightCards.map((card) => (
               <Link
                 key={card.title}

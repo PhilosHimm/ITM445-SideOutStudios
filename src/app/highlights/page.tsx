@@ -24,6 +24,20 @@ function HighlightsContent() {
   const [pollCounts, setPollCounts] = useState<Record<number, number>>({ 1: 0, 2: 0, 3: 0, 4: 0 });
   const [pollLoading, setPollLoading] = useState(false);
 
+  // Comments state
+  const [comments, setComments] = useState<{ id: string; name: string | null; body: string; created_at: string }[]>([]);
+  const [commentName, setCommentName] = useState("");
+  const [commentBody, setCommentBody] = useState("");
+  const [commentSubmitting, setCommentSubmitting] = useState(false);
+  const [commentError, setCommentError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/comments")
+      .then((r) => r.json())
+      .then((data) => { if (data.comments) setComments(data.comments); })
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     fetch("/api/poll")
       .then((r) => r.json())
@@ -473,6 +487,89 @@ function HighlightsContent() {
                 <p className="text-muted text-[11px]">
                   Thanks for voting — we&apos;ll prioritize those clips next season.
                 </p>
+              )}
+            </div>
+          </section>
+          {/* D. Comments */}
+          <section className="flex flex-col gap-3">
+            <span className="text-muted text-[11px] tracking-[3px] font-medium">
+              COMMENTS
+            </span>
+            <div className="border border-border-light rounded-[4px] p-4 flex flex-col gap-3">
+              <p className="text-dark text-[13px] font-medium leading-snug">
+                Which highlight was your favourite?
+              </p>
+
+              {/* Input form */}
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!commentBody.trim() || commentSubmitting) return;
+                  setCommentSubmitting(true);
+                  setCommentError(null);
+                  try {
+                    const res = await fetch("/api/comments", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ name: commentName.trim() || null, body: commentBody.trim() }),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error ?? "Failed to post");
+                    setComments((prev) => [data.comment, ...prev]);
+                    setCommentBody("");
+                  } catch (err: unknown) {
+                    setCommentError(err instanceof Error ? err.message : "Something went wrong");
+                  } finally {
+                    setCommentSubmitting(false);
+                  }
+                }}
+                className="flex flex-col gap-2"
+              >
+                <input
+                  type="text"
+                  placeholder="Your name (optional)"
+                  value={commentName}
+                  onChange={(e) => setCommentName(e.target.value)}
+                  maxLength={50}
+                  className="border border-border-light rounded-[2px] px-3 py-2 text-[12px] text-dark placeholder:text-muted/60 focus:outline-none focus:border-dark/40"
+                />
+                <textarea
+                  placeholder="Leave a comment…"
+                  value={commentBody}
+                  onChange={(e) => setCommentBody(e.target.value)}
+                  maxLength={500}
+                  rows={3}
+                  className="border border-border-light rounded-[2px] px-3 py-2 text-[12px] text-dark placeholder:text-muted/60 focus:outline-none focus:border-dark/40 resize-none"
+                />
+                {commentError && (
+                  <span className="text-red-500 text-[11px]">{commentError}</span>
+                )}
+                <button
+                  type="submit"
+                  disabled={!commentBody.trim() || commentSubmitting}
+                  className="self-end bg-dark text-white text-[11px] font-medium px-4 py-1.5 rounded-[2px] hover:bg-dark/80 transition-colors disabled:opacity-40 disabled:cursor-default cursor-pointer"
+                >
+                  {commentSubmitting ? "Posting…" : "Post"}
+                </button>
+              </form>
+
+              {/* Comment list */}
+              {comments.length > 0 && (
+                <div className="flex flex-col gap-2 mt-1 border-t border-border-light pt-3">
+                  {comments.map((c) => (
+                    <div key={c.id} className="flex flex-col gap-0.5">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-[12px] font-medium text-dark">
+                          {c.name ?? "Anonymous"}
+                        </span>
+                        <span className="text-[10px] text-muted">
+                          {new Date(c.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-dark/80 leading-snug">{c.body}</p>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           </section>
