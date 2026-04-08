@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MatchPageContent from "@/components/MatchPageContent";
 import { games, getGame, getPrevNext } from "@/lib/games";
-import { stories } from "@/lib/stories";
 
 export async function generateStaticParams() {
   return games.map((g) => ({ slug: g.slug }));
@@ -25,10 +24,6 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const game = getGame(slug);
   if (!game) notFound();
-
-  const storyIdMatch = game.storyLink?.match(/\?story=(.+)/);
-  const storyId = storyIdMatch ? storyIdMatch[1] : null;
-  const story = stories.find((s) => s.id === storyId);
 
   const { prev, next } = getPrevNext(slug);
 
@@ -130,7 +125,6 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
         game={game}
         prev={prev}
         next={next}
-        resultAccent={resultAccent}
       />
 
       <Footer />

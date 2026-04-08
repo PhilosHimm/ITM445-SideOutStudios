@@ -6,14 +6,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import ScrollSection from "@/components/ScrollSection";
 import { games } from "@/lib/games";
 import type { Game } from "@/lib/games";
-import type { Story } from "@/lib/stories";
 
 interface Props {
   game: Game;
-  story: Story | undefined;
   prev: Game | null;
   next: Game | null;
-  resultAccent: string;
 }
 
 // ── Shared simplified sections ──────────────────────────────────────────────
@@ -192,7 +189,7 @@ function OpponentHistorySection({ game }: { game: Game }) {
 
 // ── Main component ──────────────────────────────────────────────────────────
 
-export default function MatchPageContent({ game, prev, next, resultAccent }: Omit<Props, "story">) {
+export default function MatchPageContent({ game, prev, next }: Props) {
   return (
     <>
       {/* ── PLAYER CREDIT ───────────────────────────────────────────────── */}
