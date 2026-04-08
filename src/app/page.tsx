@@ -30,7 +30,7 @@ const playerNames = {
 
 const recapThumbnails = {
   kevin: "/images/home-ep1-blocks.png",
-  philos: "/images/home-ep4-ironwall.jpg",
+  philos: "/images/matches-thumbnails/Philos/game14.png",
 } as const;
 
 // Highlight preview cards — use real clip thumbnails from highlights.ts
@@ -90,12 +90,12 @@ export default function Home() {
       >
         {/* Autoplay muted background clip — dark overlay keeps text legible */}
         <video
-          src="/videos/kevin-hit-1.mp4"
+          src="/Hero%20background%20ITM445.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           aria-hidden="true"
         />
         {/* Fallback static image if video hasn't loaded */}
@@ -202,7 +202,7 @@ export default function Home() {
               >
                 <div
                   className="bg-dark/20 aspect-video w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${card.image})` }}
+                  style={{ backgroundImage: `url('${encodeURI(card.image)}')` }}
                   role="img"
                   aria-label={card.title}
                 />
@@ -269,7 +269,7 @@ export default function Home() {
               >
                 <div
                   className="bg-dark/20 aspect-video w-full group-hover:scale-105 transition-transform duration-500 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${card.image})` }}
+                  style={{ backgroundImage: `url('${encodeURI(card.image)}')` }}
                   role="img"
                   aria-label={card.title}
                 />
