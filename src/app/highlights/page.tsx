@@ -86,76 +86,6 @@ function HighlightsContent() {
         bgImage="/images/stories-hero-bg.jpg"
       />
 
-      {/* Filter bar */}
-      <div className="border-b border-border-light px-6 md:px-16 py-4">
-        <div className="flex flex-wrap gap-6 items-center">
-          {/* Clip type pills */}
-          <div className="flex items-center flex-wrap gap-2">
-            <span className="text-muted text-[10px] tracking-[2px] font-medium mr-1">
-              TYPE
-            </span>
-            {(
-              [
-                { key: "all", display: "All" },
-                { key: "hit", display: "HIT" },
-                { key: "pass", display: "PASS" },
-                { key: "serve-receive", display: "SERVE RX" },
-                { key: "block", display: "BLOCK" },
-                { key: "wipe", display: "WIPE" },
-              ] as const
-            ).map(({ key, display }) => (
-              <button
-                key={key}
-                onClick={() => setActiveFilter(key)}
-                className={`${filterButtonBase} ${
-                  activeFilter === key
-                    ? "bg-dark text-white border-transparent"
-                    : filterButtonRest
-                }`}
-              >
-                {display}
-              </button>
-            ))}
-          </div>
-
-          {/* Player pills */}
-          <div className="flex items-center flex-wrap gap-2 ml-auto">
-            <span className="text-muted text-[10px] tracking-[2px] font-medium mr-1">
-              PLAYER
-            </span>
-            {(
-              [
-                { key: "all", display: "Both" },
-                { key: "kevin", display: "Kevin" },
-                { key: "philos", display: "Philos" },
-              ] as const
-            ).map(({ key, display }) => (
-              <button
-                key={key}
-                onClick={() => setActivePlayer(key)}
-                className={`${filterButtonBase} ${
-                  activePlayer === key
-                    ? "bg-primary text-white border-transparent"
-                    : filterButtonRest
-                }`}
-              >
-                {display}
-              </button>
-            ))}
-          </div>
-
-          {/* Result count */}
-          {(activeFilter !== "all" || activePlayer !== "all") && (
-            <span className="text-muted text-[12px] w-full mt-1">
-              {filtered.length} clips
-              {activeFilter !== "all" && ` · ${activeFilter.toUpperCase()}`}
-              {activePlayer !== "all" &&
-                ` · ${activePlayer === "kevin" ? "Kevin Lin" : "Philos Himm"}`}
-            </span>
-          )}
-        </div>
-      </div>
-
       {/* Page body */}
       <div className="flex flex-col lg:flex-row flex-1 items-start w-full">
         {/* Left — hero player + clip grid */}
@@ -237,6 +167,61 @@ function HighlightsContent() {
               <span className="text-muted text-[11px]">
                 {filtered.length} results
               </span>
+            </div>
+
+            {/* Filters */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 items-center justify-between">
+              <div className="flex items-center flex-wrap gap-2">
+                <span className="text-muted text-[10px] tracking-[2px] font-medium mr-1">
+                  TYPE
+                </span>
+                {(
+                  [
+                    { key: "all", display: "All" },
+                    { key: "hit", display: "HIT" },
+                    { key: "pass", display: "PASS" },
+                    { key: "serve-receive", display: "SERVE RX" },
+                    { key: "block", display: "BLOCK" },
+                    { key: "wipe", display: "WIPE" },
+                  ] as const
+                ).map(({ key, display }) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveFilter(key)}
+                    className={`${filterButtonBase} ${
+                      activeFilter === key
+                        ? "bg-dark text-white border-transparent"
+                        : filterButtonRest
+                    }`}
+                  >
+                    {display}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center flex-wrap gap-2">
+                <span className="text-muted text-[10px] tracking-[2px] font-medium mr-1">
+                  PLAYER
+                </span>
+                {(
+                  [
+                    { key: "all", display: "Both" },
+                    { key: "kevin", display: "Kevin" },
+                    { key: "philos", display: "Philos" },
+                  ] as const
+                ).map(({ key, display }) => (
+                  <button
+                    key={key}
+                    onClick={() => setActivePlayer(key)}
+                    className={`${filterButtonBase} ${
+                      activePlayer === key
+                        ? "bg-primary text-white border-transparent"
+                        : filterButtonRest
+                    }`}
+                  >
+                    {display}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -348,7 +333,7 @@ function HighlightsContent() {
                   label: "Philos Clips",
                   value: highlights.filter((h) => h.player === "philos").length,
                 },
-                { label: "Clip Types", value: 4 },
+                { label: "Clip Types", value: Object.keys(clipTypeMeta).length },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -369,7 +354,7 @@ function HighlightsContent() {
                 BREAKDOWN
               </span>
               {(
-                ["hit", "pass", "serve-receive", "block"] as const
+                ["hit", "pass", "serve-receive", "block", "wipe"] as const
               ).map((type) => {
                 const count = highlights.filter(
                   (h) => h.clipType === type

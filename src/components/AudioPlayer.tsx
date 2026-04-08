@@ -31,6 +31,14 @@ export default function AudioPlayer({ src, playerName, initials, avatarSrc }: Pr
     if (audioRef.current) audioRef.current.volume = val;
   };
 
+  const handleScrubChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextProgress = parseFloat(e.target.value);
+    setAudioProgress(nextProgress);
+
+    if (!audioRef.current || !Number.isFinite(audioRef.current.duration)) return;
+    audioRef.current.currentTime = (nextProgress / 100) * audioRef.current.duration;
+  };
+
   const toggleAudio = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -38,7 +46,6 @@ export default function AudioPlayer({ src, playerName, initials, avatarSrc }: Pr
     } else {
       audioRef.current.play();
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -65,13 +72,28 @@ export default function AudioPlayer({ src, playerName, initials, avatarSrc }: Pr
         ref={audioRef}
         src={src}
         onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleTimeUpdate}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         onEnded={() => setIsPlaying(false)}
       />
       <div className="flex flex-col gap-2">
-        <div className="bg-border-light h-1 w-full rounded-full overflow-hidden">
-          <div
-            className="bg-primary h-full rounded-full transition-all duration-150"
-            style={{ width: `${audioProgress}%` }}
+        <div className="relative">
+          <div className="bg-border-light h-1 w-full rounded-full overflow-hidden">
+            <div
+              className="bg-primary h-full rounded-full transition-all duration-150"
+              style={{ width: `${audioProgress}%` }}
+            />
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={0.1}
+            value={audioProgress}
+            onChange={handleScrubChange}
+            className="absolute inset-0 w-full h-4 -top-1.5 opacity-0 cursor-pointer"
+            aria-label="Seek audio"
           />
         </div>
         <div className="flex items-center gap-3">

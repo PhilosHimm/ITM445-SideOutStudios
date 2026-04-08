@@ -95,7 +95,7 @@ export default function Home() {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute left-1/2 top-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover object-center scale-[2.15] min-[660px]:scale-150 min-[880px]:scale-125 min-[1024px]:scale-100"
           aria-hidden="true"
         />
         {/* Fallback static image if video hasn't loaded */}
@@ -176,7 +176,7 @@ export default function Home() {
                 Latest Highlights
               </h2>
               <p className="text-dark/50 text-[13px]">
-                Clips from Kevin and Philos across every game.
+                Top clips from Kevin and Philos across games.
               </p>
             </div>
             <Link
