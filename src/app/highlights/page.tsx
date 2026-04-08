@@ -126,8 +126,14 @@ function HighlightsContent() {
                     />
                   </div>
                 ) : (
-                  <div className="size-5 rounded-full bg-primary flex items-center justify-center text-[9px] font-bold text-white">
-                    KL
+                  <div className="size-5 rounded-full overflow-hidden ring-1 ring-white/60">
+                    <Image
+                      src="/images/kevin-pfp.png"
+                      alt="Kevin Lin"
+                      width={20}
+                      height={20}
+                      className="h-full w-full object-cover"
+                    />
                   </div>
                 )}
                 <span className="text-white text-[11px] font-medium">
@@ -392,9 +398,10 @@ function HighlightsContent() {
               avatarSrc="/images/philos-pfp.JPG"
             />
             <AudioPlayer
-              src="/audio/kevin-reflections.mp3"
+              src="/Season%20Reflection%20Kevin.m4a"
               playerName="Kevin Lin"
               initials="KL"
+              avatarSrc="/images/kevin-pfp.png"
             />
           </section>
 

@@ -48,8 +48,14 @@ export default function HighlightsReel({ highlights, perspective }: Props) {
             />
           </div>
         ) : (
-          <div className="size-6 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold shrink-0">
-            KL
+          <div className="size-6 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+            <Image
+              src="/images/kevin-pfp.png"
+              alt="Kevin Lin"
+              width={24}
+              height={24}
+              className="h-full w-full object-cover"
+            />
           </div>
         )}
         <span className="text-[11px] text-muted tracking-[1px] font-medium">

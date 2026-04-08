@@ -38,8 +38,14 @@ export default function Gear() {
           <div className="flex-1 min-w-0 lg:pr-12 pb-12 lg:pb-0">
             {/* Player header */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="size-10 rounded-full bg-primary flex items-center justify-center text-white text-[12px] font-bold shrink-0">
-                KL
+              <div className="size-10 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                <Image
+                  src="/images/kevin-pfp.png"
+                  alt="Kevin Lin"
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <div className="flex flex-col gap-0">
                 <span className="text-dark text-[15px] font-medium leading-tight">Kevin Lin</span>

@@ -209,8 +209,14 @@ export default function MatchPageContent({ game, prev, next, resultAccent }: Omi
               />
             </div>
           ) : (
-            <div className="size-7 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white shrink-0">
-              KL
+            <div className="size-7 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+              <Image
+                src="/images/kevin-pfp.png"
+                alt="Kevin Lin"
+                width={28}
+                height={28}
+                className="h-full w-full object-cover"
+              />
             </div>
           )}
           <div className="flex flex-col gap-0">

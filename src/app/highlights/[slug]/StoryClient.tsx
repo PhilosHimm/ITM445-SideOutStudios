@@ -173,7 +173,6 @@ export default function StoryClient({ story, prev, next }: Props) {
             <div className="flex gap-3" role="radiogroup" aria-label="Choose perspective">
               {(["kevin", "philos"] as const).map((p) => {
                 const isActive = perspective === p;
-                const initials = p === "kevin" ? "KL" : "PH";
                 const name = p === "kevin" ? "Kevin Lin" : "Philos Himm";
                 const role = p === "kevin" ? "Outside Hitter · Editor" : "Outside Hitter · Camera Op";
                 return (
@@ -199,12 +198,14 @@ export default function StoryClient({ story, prev, next }: Props) {
                         />
                       </div>
                     ) : (
-                      <div
-                        className={`size-10 rounded-full flex items-center justify-center text-[14px] font-bold ${
-                          isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/50"
-                        }`}
-                      >
-                        {initials}
+                      <div className="size-10 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                        <Image
+                          src="/images/kevin-pfp.png"
+                          alt="Kevin Lin"
+                          width={40}
+                          height={40}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
                     )}
                     <span className={`text-[13px] font-medium ${isActive ? "text-primary" : "text-dark/60"}`}>

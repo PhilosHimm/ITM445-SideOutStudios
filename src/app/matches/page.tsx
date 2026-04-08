@@ -94,25 +94,15 @@ function MatchesContent() {
                     isActive ? "bg-dark" : "hover:bg-dark/5"
                   }`}
                 >
-                  {p === "philos" ? (
-                    <div className="size-5 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light/80">
-                      <Image
-                        src="/images/philos-pfp.JPG"
-                        alt="Philos Himm"
-                        width={20}
-                        height={20}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className={`size-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 ${
-                        isActive ? "bg-primary text-white" : "bg-dark/10 text-dark/40"
-                      }`}
-                    >
-                      {m.initials}
-                    </div>
-                  )}
+                  <div className="size-5 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light/80">
+                    <Image
+                      src={p === "kevin" ? "/images/kevin-pfp.png" : "/images/philos-pfp.JPG"}
+                      alt={p === "kevin" ? "Kevin Lin" : "Philos Himm"}
+                      width={20}
+                      height={20}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                   <span
                     className={`text-[13px] font-medium ${
                       isActive ? "text-white" : "text-dark/60"
@@ -128,21 +118,15 @@ function MatchesContent() {
           {/* ── Player Header Card ──────────────────────────────────────── */}
           <div className="border border-border-light rounded-[4px] px-5 py-4 w-full mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex items-center gap-4 flex-1 min-w-0">
-              {activePlayer === "philos" ? (
-                <div className="size-12 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
-                  <Image
-                    src="/images/philos-pfp.JPG"
-                    alt="Philos Himm"
-                    width={48}
-                    height={48}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="size-12 rounded-full bg-primary flex items-center justify-center text-white text-[14px] font-bold shrink-0">
-                  {meta.initials}
-                </div>
-              )}
+              <div className="size-12 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                <Image
+                  src={activePlayer === "kevin" ? "/images/kevin-pfp.png" : "/images/philos-pfp.JPG"}
+                  alt={activePlayer === "kevin" ? "Kevin Lin" : "Philos Himm"}
+                  width={48}
+                  height={48}
+                  className="h-full w-full object-cover"
+                />
+              </div>
               <div className="flex flex-col gap-0.5 min-w-0">
                 <span className="text-dark text-[15px] font-medium leading-tight">
                   {meta.name}

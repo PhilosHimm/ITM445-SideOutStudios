@@ -352,8 +352,14 @@ export default function Home() {
               className="border border-border-light rounded-[4px] p-6 flex flex-col gap-5 hover:border-[#aaa] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer"
             >
               <div className="flex items-center gap-4">
-                <div className="size-14 rounded-full bg-primary flex items-center justify-center text-white text-[16px] font-bold shrink-0">
-                  KL
+                <div className="size-14 rounded-full overflow-hidden shrink-0 ring-1 ring-border-light">
+                  <Image
+                    src="/images/kevin-pfp.png"
+                    alt="Kevin Lin"
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <span className="text-dark text-[16px] font-medium leading-tight">
