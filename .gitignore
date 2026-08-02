@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .github/copilot/skills
+
+# local agent/editor settings
+.claude/settings.local.json
