@@ -1,64 +1,55 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { getSql } from "@/lib/db";
+
+const OPTION_IDS = [1, 2, 3, 4] as const;
+
+type CountRow = { option_id: number; votes: number };
+
+async function readCounts(): Promise<Record<number, number>> {
+  const sql = getSql();
+  const rows = (await sql`
+    select option_id, count(*)::int as votes
+    from poll_votes
+    group by option_id
+  `) as CountRow[];
+
+  const counts: Record<number, number> = {};
+  for (const id of OPTION_IDS) counts[id] = 0;
+  for (const row of rows) counts[row.option_id] = row.votes;
+  return counts;
+}
 
 // GET /api/poll — returns vote counts per option
 export async function GET() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
-
-  const { data, error } = await supabase
-    .from("poll_votes")
-    .select("option_id");
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  try {
+    return NextResponse.json({ counts: await readCounts() });
+  } catch (error) {
+    console.error("GET /api/poll failed:", error);
+    return NextResponse.json({ error: "Could not load poll results" }, { status: 500 });
   }
-
-  const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0 };
-  for (const row of data) {
-    counts[row.option_id] = (counts[row.option_id] ?? 0) + 1;
-  }
-
-  return NextResponse.json({ counts });
 }
 
 // POST /api/poll — submits a vote
 export async function POST(request: Request) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
+  let optionId: number;
 
-  const body = await request.json();
-  const optionId = Number(body.option_id);
+  try {
+    const body = await request.json();
+    optionId = Number(body.option_id);
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
-  if (!optionId || optionId < 1 || optionId > 4) {
+  if (!OPTION_IDS.includes(optionId as (typeof OPTION_IDS)[number])) {
     return NextResponse.json({ error: "Invalid option" }, { status: 400 });
   }
 
-  const { error } = await supabase
-    .from("poll_votes")
-    .insert({ option_id: optionId });
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  try {
+    const sql = getSql();
+    await sql`insert into poll_votes (option_id) values (${optionId})`;
+    return NextResponse.json({ counts: await readCounts() });
+  } catch (error) {
+    console.error("POST /api/poll failed:", error);
+    return NextResponse.json({ error: "Could not record your vote" }, { status: 500 });
   }
-
-  // Return updated counts
-  const { data, error: fetchError } = await supabase
-    .from("poll_votes")
-    .select("option_id");
-
-  if (fetchError) {
-    return NextResponse.json({ error: fetchError.message }, { status: 500 });
-  }
-
-  const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0 };
-  for (const row of data) {
-    counts[row.option_id] = (counts[row.option_id] ?? 0) + 1;
-  }
-
-  return NextResponse.json({ counts });
 }
