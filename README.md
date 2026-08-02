@@ -4,13 +4,6 @@ A volleyball coverage site for two intramural players. 24 games filmed, 21 clips
 
 **[View the live site](https://itm-445-side-out-studios.vercel.app)**
 
-<!-- Replace these with real captures. See docs/screenshots/README.md -->
-![Home page hero](docs/screenshots/home.png)
-
-| Match record | Highlight player |
-|---|---|
-| ![Matches index](docs/screenshots/matches.png) | ![Highlight detail with audio reflection](docs/screenshots/highlight.png) |
-
 ---
 
 ## The problem
