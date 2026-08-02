@@ -46,18 +46,20 @@ Tokens are declared once in [`globals.css`](src/app/globals.css) as Tailwind v4 
 ```
 src/
   app/          routes: home, matches, highlights, gear, about
-    api/        poll + comments endpoints (Supabase-backed)
+    api/        poll + comments endpoints (Neon Postgres)
   components/   PageHero, Navbar, Footer, ScrollSection, AudioPlayer, MatchPageContent
   hooks/        useScrollAnimation, an IntersectionObserver that unobserves after first fire
-  lib/          typed domain model + content for games, highlights, stories
-  utils/        Supabase browser / server / middleware clients
+  lib/          typed domain model + content, plus the Neon client in db.ts
+db/
+  schema.sql        poll_votes + highlight_comments
+  apply-schema.mjs  applies the schema to DATABASE_URL
 ```
 
 `ScrollSection` is the piece I'd reuse first: a declarative wrapper taking an animation name, a delay, a threshold, and a polymorphic `as` tag, so a section opts into motion with one prop instead of wiring up its own observer.
 
 ## Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Supabase (Postgres) · lucide-react · deployed on Vercel
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Neon (Postgres) · lucide-react · deployed on Vercel
 
 ## Running locally
 
@@ -66,14 +68,21 @@ npm install
 npm run dev
 ```
 
-The poll and comment features need a Supabase project. Copy the two publishable values into `.env.local`:
+The poll and comment features need a Neon Postgres database. Put its connection string in `.env.local`:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
+DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 ```
 
-Matches, highlights, audio, and motion all run without them.
+This is a full-privilege credential, so it stays server-side and is only ever read inside route handlers. Create the two tables with:
+
+```bash
+node db/apply-schema.mjs
+```
+
+The schema itself lives in [`db/schema.sql`](db/schema.sql) and is idempotent, so re-running it is safe.
+
+Matches, highlights, audio, and motion all run without a database.
 
 ## What I'd change
 

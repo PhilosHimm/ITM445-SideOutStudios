@@ -1,50 +1,60 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import { getSql } from "@/lib/db";
 
-function getClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-  );
-}
+const MAX_BODY = 500;
+const MAX_NAME = 50;
 
-// GET /api/comments — returns all comments ordered newest-first
+type Comment = {
+  id: string;
+  name: string | null;
+  body: string;
+  created_at: string;
+};
+
+// GET /api/comments — returns the 50 most recent comments, newest first
 export async function GET() {
-  const supabase = getClient();
-  const { data, error } = await supabase
-    .from("highlight_comments")
-    .select("id, name, body, created_at")
-    .order("created_at", { ascending: false })
-    .limit(50);
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  try {
+    const sql = getSql();
+    const comments = (await sql`
+      select id::text, name, body, created_at
+      from highlight_comments
+      order by created_at desc
+      limit 50
+    `) as Comment[];
+    return NextResponse.json({ comments });
+  } catch (error) {
+    console.error("GET /api/comments failed:", error);
+    return NextResponse.json({ error: "Could not load comments" }, { status: 500 });
   }
-
-  return NextResponse.json({ comments: data });
 }
 
 // POST /api/comments — submits a comment
 export async function POST(request: Request) {
-  const supabase = getClient();
-  const body = await request.json();
+  let commentBody: string;
+  let commentName: string | null;
 
-  const commentBody = String(body.body ?? "").trim();
-  const commentName = String(body.name ?? "").trim().slice(0, 50) || null;
+  try {
+    const payload = await request.json();
+    commentBody = String(payload.body ?? "").trim();
+    commentName = String(payload.name ?? "").trim().slice(0, MAX_NAME) || null;
+  } catch {
+    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+  }
 
-  if (!commentBody || commentBody.length > 500) {
+  if (!commentBody || commentBody.length > MAX_BODY) {
     return NextResponse.json({ error: "Invalid comment" }, { status: 400 });
   }
 
-  const { data, error } = await supabase
-    .from("highlight_comments")
-    .insert({ name: commentName, body: commentBody })
-    .select("id, name, body, created_at")
-    .single();
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  try {
+    const sql = getSql();
+    const rows = (await sql`
+      insert into highlight_comments (name, body)
+      values (${commentName}, ${commentBody})
+      returning id::text, name, body, created_at
+    `) as Comment[];
+    return NextResponse.json({ comment: rows[0] });
+  } catch (error) {
+    console.error("POST /api/comments failed:", error);
+    return NextResponse.json({ error: "Could not post your comment" }, { status: 500 });
   }
-
-  return NextResponse.json({ comment: data });
 }
