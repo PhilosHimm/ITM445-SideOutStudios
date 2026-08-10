@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { getSql } from "@/lib/db";
+import { checkRateLimit, clientKey, rateLimitedResponseInit } from "@/lib/rate-limit";
 
 const MAX_BODY = 500;
 const MAX_NAME = 50;
+
+// Comments are unauthenticated, so the write path is throttled per client.
+const RATE_LIMIT = { limit: 5, windowMs: 10 * 60 * 1000 };
 
 type Comment = {
   id: string;
@@ -30,6 +34,14 @@ export async function GET() {
 
 // POST /api/comments — submits a comment
 export async function POST(request: Request) {
+  const limit = checkRateLimit(`comments:${clientKey(request)}`, RATE_LIMIT);
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: "You're posting too quickly. Try again in a few minutes." },
+      rateLimitedResponseInit(limit.retryAfter)
+    );
+  }
+
   let commentBody: string;
   let commentName: string | null;
 
