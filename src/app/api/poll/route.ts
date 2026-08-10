@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import { getSql } from "@/lib/db";
+import { checkRateLimit, clientKey, rateLimitedResponseInit } from "@/lib/rate-limit";
 
 const OPTION_IDS = [1, 2, 3, 4] as const;
+
+// Votes are unauthenticated and there is no dedupe, so the write path is
+// throttled per client. The allowance is loose enough to cover someone
+// changing their mind, tight enough to rule out a loop.
+const RATE_LIMIT = { limit: 10, windowMs: 60 * 60 * 1000 };
 
 type CountRow = { option_id: number; votes: number };
 
@@ -31,6 +37,14 @@ export async function GET() {
 
 // POST /api/poll — submits a vote
 export async function POST(request: Request) {
+  const limit = checkRateLimit(`poll:${clientKey(request)}`, RATE_LIMIT);
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: "You've voted enough for now. Try again later." },
+      rateLimitedResponseInit(limit.retryAfter)
+    );
+  }
+
   let optionId: number;
 
   try {

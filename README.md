@@ -79,7 +79,7 @@ Matches, highlights, audio, and motion all run without a database.
 
 ## What I'd change
 
-- `POST /api/comments` validates length and trims the name, then writes. There's no rate limit and no moderation path, and it needs both.
+- Both write endpoints are throttled per client IP in [`src/lib/rate-limit.ts`](src/lib/rate-limit.ts), but the counters live in memory on each serverless instance, so the limit is best-effort rather than global. A shared counter would make it real. There's still no moderation path for comments, and that's the bigger gap.
 - The hero video is a 95 MB MP4 committed to the repo. It should be a poster image with a streamed source, which would also stop every clone from pulling the whole file.
 - `games.ts` is maintained by hand. 27 entries in a TypeScript file was the right call for a fixed season, but the one-off codemod scripts I wrote to bulk-edit it were a sign. Add a third player and this content belongs in a CMS.
 - `ScrollSection` accepts a `fade-down` animation and quietly maps it to fade-up. Either implement it or take it out of the type.
@@ -88,4 +88,8 @@ Matches, highlights, audio, and motion all run without a database.
 
 Built with heavy AI assistance on the implementation. What I owned: the information architecture, the two-perspective match model, the design tokens and type scale, the motion system and its reduced-motion behavior, and the interaction design of the audio player and match pages.
 
-Originally built for ITM 445. The footage, photography, and audio are of the two players and aren't licensed for reuse.
+Originally built for ITM 445.
+
+## License
+
+The code is MIT licensed — see [LICENSE](LICENSE). The footage, photography, and audio in `public/` are of the two players, aren't licensed for reuse, and are excluded from that grant.
